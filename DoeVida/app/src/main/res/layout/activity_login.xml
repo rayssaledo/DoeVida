@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/colorPrimary"
-
+    android:background="@color/red"
     tools:context="projeto.les.doevida.doevida.views.LoginActivity">
 
     <LinearLayout
@@ -18,7 +17,8 @@
          <ImageView
              android:layout_width="100dp"
              android:layout_height="100dp"
-             android:src="@mipmap/ic_launcher"/>
+             android:src="@mipmap/ic_launcher"
+             android:contentDescription="@string/app_icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="10dp"
+                android:singleLine="true"
                 android:hint="@string/hint_user"/>
             <EditText
                 android:id="@+id/et_password"
@@ -45,6 +46,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
                 android:inputType="textPassword"
+                android:singleLine="true"
                 android:hint="@string/hint_password"/>
             <Button
                 android:id="@+id/btn_enter"
@@ -53,7 +55,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:text="@string/btn_enter"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/red"
                 android:textAlignment="center" />
             <Button
                 android:id="@+id/btn_register"

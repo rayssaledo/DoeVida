@@ -11,20 +11,14 @@
         android:theme="@style/AppTheme"
         tools:node="replace">
         <activity
-            android:name=".views.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".views.UserCadastreActivity"
-            android:label="@string/title_activity_user_cadastre"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_user_cadastre">
         </activity>
         <activity
             android:name=".views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

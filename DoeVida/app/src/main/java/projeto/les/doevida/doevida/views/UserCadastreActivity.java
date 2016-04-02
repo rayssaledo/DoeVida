@@ -2,7 +2,6 @@ package projeto.les.doevida.doevida.views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
@@ -16,8 +15,6 @@ public class UserCadastreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_cadastre);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         input_date_of_birth = (EditText) findViewById(R.id.input_date_of_birth);
         input_date_of_last_donation = (EditText) findViewById(R.id.input_date_of_last_donation);

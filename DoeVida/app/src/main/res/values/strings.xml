@@ -15,5 +15,6 @@
     <string name="btn_enter">Entrar</string>
     <string name="btn_register">Cadastre-se</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="app_icon">Ícone do aplicativo</string>
     
 </resources>
