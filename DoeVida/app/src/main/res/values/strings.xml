@@ -8,7 +8,12 @@
     <string name="hint_state">Estado</string>
     <string name="hint_date_of_last_donation">Data da última doação (opcional)</string>
     <string name="hint_user_name">Nome de usuário</string>
+    <string name="hint_user">Usuário</string>
     <string name="hint_password">Senha</string>
     <string name="hint_password_confirm">Confirmar senha</string>
     <string name="btn_cadastre">Cadastrar</string>
+    <string name="btn_enter">Entrar</string>
+    <string name="btn_register">Cadastre-se</string>
+    <string name="title_activity_login">LoginActivity</string>
+    
 </resources>
