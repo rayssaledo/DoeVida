@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="projeto.les.doevida.doevida">
 
     <application
@@ -7,14 +8,22 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:node="replace">
         <activity
+<<<<<<< HEAD
             android:name=".views.MainActivity"
             android:label="@string/app_name"
+=======
+            android:name=".views.UserCadastreActivity"
+            android:label="@string/title_activity_user_cadastre">
+        </activity>
+        <activity
+            android:name=".views.LoginActivity"
+>>>>>>> fe8f65e64d614f88c8dd738efb46bed302339765
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
