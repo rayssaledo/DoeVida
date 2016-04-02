@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">DoeVida</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_user_cadastre">Cadastre-se</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_date_of_birth">Data de nascimento</string>
+    <string name="hint_city">Cidade onde reside</string>
+    <string name="hint_state">Estado</string>
+    <string name="hint_date_of_last_donation">Data da última doação (opcional)</string>
+    <string name="hint_user_name">Nome de usuário</string>
+    <string name="hint_password">Senha</string>
+    <string name="hint_password_confirm">Confirmar senha</string>
+    <string name="btn_cadastre">Cadastrar</string>
 </resources>
