@@ -16,5 +16,15 @@
     <string name="btn_register">Cadastre-se</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="app_icon">Ícone do aplicativo</string>
+    <string name="female">Feminino</string>
+    <string name="male">Masculino</string>
+    <string name="a_positivo">A+</string>
+    <string name="a_negativo">A-</string>
+    <string name="b_positivo">B+</string>
+    <string name="b_negativo">B-</string>
+    <string name="ab_positivo">AB+</string>
+    <string name="ab_negativo">AB-</string>
+    <string name="o_positivo">O+</string>
+    <string name="o_negativo">O-</string>
     
 </resources>
