@@ -9,12 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-<<<<<<< HEAD:DoeVida/app/src/main/res/layout/content_main.xml
-    tools:context=".views.MainActivity"
-    tools:showIn="@layout/activity_main">
-=======
     tools:context="projeto.les.doevida.doevida.views.LoginActivity"
     tools:showIn="@layout/activity_login">
->>>>>>> fe8f65e64d614f88c8dd738efb46bed302339765:DoeVida/app/src/main/res/layout/content_login.xml
 
 </RelativeLayout>
