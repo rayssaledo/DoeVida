@@ -1,9 +1,15 @@
 package projeto.les.doevida.doevida.views;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +21,7 @@ import java.util.List;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.Utils.MySharedPreferences;
 
 public class UserCadastreActivity extends AppCompatActivity {
 
@@ -29,16 +36,36 @@ public class UserCadastreActivity extends AppCompatActivity {
     private Spinner mGenders_spinner;
     private Spinner mBlood_types_spinner;
     private Button bt_cadastre;
+    private TextInputLayout layout_name;
+    private TextInputLayout layout_date_birth;
+    private TextInputLayout layout_city;
+    private TextInputLayout layout_state;
+    private TextInputLayout layout_date_donation;
+    private TextInputLayout layout_username;
+    private TextInputLayout layout_password;
+    private TextInputLayout layout_password_confirm;
 
     private List<String> genders;
     private List<String> mTypes;
     String mGender_user;
     String mBlood_Type_user;
+    private String name_user;
+    private String date_birth_user;
+    private String city_user;
+    private String state_user;
+    private String date_donation_user;
+    private String username_user;
+    private String password_user;
+    private String password_confirm_user;
+
+    private MySharedPreferences mySharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_cadastre);
+
+        mySharedPreferences = new MySharedPreferences(getApplicationContext());
 
         mName = (EditText) findViewById(R.id.input_name);
         mDate_of_birth = (EditText) findViewById(R.id.input_date_of_birth);
@@ -51,6 +78,15 @@ public class UserCadastreActivity extends AppCompatActivity {
         mGenders_spinner = (Spinner) findViewById(R.id.sp_gender);
         mBlood_types_spinner = (Spinner) findViewById(R.id.sp_blood_type);
         bt_cadastre = (Button) findViewById(R.id.btn_cadastre);
+        layout_name = (TextInputLayout) findViewById(R.id.input_layout_name);
+        layout_date_birth = (TextInputLayout) findViewById(R.id.input_layout_date_of_birth);
+        layout_city = (TextInputLayout) findViewById(R.id.input_layout_city);
+        layout_state = (TextInputLayout) findViewById(R.id.input_layout_state);
+        layout_name = (TextInputLayout) findViewById(R.id.input_layout_name);
+        layout_username = (TextInputLayout) findViewById(R.id.input_layout_user_name);
+        layout_password = (TextInputLayout) findViewById(R.id.input_layout_password);
+        layout_password_confirm = (TextInputLayout) findViewById(R.id.input_layout_password_confirm);
+
 
         MaskEditTextChangedListener maskDateOfBirth = new MaskEditTextChangedListener("##/##/####", mDate_of_birth);
         MaskEditTextChangedListener maskDateOfLastDonation = new MaskEditTextChangedListener("##/##/####", mDate_of_last_donation);
@@ -100,17 +136,25 @@ public class UserCadastreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String name_user = mName.getText().toString();
-                final String date_birth_user = mDate_of_birth.getText().toString();
-                final String city_user = mCity.getText().toString();
-                final String state_user = mState.getText().toString();
-                final String date_donation_user = mDate_of_last_donation.getText().toString();
-                final String username_user = mUsername.getText().toString();
-                final String password_user = mPassword.getText().toString();
-                final String password_confirm_user = mPasswordConfirm.getText().toString();
+                name_user = mName.getText().toString();
+                date_birth_user = mDate_of_birth.getText().toString();
+                city_user = mCity.getText().toString();
+                state_user = mState.getText().toString();
+                date_donation_user = mDate_of_last_donation.getText().toString();
+                username_user = mUsername.getText().toString();
+                password_user = mPassword.getText().toString();
+                password_confirm_user = mPasswordConfirm.getText().toString();
 
-                //cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
-                       // username_user, password_user);
+
+
+               if(validateDatas()){
+                   //Mandar para o servidor
+                   //cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
+                   // username_user, password_user);
+
+                   mySharedPreferences.saveUser(name_user, date_birth_user, city_user, state_user,
+                           date_donation_user, username_user, password_user, mGender_user, mBlood_Type_user);
+               }
 
                 Log.d("CADASTRE_TEST", "Name: " + name_user);
                 Log.d("CADASTRE_TEST", "Date birth: " + date_birth_user);
@@ -123,7 +167,6 @@ public class UserCadastreActivity extends AppCompatActivity {
                 Log.d("CADASTRE_TEST", "Confirm password: " + password_confirm_user);
                 Log.d("CADASTRE_TEST", "Gender: " + mGender_user);
                 Log.d("CADASTRE_TEST", "Blood type: " + mBlood_Type_user);
-
             }
 
 
@@ -132,9 +175,9 @@ public class UserCadastreActivity extends AppCompatActivity {
 
     }
 
-    public void cadastreUser(final String name_user, final String date_birth_user, final String city_user,
-                             final String state_user, final String date_donation_user,
-                             final String username_user, final String password_user){
+    public void cadastreUser(String name_user, String date_birth_user, String city_user,
+                             String state_user, String date_donation_user,
+                             String username_user, String password_user){
 
     }
 
@@ -157,4 +200,172 @@ public class UserCadastreActivity extends AppCompatActivity {
 
     }
 
+
+    private boolean validateDatas(){
+        submitForm();
+
+        if (confirmationPassword()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void submitForm() {
+        if (!validateName()) {
+            return;
+        }
+        if (!validateDateOfBirth()) {
+            return;
+        }
+        if (!validateCity()) {
+            return;
+        }
+        if (!validateState()) {
+            return;
+        }
+        if (!validateUsername()) {
+            return;
+        }
+        if (!validatePassword()) {
+            return;
+        }
+    }
+
+    private boolean validateName(){
+        if (name_user.trim().isEmpty() || name_user == null) {
+            layout_name.setError(getString(R.string.err_msg_name));
+            requestFocus(mName);
+            return false;
+        } else if (name_user.trim().length() < 10){
+            layout_name.setError(getString(R.string.err_short_name));
+            requestFocus(mName);
+            return false;
+        } else {
+            layout_name.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validateDateOfBirth(){
+        if (date_birth_user.trim().isEmpty()) {
+            layout_date_birth.setError(getString(R.string.err_msg_birth));
+            requestFocus(mDate_of_birth);
+            return false;
+        } else if (date_birth_user.trim().length() != 10){
+            layout_date_birth.setError(getString(R.string.err_invalid_birth));
+            requestFocus(mDate_of_birth);
+            return false;
+        } else {
+            layout_date_birth.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validateCity(){
+        if (city_user.trim().isEmpty() || city_user == null) {
+            layout_city.setError(getString(R.string.err_msg_city));
+            requestFocus(mCity);
+            return false;
+        } else if (city_user.trim().length() < 4){
+            layout_city.setError(getString(R.string.err_short_city_name));
+            requestFocus(mCity);
+            return false;
+        } else {
+            layout_city.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validateState(){
+        if (state_user.trim().isEmpty()) {
+            layout_state.setError(getString(R.string.err_msg_state));
+            requestFocus(mState);
+            return false;
+        } else if (state_user.trim().length() < 4) {
+            layout_state.setError(getString(R.string.err_msg_state));
+            requestFocus(mState);
+            return false;
+        } else {
+            layout_state.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validateUsername(){
+        if (username_user.trim().isEmpty()) {
+            layout_username.setError(getString(R.string.err_msg_username));
+            requestFocus(mUsername);
+            return false;
+        } else if (username_user.trim().length() < 5) {
+            layout_username.setError(getString(R.string.err_short_username));
+            requestFocus(mUsername);
+            return false;
+        } else{
+            layout_username.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validatePassword(){
+        if (password_user.trim().isEmpty()) {
+            layout_password.setError(getString(R.string.err_msg_password));
+            requestFocus(mPassword);
+            return false;
+        } else if (password_user.trim().length() < 6){
+            layout_password.setError(getString(R.string.err_short_password));
+            requestFocus(mPassword);
+            return false;
+        } else {
+            layout_password.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validatePasswordConfirm(){
+        if (password_confirm_user.trim().isEmpty()) {
+            layout_password_confirm.setError(getString(R.string.err_msg_password_confirm));
+            requestFocus(mPasswordConfirm);
+            return false;
+        } else if (password_confirm_user.trim().length() < 6){
+            layout_password.setError(getString(R.string.err_short_password));
+            requestFocus(mPassword);
+            return false;
+        } else {
+            layout_password_confirm.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean confirmationPassword(){
+        if (!password_user.trim().equals(password_confirm_user)){
+            new AlertDialog.Builder(UserCadastreActivity.this)
+                    .setMessage("As senhas não coincidem!")
+                    .setNeutralButton("OK", new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            mPassword.setText("");
+                            mPasswordConfirm.setText("");
+                            requestFocus(mPassword);
+                        }
+                    })
+                    .create()
+                    .show();
+
+            return false;
+        }
+        return true;
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    public void setView(Context context, Class classe) {
+        Intent it = new Intent();
+        it.setClass(context, classe);
+        startActivity(it);
+    }
 }

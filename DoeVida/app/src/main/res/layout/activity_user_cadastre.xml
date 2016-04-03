@@ -37,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:maxLength="50"
                 android:hint="@string/hint_name" />
         </android.support.design.widget.TextInputLayout>
 
@@ -63,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:maxLength="30"
                 android:hint="@string/hint_city" />
         </android.support.design.widget.TextInputLayout>
 
@@ -76,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:maxLength="30"
                 android:hint="@string/hint_state" />
         </android.support.design.widget.TextInputLayout>
 
@@ -114,6 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:maxLength="20"
                 android:hint="@string/hint_user_name" />
         </android.support.design.widget.TextInputLayout>
 
@@ -127,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:maxLength="15"
                 android:hint="@string/hint_password" />
         </android.support.design.widget.TextInputLayout>
 
@@ -140,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:maxLength="15"
                 android:hint="@string/hint_password_confirm" />
         </android.support.design.widget.TextInputLayout>
 
