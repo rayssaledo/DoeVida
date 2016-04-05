@@ -16,11 +16,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.Utils.HttpListener;
+import projeto.les.doevida.doevida.Utils.HttpUtils;
 import projeto.les.doevida.doevida.Utils.MySharedPreferences;
 
 public class UserCadastreActivity extends AppCompatActivity {
@@ -59,6 +64,7 @@ public class UserCadastreActivity extends AppCompatActivity {
     private String password_confirm_user;
 
     private MySharedPreferences mySharedPreferences;
+    private HttpUtils mHttp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,7 @@ public class UserCadastreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_cadastre);
 
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
+        mHttp = new HttpUtils(this);
 
         mName = (EditText) findViewById(R.id.input_name);
         mDate_of_birth = (EditText) findViewById(R.id.input_date_of_birth);
@@ -123,9 +130,7 @@ public class UserCadastreActivity extends AppCompatActivity {
         mBlood_types_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(final AdapterView<?> parent, final View view, final int pos, final long id) {
                 Object item = parent.getItemAtPosition(pos);
-                String itemBloodType = item.toString();
-
-                mBlood_Type_user = itemBloodType;
+                mBlood_Type_user = item.toString();
             }
 
             public void onNothingSelected(final AdapterView<?> parent) {
@@ -149,8 +154,8 @@ public class UserCadastreActivity extends AppCompatActivity {
 
                if(validateDatas()){
                    //Mandar para o servidor
-                   //cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
-                   // username_user, password_user);
+                   cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
+                                     username_user, password_user, mGender_user, mBlood_Type_user);
 
                    mySharedPreferences.saveUser(name_user, date_birth_user, city_user, state_user,
                            date_donation_user, username_user, password_user, mGender_user, mBlood_Type_user);
@@ -177,9 +182,60 @@ public class UserCadastreActivity extends AppCompatActivity {
 
     public void cadastreUser(String name_user, String date_birth_user, String city_user,
                              String state_user, String date_donation_user,
-                             String username_user, String password_user){
+                             String username_user, String password_user, String gender_user, String blood_type_user){
 
+        String url = "http://doevida-grupoles.rhcloud.com/addUser";
+        JSONObject json = new JSONObject();
+        try {
+            json.put("login", username_user);
+            json.put("pass", password_user);
+            json.put("name", name_user);
+            json.put("state", state_user);
+            json.put("city", city_user);
+            json.put("birthDate", date_birth_user);
+            json.put("gender", gender_user);
+            json.put("bloodType", blood_type_user);
+            json.put("lastDonation", date_donation_user);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mHttp.post(url, json.toString(), new HttpListener() {
+            @Override
+            public void onSucess(JSONObject result) throws JSONException{
+                if (result.getInt("ok") == 0) {
+                    new AlertDialog.Builder(UserCadastreActivity.this)
+                            .setTitle("Erro")
+                            .setMessage(result.getString("msg"))
+                            .setNeutralButton("OK", null)
+                            .create()
+                            .show();
+                } else {
+                    new AlertDialog.Builder(UserCadastreActivity.this)
+                            .setMessage("Cadastro realizado com sucesso")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                    finish();
+                                    setView(UserCadastreActivity.this, LoginActivity.class);
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+            }
+            @Override
+            public void onTimeout() {
+                new AlertDialog.Builder(UserCadastreActivity.this)
+                        .setTitle("Erro")
+                        .setMessage("Conexão não disponível")
+                        .setNeutralButton("OK", null)
+                        .create()
+                        .show();
+            }
+        });
     }
+
 
     public void putGenderElementsOnSpinnerArray() {
         genders = new ArrayList<>();
