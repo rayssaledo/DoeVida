@@ -39,13 +39,6 @@
     <string name="err_short_city_name">Nome de cidade muito curto</string>
     <string name="err_short_username">Username muito curto</string>
     <string name="err_short_password">A senha deve conter no mínimo 6 caracteres</string>
-
-
-
-
-
-
-
-
-
+    <string name="title_activity_donors">Doadores</string>
+    <string name="title_activity_donors_adapter">DonorsAdapter</string>
 </resources>

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="projeto.les.doevida.doevida">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,13 +14,16 @@
         tools:node="replace">
         <activity
             android:name=".views.UserCadastreActivity"
-            android:label="@string/title_activity_user_cadastre">
-        </activity>
+            android:label="@string/title_activity_user_cadastre" />
+        <activity
+            android:name=".views.DonorsActivity"
+            android:label="@string/title_activity_donors" />
         <activity
             android:name=".views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
