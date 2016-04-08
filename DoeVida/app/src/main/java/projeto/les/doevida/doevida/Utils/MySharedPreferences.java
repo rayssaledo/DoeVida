@@ -65,7 +65,7 @@ public class MySharedPreferences {
         String username = mPref.getString(KEY_USERNAME_USER, null);
 
         char gender = gender_user.charAt(0);
-        char blood_type = blood_type_user.charAt(0);
+        String blood_type = blood_type_user;
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date_birth = null;

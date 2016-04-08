@@ -8,10 +8,10 @@ import java.util.Date;
 public class Form {
 
     private String patientName, hospitalName, city;
-    private Character typeOfBlood;
+    private String typeOfBlood;
     private Date deadline;
 
-    public Form(String patientName, String hospitalName, String city, Character typeOfBlood, Date deadline) throws Exception {
+    public Form(String patientName, String hospitalName, String city, String typeOfBlood, Date deadline) throws Exception {
         if(patientName == null || patientName.equals("")){
             throw new Exception("Patient name is invalid.");
         }
@@ -67,11 +67,11 @@ public class Form {
         this.city = city;
     }
 
-    public Character getTypeOfBlood() {
+    public String getTypeOfBlood() {
         return typeOfBlood;
     }
 
-    public void setTypeOfBlood(Character typeOfBlood) throws Exception {
+    public void setTypeOfBlood(String typeOfBlood) throws Exception {
         if(typeOfBlood == null){
             throw new Exception("Type of blood is null.");
         }

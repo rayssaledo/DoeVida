@@ -11,12 +11,13 @@ public class User {
 
     private String name, username, password, state, city;
     private Date birthdate, lastDonation;
-    private Character gender, typeOfBlood;
+    private Character gender;
+    private String typeOfBlood;
     private Boolean canDonate;
     private List<Form> forms;
 
     public User(String name, String username, String password, String state, String city, Date birthdate,
-                Date lastDonation, Character gender, Character typeOfBlood) throws Exception {
+                Date lastDonation, Character gender, String typeOfBlood) throws Exception {
         if(name == null || name.equals("")){
             throw new Exception("Name is invalid.");
         }
@@ -84,7 +85,7 @@ public class User {
         return lastDonation;
     }
 
-    public Character getTypeOfBlood() {
+    public String getTypeOfBlood() {
         return typeOfBlood;
     }
 
