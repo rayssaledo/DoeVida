@@ -53,9 +53,10 @@ public class DonorsAdapter extends BaseAdapter {
 
         ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(null);
         ((TextView) convertView.findViewById(R.id.tv_donor_name)).setText(item.getName());
-        ((TextView) convertView.findViewById(R.id.tv_city)).setText(item.getCity());
-        ((ImageView) convertView.findViewById(R.id.iv_number_donates)).setImageBitmap(null);
-        ((TextView) convertView.findViewById(R.id.tv_last_donation)).setText(item.getLastDonation().toString());
+        ((TextView) convertView.findViewById(R.id.tv_city_name)).setText(item.getCity());
+        ((ImageView) convertView.findViewById(R.id.iv_donates)).setImageBitmap(null);
+        ((TextView) convertView.findViewById(R.id.tv_number_donates)).setText(null);
+        ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText(item.getLastDonation().toString());
 
         return convertView;
     }

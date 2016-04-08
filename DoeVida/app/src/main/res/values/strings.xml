@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DoeVida</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">Procurar</string>
     <string name="title_activity_user_cadastre">Cadastre-se</string>
     <string name="hint_name">Nome</string>
     <string name="hint_date_of_birth">Data de nascimento</string>
@@ -40,5 +41,6 @@
     <string name="err_short_username">Username muito curto</string>
     <string name="err_short_password">A senha deve conter no mínimo 6 caracteres</string>
     <string name="title_activity_donors">Doadores</string>
+    <string name="label_last_donation">Última doação em:</string>
     <string name="title_activity_donors_adapter">DonorsAdapter</string>
 </resources>
