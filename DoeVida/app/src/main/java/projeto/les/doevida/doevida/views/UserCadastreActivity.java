@@ -156,9 +156,6 @@ public class UserCadastreActivity extends AppCompatActivity {
                    //Mandar para o servidor
                    cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
                                      username_user, password_user, mGender_user, mBlood_Type_user);
-
-                   mySharedPreferences.saveUser(name_user, date_birth_user, city_user, state_user,
-                           date_donation_user, username_user, password_user, mGender_user, mBlood_Type_user);
                }
 
                 Log.d("CADASTRE_TEST", "Name: " + name_user);
@@ -180,9 +177,10 @@ public class UserCadastreActivity extends AppCompatActivity {
 
     }
 
-    public void cadastreUser(String name_user, String date_birth_user, String city_user,
-                             String state_user, String date_donation_user,
-                             String username_user, String password_user, String gender_user, String blood_type_user){
+    public void cadastreUser(final String name_user, final String date_birth_user, final String city_user,
+                             final String state_user, final String date_donation_user,
+                             final String username_user, final String password_user, final String
+                                     gender_user, final String blood_type_user){
 
         String url = "http://doevida-grupoles.rhcloud.com/addUser";
         JSONObject json = new JSONObject();
@@ -217,7 +215,9 @@ public class UserCadastreActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     finish();
                                     finish();
-                                    setView(UserCadastreActivity.this, LoginActivity.class);
+                                    mySharedPreferences.saveUser(name_user, date_birth_user, city_user, state_user,
+                                            date_donation_user, username_user, password_user, mGender_user, mBlood_Type_user);
+                                    setView(UserCadastreActivity.this, DonorsActivity.class);
                                 }
                             })
                             .create()

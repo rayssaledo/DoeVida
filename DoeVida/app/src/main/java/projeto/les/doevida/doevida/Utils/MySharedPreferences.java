@@ -1,13 +1,16 @@
 package projeto.les.doevida.doevida.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import projeto.les.doevida.doevida.models.User;
+import projeto.les.doevida.doevida.views.DonorsActivity;
 
 public class MySharedPreferences {
 
@@ -35,11 +38,10 @@ public class MySharedPreferences {
         mEditor = mPref.edit();
     }
 
-
     public void saveUser(String name, String date_birth, String city, String state, String gender,
                          String blood_type, String date_donation,String username, String password){
 
-       // mEditor.putBoolean(IS_USER_LOGIN, true);
+        mEditor.putBoolean(IS_USER_LOGIN, true);
         mEditor.putString(KEY_NAME_USER, name);
         mEditor.putString(KEY_DATE_BIRTH_USER, date_birth);
         mEditor.putString(KEY_CITY_USER, city);
@@ -85,5 +87,37 @@ public class MySharedPreferences {
         }
         return user;
     }
+
+    public HashMap<String, String> getUserDetails(){
+        HashMap<String, String> userDetails = new HashMap<String, String>();
+        userDetails.put(KEY_NAME_USER, mPref.getString(KEY_NAME_USER, null));
+        userDetails.put(KEY_USERNAME_USER, mPref.getString(KEY_USERNAME_USER, null));
+        userDetails.put(KEY_PASSWORD_USER, mPref.getString(KEY_PASSWORD_USER, null));
+        userDetails.put(KEY_DATE_BIRTH_USER, mPref.getString(KEY_DATE_BIRTH_USER, null));
+        userDetails.put(KEY_DATE_DONATION_USER, mPref.getString(KEY_DATE_DONATION_USER, null));
+        userDetails.put(KEY_CITY_USER, mPref.getString(KEY_CITY_USER, null));
+        userDetails.put(KEY_STATE_USER, mPref.getString(KEY_STATE_USER, null));
+        userDetails.put(KEY_GENDER_USER, mPref.getString(KEY_GENDER_USER, null));
+        userDetails.put(KEY_BLOOD_TYPE_USER, mPref.getString(KEY_BLOOD_TYPE_USER, null));
+
+        return userDetails;
+    }
+
+    public boolean checkLogin(){
+        if(this.isUserLoggedIn()){
+            Intent i = new Intent(mContext, DonorsActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(i);
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isUserLoggedIn(){
+        return mPref.getBoolean(IS_USER_LOGIN, false);
+    }
+
 
 }
