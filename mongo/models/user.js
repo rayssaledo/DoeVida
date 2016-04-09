@@ -79,30 +79,40 @@ module.exports = function(mongodb, app, userCollection) {
 		
 	});
 	
-	app.post("/getUser", function(req, res) {
-		var login = req.body.login;
-		var pass = req.body.pass;
-		
-		var inconsistency = checkInconsistencyLogin(login, pass);
-		
-		if (inconsistency) {
-			res.send(inconsistency);
+	app.get("/getUser", function(req, res) {
+		var login = req.query.login;
+				
+		if (!login) {
+			res.json({"ok": 0, "msg": "Login do usuário não informado!"});
 		} else {
 			userCollection.findOne({
-				login: login,
-				pass: pass
+				login: login
 				
 			}, function(err, doc){
 				if(err){
 					res.json({ "ok" : 0, "msg" : err });
 				} else {
-					res.json(doc);	
+					res.json({"ok": 1, "result": doc});	
 				}
 			});
 		}
 		
 	});
 	
+	app.get("/getAllUsers", function(req, res){
+		userCollection.find({}).toArray(function(err, array){
+			if(err) {
+				res.json({ "ok" : 0, "msg" : err });
+			} else {					
+				if(array.length < 1) {						
+					res.json({ "ok" : 0, "msg" : "Nenhum usuário cadastrado!" });
+				} else {
+					res.json({ "ok" : 1, "result" : array });
+				}
+			}
+			
+		});
+	});	
 	
 	function checkInconsistencyLogin(login, pass) {
 		if (!login) {
