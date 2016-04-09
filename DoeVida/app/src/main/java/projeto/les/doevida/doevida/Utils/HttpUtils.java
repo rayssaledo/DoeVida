@@ -56,4 +56,39 @@ public class HttpUtils {
             }
         }).start();
     }
+
+    public void get(final String url, final HttpListener listener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Request request = new Request.Builder().url(url).build();
+                Response response = null;
+                try {
+                    response = mClient.newCall(request).execute();
+                    final String result = response.body().string();
+                    mContext.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject json = new JSONObject(result);
+                                listener.onSucess(json);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    mContext.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onTimeout();
+                        }
+                    });
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 }

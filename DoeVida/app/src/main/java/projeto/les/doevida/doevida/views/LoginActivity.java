@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,18 +63,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(String login, String password) {
         mLoading.setVisibility(View.VISIBLE);
-        String url = "http://doevida-grupoles.rhcloud.com/checkLogin";
-        String url2 = "http://doevida-grupoles.rhcloud.com/getUser";
+        String urlCheckLogin = "http://doevida-grupoles.rhcloud.com/checkLogin";
         final JSONObject json = new JSONObject();
-        final JSONObject json2 = new JSONObject();
+
         try {
             json.put("login", login);
             json.put("pass", password);
-            json2.put("login", login);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mHttp.post(url, json.toString(), new HttpListener() {
+        mHttp.post(urlCheckLogin, json.toString(), new HttpListener() {
             @Override
             public void onSucess(JSONObject result) {
                 try {
@@ -115,7 +112,10 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             }
         });
-        mHttp.post(url2, json.toString(), new HttpListener() {
+
+        String urlGetUser = "http://doevida-grupoles.rhcloud.com/getUser?login=" + login;
+
+        mHttp.get(urlGetUser, new HttpListener() {
             @Override
             public void onSucess(JSONObject result) {
                 try {
@@ -131,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                                 })
                                 .create()
                                 .show();
+                        Log.d("PASSOU AQUI", "ERRO");
                     } else {
                         JSONObject jsonUser = result.getJSONObject("result");
                         String login = jsonUser.getString("login");
@@ -144,8 +145,6 @@ public class LoginActivity extends AppCompatActivity {
                         String lastDonation = jsonUser.getString("lastDonation");
                         mySharedPreferences.saveUser(name, birthDate, city, state, gender,
                                 bloodType, lastDonation, login, pass);
-
-                        Log.d("TESTE", "Nome: " + name);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -168,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public void setView(Context context, Class classe) {
         Intent it = new Intent();
