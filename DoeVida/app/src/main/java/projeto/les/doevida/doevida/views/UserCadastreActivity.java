@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -156,9 +155,8 @@ public class UserCadastreActivity extends AppCompatActivity {
                 password_user = mPassword.getText().toString();
                 password_confirm_user = mPasswordConfirm.getText().toString();
 
-
                 if (validateName() && validateDateOfBirth() && validateCity() && validateState() &&
-                        validateUsername() && validatePassword() && confirmationPassword()){
+                        validateUsername() && validatePassword() && validatePasswordConfirm() && confirmationPassword()){
 
                     cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
                             username_user, password_user, mGender_user, mBlood_Type_user);
@@ -189,25 +187,9 @@ public class UserCadastreActivity extends AppCompatActivity {
                             .create()
                             .show();
                 }
-
-
-                Log.d("CADASTRE_TEST", "Name: " + name_user);
-                Log.d("CADASTRE_TEST", "Date birth: " + date_birth_user);
-                Log.d("CADASTRE_TEST", "City: " + city_user);
-                Log.d("CADASTRE_TEST", "State: " + state_user);
-                Log.d("CADASTRE_TEST", "Last donation: " + date_donation_user);
-                Log.d("CADASTRE_TEST", "Username: " + username_user);
-                Log.d("CADASTRE_TEST", "Name: " + name_user);
-                Log.d("CADASTRE_TEST", "Password: " + password_user);
-                Log.d("CADASTRE_TEST", "Confirm password: " + password_confirm_user);
-                Log.d("CADASTRE_TEST", "Gender: " + mGender_user);
-                Log.d("CADASTRE_TEST", "Blood type: " + mBlood_Type_user);
             }
 
-
         });
-
-
     }
 
     public void cadastreUser(final String name_user, final String date_birth_user, final String city_user,
@@ -286,39 +268,6 @@ public class UserCadastreActivity extends AppCompatActivity {
         mTypes.add(getApplicationContext().getResources().getString(R.string.ab_negativo));
         mTypes.add(getApplicationContext().getResources().getString(R.string.o_positivo));
         mTypes.add(getApplicationContext().getResources().getString(R.string.o_negativo));
-
-    }
-
-
-    private boolean validateDatas(){
-        submitForm();
-
-        if (confirmationPassword()){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void submitForm() {
-        if (!validateName()) {
-            return;
-        }
-        if (!validateDateOfBirth()) {
-            return;
-        }
-        if (!validateCity()) {
-            return;
-        }
-        if (!validateState()) {
-            return;
-        }
-        if (!validateUsername()) {
-            return;
-        }
-        if (!validatePassword()) {
-            return;
-        }
     }
 
     private boolean validateName(){
