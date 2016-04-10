@@ -54,6 +54,9 @@ public class DonorsAdapter extends BaseAdapter {
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
         String lastDonation = format1.format(dateLastDonation);
 
+        Bitmap imageBlood = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood);
+        ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBlood);
+
         if (item.getTypeOfBlood().equals("A-")){
             Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_a_negative);
             ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
@@ -82,7 +85,7 @@ public class DonorsAdapter extends BaseAdapter {
 
         ((TextView) convertView.findViewById(R.id.tv_donor_name)).setText(item.getName());
         ((TextView) convertView.findViewById(R.id.tv_city_name)).setText(item.getCity());
-        ((ImageView) convertView.findViewById(R.id.iv_donates)).setImageBitmap(null);
+        ((ImageView) convertView.findViewById(R.id.iv_donates)).setImageBitmap(imageBlood);
         ((TextView) convertView.findViewById(R.id.tv_number_donates)).setText(null);
         ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText(lastDonation);
 
