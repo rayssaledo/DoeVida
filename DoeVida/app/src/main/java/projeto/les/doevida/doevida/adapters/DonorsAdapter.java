@@ -54,9 +54,32 @@ public class DonorsAdapter extends BaseAdapter {
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
         String lastDonation = format1.format(dateLastDonation);
 
-        Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+        if (item.getTypeOfBlood().equals("A-")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_a_negative);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        } else if (item.getTypeOfBlood().equals("A+")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_a_positive);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        } else if (item.getTypeOfBlood().equals("AB-")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_ab_negative);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        } else if (item.getTypeOfBlood().equals("AB+")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_ab_positive);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        } else if (item.getTypeOfBlood().equals("B-")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_b_negative);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        } else if (item.getTypeOfBlood().equals("B+")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_b_positive);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        } else if (item.getTypeOfBlood().equals("O-")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_o_negativo);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        } else if (item.getTypeOfBlood().equals("O+")){
+            Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood_o_positive);
+            ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        }
 
-        ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
         ((TextView) convertView.findViewById(R.id.tv_donor_name)).setText(item.getName());
         ((TextView) convertView.findViewById(R.id.tv_city_name)).setText(item.getCity());
         ((ImageView) convertView.findViewById(R.id.iv_donates)).setImageBitmap(null);
