@@ -27,6 +27,7 @@ import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.Utils.HttpListener;
 import projeto.les.doevida.doevida.Utils.HttpUtils;
 import projeto.les.doevida.doevida.Utils.MySharedPreferences;
+import projeto.les.doevida.doevida.models.User;
 
 public class UserCadastreActivity extends AppCompatActivity {
 
@@ -65,11 +66,16 @@ public class UserCadastreActivity extends AppCompatActivity {
 
     private MySharedPreferences mySharedPreferences;
     private HttpUtils mHttp;
+    private User donor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_cadastre);
+
+        /* Modificar depois, fiz só para testar
+        Intent it = getIntent();
+        donor = (User) it.getSerializableExtra("DONOR");*/
 
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
         mHttp = new HttpUtils(this);

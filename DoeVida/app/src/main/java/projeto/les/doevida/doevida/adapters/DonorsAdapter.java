@@ -1,20 +1,17 @@
 package projeto.les.doevida.doevida.adapters;
 
 import android.content.Context;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
@@ -24,10 +21,12 @@ public class DonorsAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private List<User> items;
+    Context context;
 
     public DonorsAdapter(Context context, List<User> items) {
         this.items = items;
         mInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @Override
@@ -51,12 +50,18 @@ public class DonorsAdapter extends BaseAdapter {
         User item = items.get(position);
         convertView = mInflater.inflate(R.layout.my_item_donor, null);
 
-        ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(null);
+        Date dateLastDonation = item.getLastDonation();
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        String lastDonation = format1.format(dateLastDonation);
+
+        Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+
+        ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
         ((TextView) convertView.findViewById(R.id.tv_donor_name)).setText(item.getName());
         ((TextView) convertView.findViewById(R.id.tv_city_name)).setText(item.getCity());
         ((ImageView) convertView.findViewById(R.id.iv_donates)).setImageBitmap(null);
         ((TextView) convertView.findViewById(R.id.tv_number_donates)).setText(null);
-        ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText(item.getLastDonation().toString());
+        ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText(lastDonation);
 
         return convertView;
     }
