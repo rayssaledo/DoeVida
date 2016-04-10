@@ -1,5 +1,6 @@
 package projeto.les.doevida.doevida.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Created by Marcos Nascimento on 4/2/2016.
  */
-public class User {
+public class User implements Serializable{
 
     private String name, username, password, state, city;
     private Date birthdate, lastDonation;

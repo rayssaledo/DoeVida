@@ -3,11 +3,19 @@ package projeto.les.doevida.doevida.Utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.views.DonorsActivity;
@@ -18,6 +26,7 @@ public class MySharedPreferences {
     private SharedPreferences.Editor mEditor;
     private Context mContext;
     int PRIVATE_MODE = 0;
+    private List<User> listDonors;
 
     private static final String PREFER_NAME = "Pref";
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
@@ -30,6 +39,7 @@ public class MySharedPreferences {
     public static final String KEY_DATE_DONATION_USER = "date_donation_user";
     public static final String KEY_USERNAME_USER = "username_user";
     public static final String KEY_PASSWORD_USER = "password_user";
+    public static final String KEY_LIST_DONORS = "list_donors";
 
 
     public MySharedPreferences(Context context){
@@ -118,6 +128,58 @@ public class MySharedPreferences {
     public boolean isUserLoggedIn(){
         return mPref.getBoolean(IS_USER_LOGIN, false);
     }
+
+    public void saveListDonors (String listDonors) {
+        mEditor.putString(KEY_LIST_DONORS, listDonors);
+        mEditor.commit();
+    }
+
+    public List<User> getListDonors() {
+        String jsonArrayString = mPref.getString(KEY_LIST_DONORS, "");
+        try {
+            JSONArray jsonArray = new JSONArray(jsonArrayString);
+            loadsList(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } return listDonors;
+    }
+
+    private void loadsList(JSONArray jsonArray) throws JSONException {
+        listDonors = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonDonor = jsonArray.getJSONObject(i);
+            String name = jsonDonor.getString("name");
+            String login = jsonDonor.getString("login");
+            String pass = jsonDonor.getString("pass");
+            String state = jsonDonor.getString("state");
+            String city = jsonDonor.getString("city");
+            String birthdate = jsonDonor.getString("birthDate");
+            String lastDonation = jsonDonor.getString("lastDonation");
+            String gender = jsonDonor.getString("gender");
+            String typeOfBlood = jsonDonor.getString("bloodType");
+
+            char genderDonor = gender.charAt(0);
+
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date birthdateDonor = new Date();
+            Date lastDonationDonor = new Date();
+            try {
+                birthdateDonor = format.parse(birthdate);
+                lastDonationDonor = format.parse(lastDonation);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            User donor = null;
+            try {
+                donor = new User(name, login, pass, state, city, birthdateDonor, lastDonationDonor, genderDonor, typeOfBlood);
+                listDonors.add(donor);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
 }
