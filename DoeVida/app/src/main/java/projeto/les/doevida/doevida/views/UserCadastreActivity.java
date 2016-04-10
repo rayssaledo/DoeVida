@@ -157,12 +157,39 @@ public class UserCadastreActivity extends AppCompatActivity {
                 password_confirm_user = mPasswordConfirm.getText().toString();
 
 
+                if (validateName() && validateDateOfBirth() && validateCity() && validateState() &&
+                        validateUsername() && validatePassword() && confirmationPassword()){
 
-               if(validateDatas()){
-                   //Mandar para o servidor
-                   cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
-                                     username_user, password_user, mGender_user, mBlood_Type_user);
-               }
+                    cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
+                            username_user, password_user, mGender_user, mBlood_Type_user);
+                } else if (!validateName()){
+                    return;
+                } else if (!validateDateOfBirth()){
+                    return;
+                } else if (!validateCity()){
+                    return;
+                } else if (!validateState()){
+                    return;
+                } else if (!validateUsername()){
+                    return;
+                } else if (!validatePassword()){
+                    return;
+                } else if (!validatePasswordConfirm()){
+                    return;
+                } else if (!confirmationPassword()){
+                    new AlertDialog.Builder(UserCadastreActivity.this)
+                            .setMessage("As senhas não coincidem!")
+                            .setNeutralButton("OK", new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    mPassword.setText("");
+                                    mPasswordConfirm.setText("");
+                                    requestFocus(mPassword);
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+
 
                 Log.d("CADASTRE_TEST", "Name: " + name_user);
                 Log.d("CADASTRE_TEST", "Date birth: " + date_birth_user);
@@ -391,8 +418,8 @@ public class UserCadastreActivity extends AppCompatActivity {
             requestFocus(mPasswordConfirm);
             return false;
         } else if (password_confirm_user.trim().length() < 6){
-            layout_password.setError(getString(R.string.err_short_password));
-            requestFocus(mPassword);
+            layout_password_confirm.setError(getString(R.string.err_short_password));
+            requestFocus(mPasswordConfirm);
             return false;
         } else {
             layout_password_confirm.setErrorEnabled(false);
@@ -402,18 +429,6 @@ public class UserCadastreActivity extends AppCompatActivity {
 
     private boolean confirmationPassword(){
         if (!password_user.trim().equals(password_confirm_user)){
-            new AlertDialog.Builder(UserCadastreActivity.this)
-                    .setMessage("As senhas não coincidem!")
-                    .setNeutralButton("OK", new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            mPassword.setText("");
-                            mPasswordConfirm.setText("");
-                            requestFocus(mPassword);
-                        }
-                    })
-                    .create()
-                    .show();
-
             return false;
         }
         return true;

@@ -54,7 +54,7 @@ public class DonorsAdapter extends BaseAdapter {
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
         String lastDonation = format1.format(dateLastDonation);
 
-        Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+        Bitmap imageBloodType = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_app);
 
         ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
         ((TextView) convertView.findViewById(R.id.tv_donor_name)).setText(item.getName());
