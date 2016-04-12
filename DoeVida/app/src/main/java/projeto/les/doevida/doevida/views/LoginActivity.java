@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +36,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
+
+        /*Esse código mostra na tela de login se o usuário está logado através de um valor booleano.
+        Se o usuário estiver logado aparece: "Logado: true"
+        Caso contrário ele mostra: "Deslogado :("
+         */
+        /*if (mySharedPreferences.isUserLoggedIn()){
+            Toast.makeText(this, "Logado: " + mySharedPreferences.isUserLoggedIn() , Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "Deslogado :( " , Toast.LENGTH_LONG).show();
+        }*/
 
         mHttp = new HttpUtils(this);
         mLoading = findViewById(R.id.loading);

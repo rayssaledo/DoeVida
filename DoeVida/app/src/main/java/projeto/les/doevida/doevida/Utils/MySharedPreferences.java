@@ -19,6 +19,7 @@ import java.util.List;
 
 import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.views.DonorsActivity;
+import projeto.les.doevida.doevida.views.LoginActivity;
 
 public class MySharedPreferences {
 
@@ -180,6 +181,12 @@ public class MySharedPreferences {
         }
     }
 
-
-
+    public void logoutUser(){
+        mEditor.clear();
+        mEditor.commit();
+        Intent i = new Intent(mContext, LoginActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(i);
+    }
 }

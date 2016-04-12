@@ -132,8 +132,9 @@ public class DonorsActivity extends AppCompatActivity {
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
                 } else if (position == 6){ // sair
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    userLogged.logoutUser();
+//                  setView(DonorsActivity.this, UserCadastreActivity.class);
                 }
 
             }
@@ -192,5 +193,4 @@ public class DonorsActivity extends AppCompatActivity {
             }
         });
     }
-
 }
