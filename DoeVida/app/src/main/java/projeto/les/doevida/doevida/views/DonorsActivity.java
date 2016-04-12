@@ -58,6 +58,8 @@ public class DonorsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donors);
 
+        //getActionBar().setIcon(R.drawable.options2);
+
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
 
@@ -116,22 +118,22 @@ public class DonorsActivity extends AppCompatActivity {
                 if (position == 0) { // informativos
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, LoginActivity.class);
-                } else if (position == 1){ // doadores
+                } else if (position == 1) { // doadores
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, DonorsActivity.class);
-                } else if (position == 2){ // quem precisa
+                } else if (position == 2) { // quem precisa
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 3){ // meus pedidos
+                } else if (position == 3) { // meus pedidos
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 4){ // notificacoes
+                } else if (position == 4) { // notificacoes
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 5){ // minhas declaracoes
+                } else if (position == 5) { // minhas declaracoes
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 6){ // sair
+                } else if (position == 6) { // sair
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     userLogged.logoutUser();
 //                  setView(DonorsActivity.this, UserCadastreActivity.class);

@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Procurar</string>
     <string name="title_activity_user_cadastre">Cadastre-se</string>
+    <string name="ask_all_donors">Pedir para todos os doadores</string>
     <string name="hint_name">Nome</string>
     <string name="hint_date_of_birth">Data de nascimento</string>
     <string name="hint_city">Cidade onde reside</string>
