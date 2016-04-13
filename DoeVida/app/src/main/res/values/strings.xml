@@ -46,4 +46,27 @@
     <string name="label_last_donation">Última doação em:</string>
     <string name="title_activity_donors_adapter">DonorsAdapter</string>
     <string name="title_activity_information">Informações</string>
+    <string name="btn_more_information">Ver mais</string>
+    <string name="title_activity_more_information1">MoreInformation1Activity</string>
+    <string name="title_activity_more_information3">MoreInformation3Activity</string>
+    <string name="title_activity_more_information2">MoreInformation2Activity</string>
+    <string name="requirement4">- Estar em boas condições de saúde;</string>
+    <string name="requirement1">- Ter entre 16 e 69 anos;</string>
+    <string name="requirement2">- Pesar no mínimo 50kg;</string>
+    <string name="requirement5">- Estar descansado (ter dormido pelo menos 6 horas nas últimas 24
+        horas;)</string>
+    <string name="requirement3">- Estar bem alimentado;</string>
+    <string name="requirement6">- Apresentar documento original com foto emitido por órgão oficial
+        (Carteira de Identidade, Carteira de Trabalho...).</string>
+    <string name="impediment1">- Já teve malária;</string>
+    <string name="impediment2">- Já teve elefantíase;</string>
+    <string name="impediment3">- Já teve hanseníase;</string>
+    <string name="impediment4">- Teve tuberculose extra-pulmonar;</string>
+    <string name="impediment5">- Teve hepatite após os 10 anos de idade;</string>
+    <string name="impediment6">- Teve algum tipo de câncer, incluindo leucemia;</string>
+    <string name="impediment7">- Tem ou teve um teste positivo para HIV;</string>
+    <string name="impediment8">- Tem problema de coagulação de sangue;</string>
+    <string name="impediment9">- Tem graves problemas no pulmão, coração, rins ou fígado;</string>
+    <string name="impediment10">- Tem doença de chagas;</string>
+    <string name="impediment11">- É diabético com complicações vasculares.</string>
 </resources>

@@ -30,8 +30,16 @@
         </activity>
         <activity
             android:name=".views.InformationActivity"
-            android:label="@string/title_activity_information">
-        </activity>
+            android:label="@string/title_activity_information" />
+        <activity
+            android:name=".views.MoreInformation1Activity"
+            android:label="@string/title_activity_information" />
+        <activity
+            android:name=".views.MoreInformation2Activity"
+            android:label="@string/title_activity_information" />
+        <activity
+            android:name=".views.MoreInformation3Activity"
+            android:label="@string/title_activity_information" />
     </application>
 
 </manifest>
