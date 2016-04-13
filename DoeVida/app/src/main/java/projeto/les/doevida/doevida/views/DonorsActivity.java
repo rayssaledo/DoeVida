@@ -125,8 +125,8 @@ public class DonorsActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, DonorsActivity.class);
                 } else if (position == 1) { // Informativos
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, DonorsActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(DonorsActivity.this, InformationActivity.class);
                 } else if (position == 2) { // quem precisa
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
