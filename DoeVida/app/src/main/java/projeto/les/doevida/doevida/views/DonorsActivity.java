@@ -43,16 +43,13 @@ public class DonorsActivity extends AppCompatActivity {
     private User user;
     Context context;
 
-  //  private ListView mDrawerList;
     private RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
-    //private DrawerLayout mDrawerLayout;
     private ArrayList<NavItem> mNavItems;
     private TextView nameUserTextView;
     private TextView loginUserTextView;
     private android.support.v7.app.ActionBar actionBar;
 
-    private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
     private String[] mPlanetTitles;
@@ -165,21 +162,16 @@ public class DonorsActivity extends AppCompatActivity {
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
-
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
 
-
-//        mDrawerToggle.setDrawerIndicatorEnabled(true);
-//        mDrawerToggle.setHomeAsUpIndicator(R.drawable.options);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
 
     }
 
@@ -204,7 +196,10 @@ public class DonorsActivity extends AppCompatActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        // Handle your other action bar items...
+        int id = item.getItemId();
+        if (id == R.id.action_search){
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
