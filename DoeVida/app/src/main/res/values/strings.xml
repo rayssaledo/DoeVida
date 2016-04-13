@@ -28,6 +28,7 @@
     <string name="ab_negativo">AB-</string>
     <string name="o_positivo">O+</string>
     <string name="o_negativo">O-</string>
+    <string name="btn_ver_perfil">Ver perfil</string>
 
     <string name="err_msg_name">Insira seu nome completo</string>
     <string name="err_msg_birth">Insira sua data de nascimento</string>

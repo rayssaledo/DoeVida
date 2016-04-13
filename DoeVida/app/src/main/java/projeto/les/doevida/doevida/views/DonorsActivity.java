@@ -97,12 +97,12 @@ public class DonorsActivity extends AppCompatActivity {
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems){
-        mNavItems.add(new NavItem("Informativos"));
         mNavItems.add(new NavItem("Doadores"));
+        mNavItems.add(new NavItem("Informativos"));
         mNavItems.add(new NavItem("Quem precisa"));
         mNavItems.add(new NavItem("Meus pedidos"));
         mNavItems.add(new NavItem("Notificações"));
-        mNavItems.add(new NavItem("Minhas declarações"));
+        mNavItems.add(new NavItem("Pediram-me"));
         mNavItems.add(new NavItem("Sair"));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -115,12 +115,12 @@ public class DonorsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position == 0) { // informativos
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, LoginActivity.class);
-                } else if (position == 1) { // doadores
+                if (position == 0) { // Doadores
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, DonorsActivity.class);
+                } else if (position == 1) { // Informativos
+//                    mDrawerLayout.closeDrawer(mDrawerPane);
+//                    setView(DonorsActivity.this, DonorsActivity.class);
                 } else if (position == 2) { // quem precisa
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
@@ -130,7 +130,7 @@ public class DonorsActivity extends AppCompatActivity {
                 } else if (position == 4) { // notificacoes
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 5) { // minhas declaracoes
+                } else if (position == 5) { // Pediram-me
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
                 } else if (position == 6) { // sair
