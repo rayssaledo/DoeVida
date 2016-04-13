@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Procurar</string>
     <string name="title_activity_user_cadastre">Cadastre-se</string>
+    <string name="ask_all_donors">Pedir para todos os doadores</string>
     <string name="hint_name">Nome</string>
     <string name="hint_date_of_birth">Data de nascimento</string>
     <string name="hint_city">Cidade onde reside</string>
@@ -27,6 +28,7 @@
     <string name="ab_negativo">AB-</string>
     <string name="o_positivo">O+</string>
     <string name="o_negativo">O-</string>
+    <string name="btn_ver_perfil">Ver perfil</string>
 
     <string name="err_msg_name">Insira seu nome completo</string>
     <string name="err_msg_birth">Insira sua data de nascimento</string>

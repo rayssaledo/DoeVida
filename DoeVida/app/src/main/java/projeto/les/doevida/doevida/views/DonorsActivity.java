@@ -58,6 +58,8 @@ public class DonorsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donors);
 
+        //getActionBar().setIcon(R.drawable.options2);
+
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
 
@@ -95,12 +97,12 @@ public class DonorsActivity extends AppCompatActivity {
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems){
-        mNavItems.add(new NavItem("Informativos"));
         mNavItems.add(new NavItem("Doadores"));
+        mNavItems.add(new NavItem("Informativos"));
         mNavItems.add(new NavItem("Quem precisa"));
         mNavItems.add(new NavItem("Meus pedidos"));
         mNavItems.add(new NavItem("Notificações"));
-        mNavItems.add(new NavItem("Minhas declarações"));
+        mNavItems.add(new NavItem("Pediram-me"));
         mNavItems.add(new NavItem("Sair"));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -113,27 +115,28 @@ public class DonorsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position == 0) { // informativos
-                    mDrawerLayout.closeDrawer(mDrawerPane);
-                    setView(DonorsActivity.this, InformationActivity.class);
-                } else if (position == 1){ // doadores
+                if (position == 0) { // Doadores
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, DonorsActivity.class);
-                } else if (position == 2){ // quem precisa
+                } else if (position == 1) { // Informativos
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(DonorsActivity.this, InformationActivity.class);
+                } else if (position == 2) { // quem precisa
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 3){ // meus pedidos
+                } else if (position == 3) { // meus pedidos
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 4){ // notificacoes
+                } else if (position == 4) { // notificacoes
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 5){ // minhas declaracoes
+                } else if (position == 5) { // Pediram-me
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
-                } else if (position == 6){ // sair
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+                } else if (position == 6) { // sair
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    userLogged.logoutUser();
+//                  setView(DonorsActivity.this, UserCadastreActivity.class);
                 }
 
             }
@@ -192,5 +195,4 @@ public class DonorsActivity extends AppCompatActivity {
             }
         });
     }
-
 }
