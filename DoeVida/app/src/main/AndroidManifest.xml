@@ -17,8 +17,7 @@
             android:label="@string/title_activity_user_cadastre" />
         <activity
             android:name=".views.DonorsActivity"
-            android:label="@string/title_activity_donors"
-            android:icon="@drawable/options2"/>
+            android:label="@string/title_activity_donors" />
         <activity
             android:name=".views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">

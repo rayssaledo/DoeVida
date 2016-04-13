@@ -2,14 +2,13 @@ package projeto.les.doevida.doevida.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-
-import android.os.Parcelable;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,20 +43,28 @@ public class DonorsActivity extends AppCompatActivity {
     private User user;
     Context context;
 
-    private ListView mDrawerList;
+  //  private ListView mDrawerList;
     private RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
+    //private DrawerLayout mDrawerLayout;
     private ArrayList<NavItem> mNavItems;
     private TextView nameUserTextView;
     private TextView loginUserTextView;
+    private android.support.v7.app.ActionBar actionBar;
+
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donors);
 
-        //getActionBar().setIcon(R.drawable.options2);
 
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
@@ -75,9 +81,9 @@ public class DonorsActivity extends AppCompatActivity {
         loginUserTextView.setText(username);
 
 
-
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
+
 
         mHttp = new HttpUtils(this);
         listViewDonors = (ListView) findViewById(R.id.lv_donors);
@@ -96,7 +102,7 @@ public class DonorsActivity extends AppCompatActivity {
         getListDonors();
     }
 
-    public void setmDrawer(ArrayList<NavItem> mNavItems){
+    public void setmDrawer(ArrayList<NavItem> mNavItems) {
         mNavItems.add(new NavItem("Doadores"));
         mNavItems.add(new NavItem("Informativos"));
         mNavItems.add(new NavItem("Quem precisa"));
@@ -141,7 +147,68 @@ public class DonorsActivity extends AppCompatActivity {
 
             }
         });
+
+
+        actionBar =  getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.options);
+        actionBar.setHomeButtonEnabled(true);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mTitle = getTitle().toString();
+        mDrawerToggle = new ActionBarDrawerToggle(
+                DonorsActivity.this,
+                mDrawerLayout,
+                R.drawable.options,
+                R.string.drawer_open,
+                R.string.drawer_close) {
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+
+//        mDrawerToggle.setDrawerIndicatorEnabled(true);
+//        mDrawerToggle.setHomeAsUpIndicator(R.drawable.options);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+
     }
+
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void setView(Context context, Class classe){
         Intent it = new Intent();
         it.setClass(context, classe);
