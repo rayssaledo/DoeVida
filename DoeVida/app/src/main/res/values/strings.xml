@@ -45,6 +45,8 @@
     <string name="title_activity_donors">Doadores</string>
     <string name="label_last_donation">Última doação em:</string>
     <string name="title_activity_donors_adapter">DonorsAdapter</string>
+    <string name="drawer_open">Abre drawer</string>
+    <string name="drawer_close">Fecha drawer</string>
     <string name="title_activity_information">Informações</string>
     <string name="btn_more_information">Ver mais</string>
     <string name="title_activity_more_information1">MoreInformation1Activity</string>
