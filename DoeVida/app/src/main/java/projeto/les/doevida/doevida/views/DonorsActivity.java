@@ -114,8 +114,8 @@ public class DonorsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (position == 0) { // informativos
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, LoginActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(DonorsActivity.this, InformationActivity.class);
                 } else if (position == 1){ // doadores
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, DonorsActivity.class);

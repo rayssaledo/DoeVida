@@ -43,4 +43,5 @@
     <string name="title_activity_donors">Doadores</string>
     <string name="label_last_donation">Última doação em:</string>
     <string name="title_activity_donors_adapter">DonorsAdapter</string>
+    <string name="title_activity_information">Informações</string>
 </resources>
