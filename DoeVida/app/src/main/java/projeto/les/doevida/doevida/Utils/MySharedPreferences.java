@@ -51,7 +51,6 @@ public class MySharedPreferences {
 
     public void saveUser(String name, String date_birth, String city, String state, String gender,
                          String blood_type, String date_donation,String username, String password){
-
         mEditor.putBoolean(IS_USER_LOGIN, true);
         mEditor.putString(KEY_NAME_USER, name);
         mEditor.putString(KEY_DATE_BIRTH_USER, date_birth);

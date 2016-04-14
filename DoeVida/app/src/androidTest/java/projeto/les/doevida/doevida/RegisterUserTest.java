@@ -4,6 +4,7 @@ import android.test.AndroidTestCase;
 
 import junit.framework.Assert;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -36,19 +37,27 @@ public class RegisterUserTest extends AndroidTestCase {
         String blood_type = userDetails.get(MySharedPreferences.KEY_BLOOD_TYPE_USER);
         String date_birth = userDetails.get(MySharedPreferences.KEY_DATE_BIRTH_USER);
         String date_donation = userDetails.get(MySharedPreferences.KEY_DATE_DONATION_USER);
-        String gender = userDetails.get(MySharedPreferences.KEY_GENDER_USER);
-        //PEGAR DO userDetails todos os parâmetros do usuário
-        //Montar um usuário User user = User(...); com os parâmetros acima, lembrar de converter
+        Character gender = userDetails.get(MySharedPreferences.KEY_GENDER_USER).charAt(0);
 
-        Assert.assertEquals(name, "Luana Pinto"); //Em vez de  name colocar user.getName()
-        Assert.assertEquals(state, "Paraiba");//Em vez de state colocar user.getStae
-        Assert.assertEquals(city, "Campina Grande");
-        Assert.assertEquals(username, "luaninha");
-        Assert.assertEquals(password, "123456");
-        Assert.assertEquals(blood_type, "A+");
-        Assert.assertEquals(gender, "F");
-        Assert.assertEquals(date_birth, "30/05/1995");
-        Assert.assertEquals(date_donation, "30/05/2015");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date dateLastDonation = null;
+        if (!date_donation.equals("")) {
+            formatter.parse(date_donation);
+        }
+
+        User user = new User(name, username, password, state, city, formatter.parse(date_birth),
+                dateLastDonation, gender, blood_type);
+
+        Assert.assertEquals(name, user.getName());
+        Assert.assertEquals(state, user.getState());
+        Assert.assertEquals(city, user.getCity());
+        Assert.assertEquals(username, user.getUserame());
+        Assert.assertEquals(password, user.getPassword());
+        Assert.assertEquals(blood_type, user.getTypeOfBlood());
+        Assert.assertEquals(gender, user.getGender());
+        Assert.assertEquals(formatter.parse(date_birth), user.getBirthdate());
+
 
     }
 }

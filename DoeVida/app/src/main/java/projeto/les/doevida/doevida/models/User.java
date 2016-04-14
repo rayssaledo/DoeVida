@@ -37,9 +37,6 @@ public class User implements Serializable{
         if(birthdate == null){
             throw new Exception("Birthdate is null.");
         }
-        if(lastDonation == null){
-            throw new Exception("Last donation is null.");
-        }
         if(gender == null){
             throw new Exception("Gender is null.");
         }

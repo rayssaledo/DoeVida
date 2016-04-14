@@ -4,9 +4,13 @@ import android.test.AndroidTestCase;
 
 import junit.framework.Assert;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import projeto.les.doevida.doevida.Utils.MySharedPreferences;
+import projeto.les.doevida.doevida.models.User;
 
 public class LoginTest extends AndroidTestCase {
 
@@ -19,7 +23,7 @@ public class LoginTest extends AndroidTestCase {
         userDetails = mySharedPreferences.getUserDetails();
     }
 
-    public void testLogin() {
+    public void testLogin() throws Exception {
         Assert.assertTrue(mySharedPreferences.isUserLoggedIn());
         Assert.assertEquals(mySharedPreferences.isUserLoggedIn(), true);
         Assert.assertEquals(!mySharedPreferences.isUserLoggedIn(), false);
@@ -31,16 +35,26 @@ public class LoginTest extends AndroidTestCase {
         String blood_type = userDetails.get(MySharedPreferences.KEY_BLOOD_TYPE_USER);
         String date_birth = userDetails.get(MySharedPreferences.KEY_DATE_BIRTH_USER);
         String date_donation = userDetails.get(MySharedPreferences.KEY_DATE_DONATION_USER);
-        //PEGAR DO userDetails todos os parâmetros do usuário
-        //Montar um usuário User user = User(...); com os parâmetros acima, lembrar de converter
-        // string para data, string para char...
+        Character gender = userDetails.get(MySharedPreferences.KEY_GENDER_USER).charAt(0);
 
-        Assert.assertEquals(name, "Maria Daniela Costa Henrique"); //Em vez de  name colocar user.getName()
-        Assert.assertEquals(state, "Paraíba ");//Em vez de state colocar user.getStae
-        Assert.assertEquals(city, "Caampina Grande");
-        Assert.assertEquals(username, "daniela");
-        Assert.assertEquals(password, "123456");
-        Assert.assertEquals(blood_type, "A+");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date dateLastDonation = null;
+        if (!date_donation.equals("")) {
+            formatter.parse(date_donation);
+        }
+
+        User user = new User(name, username, password, state, city, formatter.parse(date_birth),
+                dateLastDonation, gender, blood_type);
+
+        Assert.assertEquals(name, user.getName());
+        Assert.assertEquals(state, user.getState());
+        Assert.assertEquals(city, user.getCity());
+        Assert.assertEquals(username, user.getUserame());
+        Assert.assertEquals(password, user.getPassword());
+        Assert.assertEquals(blood_type, user.getTypeOfBlood());
+        Assert.assertEquals(gender, user.getGender());
+        Assert.assertEquals(formatter.parse(date_birth), user.getBirthdate());
 
     }
 
