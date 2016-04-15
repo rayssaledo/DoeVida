@@ -71,4 +71,11 @@
     <string name="impediment9">- Tem graves problemas no pulmão, coração, rins ou fígado;</string>
     <string name="impediment10">- Tem doença de chagas;</string>
     <string name="impediment11">- É diabético com complicações vasculares.</string>
+
+    <string name="create_form">Criar formulário de solicitação</string>
+    <string name="reuse_form">Usar um dos meus formulários</string>
+    <string name="cancel">CANCEL</string>
+    <string name="ok">OK</string>
+
+
 </resources>

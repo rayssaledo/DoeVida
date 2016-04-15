@@ -1,5 +1,6 @@
 package projeto.les.doevida.doevida.views;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -93,10 +95,38 @@ public class DonorsActivity extends AppCompatActivity {
                 intent.putExtra("DONOR", donor);
                 startActivity(intent);
                 */
+
+                final Dialog dialog = new Dialog(DonorsActivity.this);
+                dialog.setContentView(R.layout.dialog_choose_form);
+                dialog.setTitle("Fazer pedido");
+                dialog.setCancelable(true);
+
+                final RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd1);
+                final RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd2);
+
+                rd1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rd1.setChecked(true);
+                        rd2.setChecked(false);
+                    }
+                });
+                rd2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rd2.setChecked(true);
+                        rd1.setChecked(false);
+                    }
+                });
+                dialog.show();
+
             }
         });
         context = this;
         getListDonors();
+
+
+
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {
