@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -83,6 +84,37 @@ public class DonorsActivity extends AppCompatActivity {
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
+        Button ask_all = (Button) findViewById(R.id.btn_ask_all);
+
+        ask_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(DonorsActivity.this);
+                dialog.setContentView(R.layout.dialog_choose_form);
+                dialog.setTitle("Fazer pedido");
+                dialog.setCancelable(true);
+
+                final RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd1);
+                final RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd2);
+
+                rd1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rd1.setChecked(true);
+                        rd2.setChecked(false);
+                    }
+                });
+                rd2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rd2.setChecked(true);
+                        rd1.setChecked(false);
+                    }
+                });
+                dialog.show();
+            }
+        });
 
         mHttp = new HttpUtils(this);
         listViewDonors = (ListView) findViewById(R.id.lv_donors);
