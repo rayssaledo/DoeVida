@@ -77,5 +77,12 @@
     <string name="cancel">CANCEL</string>
     <string name="ok">OK</string>
 
+    <string name="blood_type">Tipo sanguíneo</string>
+    <string name="hint_name_user">Nome do usuário</string>
+    <string name="hint_city_user">Cidade do usuário</string>
+    <string name="donates">Número de doações</string>
+    <string name="hint_number_donates">3 doações</string>
+    <string name="hint_date_last_donation">XX/XX/XXXX</string>
+
 
 </resources>

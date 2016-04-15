@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="5dp">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
         <ImageView
             android:id="@+id/iv_blood_type"
@@ -15,14 +10,15 @@
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/blood_type"/>
 
         <TextView
             android:id="@+id/tv_donor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Nome do usuário"
+            android:hint="@string/hint_name_user"
             android:textSize="16sp"
             android:layout_toEndOf="@+id/iv_blood_type"
             android:layout_marginTop="10dp"/>
@@ -32,30 +28,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Cidade do usuário"
+            android:hint="@string/hint_city_user"
             android:textSize="14sp"
             android:layout_below="@+id/tv_donor_name"
             android:layout_toEndOf="@+id/iv_blood_type"
             android:layout_marginTop="2dp"/>
 
-        <ImageView
-            android:id="@+id/iv_donates"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignTop="@+id/tv_donor_name"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp" />
-
-        <TextView
-            android:id="@+id/tv_number_donates"
+        <LinearLayout
+            android:id="@+id/points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="XXXXXXXX"
-            android:textSize="14sp"
-            android:layout_below="@+id/iv_donates"
-            android:layout_alignEnd="@+id/tv_date_last_donation" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_donates"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/donates"/>
+
+            <TextView
+                android:id="@+id/tv_number_donates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:hint="@string/hint_number_donates"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/tv_last_donation"
@@ -64,6 +70,10 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/label_last_donation"
             android:textSize="14sp"
+            android:paddingTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toRightOf="@+id/tv_date_last_donation"
+            android:layout_below="@+id/points"
             android:layout_alignTop="@+id/tv_date_last_donation"
             android:layout_toStartOf="@+id/tv_date_last_donation" />
 
@@ -72,11 +82,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="XX/XX/XXXX"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/hint_date_last_donation"
             android:textSize="14sp"
-            android:layout_below="@+id/tv_number_donates"
-            android:layout_alignEnd="@+id/iv_donates" />
+            android:layout_below="@+id/points" />
 
-    </RelativeLayout>
+</RelativeLayout>
 
-</LinearLayout>
