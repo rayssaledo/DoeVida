@@ -162,13 +162,13 @@ public class DonorsActivity extends AppCompatActivity {
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {
-        mNavItems.add(new NavItem("Doadores"));
-        mNavItems.add(new NavItem("Informativos"));
-        mNavItems.add(new NavItem("Quem precisa"));
-        mNavItems.add(new NavItem("Meus pedidos"));
-        mNavItems.add(new NavItem("Notificações"));
-        mNavItems.add(new NavItem("Pediram-me"));
-        mNavItems.add(new NavItem("Sair"));
+        mNavItems.add(new NavItem("Doadores", R.mipmap.ic_donors));
+        mNavItems.add(new NavItem("Informativos", R.mipmap.ic_informations));
+        mNavItems.add(new NavItem("Quem precisa", R.mipmap.ic_needing));
+        mNavItems.add(new NavItem("Meus pedidos", R.mipmap.ic_my_forms));
+        mNavItems.add(new NavItem("Notificações", R.mipmap.ic_notifications));
+        mNavItems.add(new NavItem("Pediram-me", R.mipmap.ic_asked));
+        mNavItems.add(new NavItem("Sair", R.mipmap.ic_logout));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
