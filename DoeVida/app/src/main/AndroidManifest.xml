@@ -39,6 +39,9 @@
         <activity
             android:name=".views.MoreInformation3Activity"
             android:label="@string/title_activity_information" />
+        <activity
+            android:name=".views.AcceptedOrderActivity"
+            android:label="@string/title_activity_accepted_order" />
     </application>
 
 </manifest>

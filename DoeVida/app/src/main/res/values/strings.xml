@@ -84,5 +84,9 @@
     <string name="hint_number_donates">3 doações</string>
     <string name="hint_date_last_donation">XX/XX/XXXX</string>
 
-
+    <string name="title_activity_accepted_order">Pedido aceito</string>
+    <string name="donor_name">Nome do doador</string>
+    <string name="accepted_order1">aceitou seu pedido de doação de sangue para:</string>
+    <string name="receptor_name">Nome do receptor</string>
+    <string name="accepted_order2">Aguarde a doação.</string>
 </resources>
