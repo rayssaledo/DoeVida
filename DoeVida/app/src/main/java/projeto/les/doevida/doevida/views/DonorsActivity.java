@@ -97,6 +97,7 @@ public class DonorsActivity extends AppCompatActivity {
 
                 final RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd1);
                 final RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd2);
+                final Button okButton = (Button) dialog.findViewById(R.id.btn_ok);
 
                 rd1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,6 +111,19 @@ public class DonorsActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         rd2.setChecked(true);
                         rd1.setChecked(false);
+                    }
+                });
+
+                okButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        if(rd1.isChecked()){
+                            final Dialog dialog = new Dialog(DonorsActivity.this);
+                            dialog.setContentView(R.layout.dialog_form);
+                            dialog.setTitle("Pedido de doação");
+                            dialog.setCancelable(true);
+                            dialog.show();
+                        }
                     }
                 });
                 dialog.show();
@@ -155,13 +169,13 @@ public class DonorsActivity extends AppCompatActivity {
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {
-        mNavItems.add(new NavItem("Doadores"));
-        mNavItems.add(new NavItem("Informativos"));
-        mNavItems.add(new NavItem("Quem precisa"));
-        mNavItems.add(new NavItem("Meus pedidos"));
-        mNavItems.add(new NavItem("Notificações"));
-        mNavItems.add(new NavItem("Pediram-me"));
-        mNavItems.add(new NavItem("Sair"));
+        mNavItems.add(new NavItem("Doadores", R.mipmap.ic_donors));
+        mNavItems.add(new NavItem("Informativos", R.mipmap.ic_informations));
+        mNavItems.add(new NavItem("Quem precisa", R.mipmap.ic_needing));
+        mNavItems.add(new NavItem("Meus pedidos", R.mipmap.ic_my_forms));
+        mNavItems.add(new NavItem("Notificações", R.mipmap.ic_notifications));
+        mNavItems.add(new NavItem("Pediram-me", R.mipmap.ic_asked));
+        mNavItems.add(new NavItem("Sair", R.mipmap.ic_logout));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);

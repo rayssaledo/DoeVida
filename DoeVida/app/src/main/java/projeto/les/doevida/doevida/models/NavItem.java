@@ -1,13 +1,12 @@
 package projeto.les.doevida.doevida.models;
 
-/**
- * Created by Andreza Raquel on 10/04/2016.
- */
 public class NavItem {
-    public String mTitle;
+    public String title;
+    public int icon;
 
-    public NavItem(String title) {
-        mTitle = title;
+    public NavItem(String title, int icon) {
+        this.title = title;
+        this.icon = icon;
     }
 
 }
