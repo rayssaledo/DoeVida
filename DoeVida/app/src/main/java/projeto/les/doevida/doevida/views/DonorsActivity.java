@@ -121,13 +121,6 @@ public class DonorsActivity extends AppCompatActivity {
         listViewDonors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /* Modificar depois, fiz só para testar
-                User donor = (User) adapter.getItem(position);
-                Intent intent = new Intent(DonorsActivity.this, UserCadastreActivity.class);
-                intent.putExtra("DONOR", donor);
-                startActivity(intent);
-                */
-
                 final Dialog dialog = new Dialog(DonorsActivity.this);
                 dialog.setContentView(R.layout.dialog_choose_form);
                 dialog.setTitle("Fazer pedido");
@@ -193,8 +186,8 @@ public class DonorsActivity extends AppCompatActivity {
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);
                 } else if (position == 4) { // notificacoes
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(DonorsActivity.this, NotificationsActivity.class);
                 } else if (position == 5) { // Pediram-me
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(DonorsActivity.this, UserCadastreActivity.class);

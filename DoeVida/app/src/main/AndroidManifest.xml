@@ -39,6 +39,9 @@
         <activity
             android:name=".views.MoreInformation3Activity"
             android:label="@string/title_activity_information" />
+        <activity
+            android:name=".views.NotificationsActivity"
+            android:label="@string/title_activity_notification"/>
     </application>
 
 </manifest>

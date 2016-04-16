@@ -83,6 +83,7 @@
     <string name="donates">Número de doações</string>
     <string name="hint_number_donates">3 doações</string>
     <string name="hint_date_last_donation">XX/XX/XXXX</string>
+    <string name="title_activity_notification">Notificações</string>
 
 
 </resources>
