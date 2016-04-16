@@ -8,8 +8,11 @@
     <string name="hint_date_of_birth">Data de nascimento</string>
     <string name="hint_city">Cidade onde reside</string>
     <string name="hint_state">Estado</string>
+    <string name="hint_hospital">Hospital</string>
     <string name="hint_date_of_last_donation">Data da última doação (opcional)</string>
+    <string name="hint_date_limit_donation">Data limite para doação</string>
     <string name="hint_user_name">Nome de usuário</string>
+    <string name="hint_name_patient">Nome do paciente</string>
     <string name="hint_user">Usuário</string>
     <string name="hint_password">Senha</string>
     <string name="hint_password_confirm">Confirmar senha</string>
@@ -74,8 +77,9 @@
 
     <string name="create_form">Criar formulário de solicitação</string>
     <string name="reuse_form">Usar um dos meus formulários</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">CANCELAR</string>
     <string name="ok">OK</string>
+    <string name="send">ENVIAR</string>
 
     <string name="blood_type">Tipo sanguíneo</string>
     <string name="hint_name_user">Nome do usuário</string>

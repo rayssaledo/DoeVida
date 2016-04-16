@@ -97,6 +97,7 @@ public class DonorsActivity extends AppCompatActivity {
 
                 final RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd1);
                 final RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd2);
+                final Button okButton = (Button) dialog.findViewById(R.id.btn_ok);
 
                 rd1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,6 +111,19 @@ public class DonorsActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         rd2.setChecked(true);
                         rd1.setChecked(false);
+                    }
+                });
+
+                okButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        if(rd1.isChecked()){
+                            final Dialog dialog = new Dialog(DonorsActivity.this);
+                            dialog.setContentView(R.layout.dialog_form);
+                            dialog.setTitle("Pedido de doação");
+                            dialog.setCancelable(true);
+                            dialog.show();
+                        }
                     }
                 });
                 dialog.show();
