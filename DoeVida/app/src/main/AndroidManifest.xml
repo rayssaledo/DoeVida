@@ -45,6 +45,9 @@
         <activity
             android:name=".views.NotificationsActivity"
             android:label="@string/title_activity_notification"/>
+        <activity
+            android:name=".views.MyRequestsActivity"
+            android:label="@string/title_activity_my_requests" />
     </application>
 
 </manifest>
