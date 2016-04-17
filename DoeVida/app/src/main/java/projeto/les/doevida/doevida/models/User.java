@@ -16,6 +16,8 @@ public class User implements Serializable{
     private String typeOfBlood;
     private Boolean canDonate;
     private List<Form> forms;
+    private List<Request> myRequests;
+
 
     public User(String name, String username, String password, String state, String city, Date birthdate,
                 Date lastDonation, Character gender, String typeOfBlood) throws Exception {
@@ -53,6 +55,7 @@ public class User implements Serializable{
         this.gender = gender;
         this.typeOfBlood = typeOfBlood;
         this.forms = new ArrayList<Form>();
+        this.myRequests =  new ArrayList<Request>();
     }
 
     public String getName() {
@@ -160,5 +163,17 @@ public class User implements Serializable{
             throw new Exception("Form is null.");
         }
         forms.add(form);
+    }
+
+    public void setMyRequests (List<Request> requests) {
+        this.myRequests = requests;
+    }
+
+    public List<Request> getMyRequests () {
+        return this.myRequests;
+    }
+
+    public void addRequest (String requesterName, Date date) throws Exception {
+        this.myRequests.add(new Request(requesterName, date));
     }
 }

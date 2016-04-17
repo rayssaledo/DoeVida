@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/drawerLayout"
-    tools:context="projeto.les.doevida.doevida.views.NotificationsActivity">
+    tools:context="projeto.les.doevida.doevida.views.DonorsActivity">
 
     <FrameLayout
+        android:id="@+id/mainContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -21,12 +22,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <ListView
-                android:id="@+id/lv_notifications"
+                android:id="@+id/lv_my_requests"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
 
     </FrameLayout>

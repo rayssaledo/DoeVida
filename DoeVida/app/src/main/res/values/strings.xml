@@ -95,6 +95,28 @@
     <string name="receptor_name">Nome do receptor</string>
     <string name="accepted_order2">Aguarde a doação.</string>
 
+
     <string name="title_activity_requested_me">Pediram-me</string>
     <string name="status">STATUS</string>
+
+    <string name="title_activity_my_requests" />
+    <string name="hint_name_requester">Nome do solicitante</string>
+    <string name="hint_date_request">XX/XX/XXXX</string>
+
+    <string name="title_activity_donation_order">Pedido de doação</string>
+    <string name="order_message">Aceite o pedido e dirija-se ao Hemocentro mais próximo, informando os dados do paciente.</string>
+    <string name="patient">Paciente: </string>
+    <string name="patient_name">Nome do paciente</string>
+    <string name="hospital">Hospital: </string>
+    <string name="hospital_name">Nome do hospital</string>
+    <string name="city">Cidade: </string>
+    <string name="city_name">Nome da cidade</string>
+    <string name="state">Estado: </string>
+    <string name="state_name">Nome do estado</string>
+    <string name="blood_type_patient">Tipo sanguíneo: </string>
+    <string name="donation_deadline">Data limite para doação: </string>
+    <string name="deadline">XX/XX/XXXX</string>
+    <string name="refuse">RECUSAR</string>
+    <string name="accept">ACEITAR</string>
+
 </resources>

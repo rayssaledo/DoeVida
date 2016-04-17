@@ -1,28 +1,41 @@
 package projeto.les.doevida.doevida.views;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.Utils.HttpUtils;
 import projeto.les.doevida.doevida.Utils.MySharedPreferences;
+import projeto.les.doevida.doevida.adapters.DonorsAdapter;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
+import projeto.les.doevida.doevida.adapters.MyRequestsAdapter;
 import projeto.les.doevida.doevida.models.NavItem;
+import projeto.les.doevida.doevida.models.Request;
+import projeto.les.doevida.doevida.models.User;
 
-public class NotificationsActivity extends AppCompatActivity {
+/**
+ * Created by Andreza on 16/04/2016.
+ */
+public class MyRequestsActivity extends AppCompatActivity {
 
     private ArrayList<NavItem> mNavItems;
     private Context context;
@@ -39,11 +52,14 @@ public class NotificationsActivity extends AppCompatActivity {
     private android.support.v7.app.ActionBar actionBar;
     private CharSequence mTitle;
 
+    private MyRequestsAdapter adapter;
+    private ListView listViewMyRequests;
+    private List<Request> listMyRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
+        setContentView(R.layout.activity_my_requests);
 
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
@@ -62,6 +78,23 @@ public class NotificationsActivity extends AppCompatActivity {
         setmDrawer(mNavItems);
 
         context = this;
+
+
+
+        listViewMyRequests = (ListView) findViewById(R.id.lv_my_requests);
+        try {
+            listMyRequests = new ArrayList<Request>();
+            listMyRequests.add(new Request("Nome Solicitante", new Date("16/04/2016")));
+            Log.d("Cadastrou", "Certo");
+            listMyRequests.add(new Request("Nome Solicitante 2", new Date("16/04/2016")));
+            listMyRequests.add(new Request("Nome Solicitante 3", new Date("16/04/2016")));
+            adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
+            listViewMyRequests.setAdapter(adapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {
@@ -85,33 +118,33 @@ public class NotificationsActivity extends AppCompatActivity {
 
                 if (position == 0) { // Doadores
                     mDrawerLayout.closeDrawer(mDrawerPane);
-                    setView(NotificationsActivity.this, DonorsActivity.class);
+                    setView(MyRequestsActivity.this, DonorsActivity.class);
                 } else if (position == 1) { // Informativos
                     mDrawerLayout.closeDrawer(mDrawerPane);
-                    setView(NotificationsActivity.this, InformationActivity.class);
+                    setView(MyRequestsActivity.this, InformationActivity.class);
                 } else if (position == 2) { // quem precisa
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+//                    setView(MyRequestsActivity.this, UserCadastreActivity.class);
                 } else if (position == 3) { // meus pedidos
                     mDrawerLayout.closeDrawer(mDrawerPane);
-                    setView(NotificationsActivity.this, MyRequestsActivity.class);
+                    setView(MyRequestsActivity.this, MyRequestsActivity.class);
                 } else if (position == 4) { // notificacoes
                     mDrawerLayout.closeDrawer(mDrawerPane);
-                    setView(NotificationsActivity.this, NotificationsActivity.class);
+                    setView(MyRequestsActivity.this, NotificationsActivity.class);
                 } else if (position == 5) { // Pediram-me
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+//                    setView(MyRequestsActivity.this, UserCadastreActivity.class);
                 } else if (position == 6) { // sair
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     userLogged.logoutUser();
-//                  setView(DonorsActivity.this, UserCadastreActivity.class);
+//                  setView(MyRequestsActivity.this, UserCadastreActivity.class);
                 }
 
             }
         });
 
 
-        actionBar =  getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.options);
         actionBar.setHomeButtonEnabled(true);
@@ -119,7 +152,7 @@ public class NotificationsActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mTitle = getTitle().toString();
         mDrawerToggle = new ActionBarDrawerToggle(
-                NotificationsActivity.this,
+                MyRequestsActivity.this,
                 mDrawerLayout,
                 R.drawable.options,
                 R.string.drawer_open,
@@ -136,8 +169,20 @@ public class NotificationsActivity extends AppCompatActivity {
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        int id = item.getItemId();
+        if (id == R.id.action_search){
+            return true;
+        }
 
+        return super.onOptionsItemSelected(item);
     }
 
     public void setView(Context context, Class classe){
@@ -146,9 +191,5 @@ public class NotificationsActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) return true;
-        return super.onOptionsItemSelected(item);
-    }
 }
+

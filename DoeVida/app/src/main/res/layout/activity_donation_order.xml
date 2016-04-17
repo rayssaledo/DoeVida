@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="projeto.les.doevida.doevida.views.DonationOrderActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_order_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/order_message"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_patient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/patient"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_patient_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/patient_name"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/tv_patient"/>
+
+                    <TextView
+                        android:id="@+id/tv_hospital"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hospital"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_below="@+id/tv_patient"/>
+
+                    <TextView
+                        android:id="@+id/tv_hospital_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hospital_name"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/tv_patient_name"
+                        android:layout_toRightOf="@+id/tv_hospital"/>
+
+                    <TextView
+                        android:id="@+id/tv_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/city"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_below="@+id/tv_hospital"/>
+
+                    <TextView
+                        android:id="@+id/tv_city_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/city_name"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/tv_hospital_name"
+                        android:layout_toRightOf="@+id/tv_city"/>
+
+                    <TextView
+                        android:id="@+id/tv_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/state"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_below="@+id/tv_city"/>
+
+                    <TextView
+                        android:id="@+id/tv_state_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/state_name"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/tv_city_name"
+                        android:layout_toRightOf="@+id/tv_state"/>
+
+                    <TextView
+                        android:id="@+id/tv_blood_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/blood_type"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_below="@+id/tv_state"/>
+
+                    <TextView
+                        android:id="@+id/tv_blood_type_patient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/blood_type_patient"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/tv_state_name"
+                        android:layout_toRightOf="@+id/tv_blood_type"/>
+
+                    <TextView
+                        android:id="@+id/tv_donation_deadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/donation_deadline"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_below="@+id/tv_blood_type"/>
+
+                    <TextView
+                        android:id="@+id/tv_deadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deadline"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/tv_blood_type_patient"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        android:id="@+id/btn_refuse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/refuse"
+                        android:textAlignment="textStart"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:id="@+id/btn_accept"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/accept"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:layout_toRightOf="@+id/btn_refuse"/>
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
