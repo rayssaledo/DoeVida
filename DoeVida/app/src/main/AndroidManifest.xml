@@ -44,7 +44,10 @@
             android:label="@string/title_activity_accepted_order" />
         <activity
             android:name=".views.NotificationsActivity"
-            android:label="@string/title_activity_notification"/>
+            android:label="@string/title_activity_notification" />
+        <activity
+            android:name=".views.RequestedMeActivity"
+            android:label="@string/title_activity_requested_me" />
     </application>
 
 </manifest>

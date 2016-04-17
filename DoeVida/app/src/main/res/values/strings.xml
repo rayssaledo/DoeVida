@@ -94,4 +94,7 @@
     <string name="accepted_order1">aceitou seu pedido de doação de sangue para:</string>
     <string name="receptor_name">Nome do receptor</string>
     <string name="accepted_order2">Aguarde a doação.</string>
+
+    <string name="title_activity_requested_me">Pediram-me</string>
+    <string name="status">STATUS</string>
 </resources>

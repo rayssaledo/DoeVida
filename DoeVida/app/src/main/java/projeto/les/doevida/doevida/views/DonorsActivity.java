@@ -203,8 +203,8 @@ public class DonorsActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, NotificationsActivity.class);
                 } else if (position == 5) { // Pediram-me
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(DonorsActivity.this, RequestedMeActivity.class);
                 } else if (position == 6) { // sair
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     userLogged.logoutUser();
