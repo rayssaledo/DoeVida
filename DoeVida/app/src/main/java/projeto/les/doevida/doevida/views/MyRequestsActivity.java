@@ -129,8 +129,8 @@ public class MyRequestsActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(MyRequestsActivity.this, MyRequestsActivity.class);
                 } else if (position == 4) { // notificacoes
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(MyRequestsActivity.this, UserCadastreActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(MyRequestsActivity.this, NotificationsActivity.class);
                 } else if (position == 5) { // Pediram-me
 //                    mDrawerLayout.closeDrawer(mDrawerPane);
 //                    setView(MyRequestsActivity.this, UserCadastreActivity.class);
