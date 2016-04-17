@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -59,12 +60,10 @@ public class DonorsActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donors);
-
 
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
@@ -79,7 +78,6 @@ public class DonorsActivity extends AppCompatActivity {
 
         loginUserTextView = (TextView) findViewById(R.id.login);
         loginUserTextView.setText(username);
-
 
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
@@ -114,10 +112,12 @@ public class DonorsActivity extends AppCompatActivity {
                     }
                 });
 
-                okButton.setOnClickListener(new View.OnClickListener(){
+                dialog.show();
+
+                okButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
-                        if(rd1.isChecked()){
+                    public void onClick(View v) {
+                        if (rd1.isChecked()) {
                             final Dialog dialog = new Dialog(DonorsActivity.this);
                             dialog.setContentView(R.layout.dialog_form);
                             dialog.setTitle("Pedido de doação");
@@ -126,7 +126,6 @@ public class DonorsActivity extends AppCompatActivity {
                         }
                     }
                 });
-                dialog.show();
             }
         });
 
@@ -142,6 +141,7 @@ public class DonorsActivity extends AppCompatActivity {
 
                 final RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd1);
                 final RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd2);
+                final Button okButton = (Button) dialog.findViewById(R.id.btn_ok);
 
                 rd1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,6 +159,18 @@ public class DonorsActivity extends AppCompatActivity {
                 });
                 dialog.show();
 
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (rd1.isChecked()) {
+                            final Dialog dialog = new Dialog(DonorsActivity.this);
+                            dialog.setContentView(R.layout.dialog_form);
+                            dialog.setTitle("Pedido de doação");
+                            dialog.setCancelable(true);
+                            dialog.show();
+                        }
+                    }
+                });
             }
         });
         context = this;
