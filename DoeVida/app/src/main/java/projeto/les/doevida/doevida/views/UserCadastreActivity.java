@@ -66,6 +66,7 @@ public class UserCadastreActivity extends AppCompatActivity {
     private MySharedPreferences mySharedPreferences;
     private HttpUtils mHttp;
     private User donor;
+    private View mLoadingCadastre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class UserCadastreActivity extends AppCompatActivity {
 
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
         mHttp = new HttpUtils(this);
+        mLoadingCadastre = findViewById(R.id.loadingCadastre);
 
         mName = (EditText) findViewById(R.id.input_name);
         mDate_of_birth = (EditText) findViewById(R.id.input_date_of_birth);
@@ -197,6 +199,7 @@ public class UserCadastreActivity extends AppCompatActivity {
                              final String username_user, final String password_user, final String
                                      gender_user, final String blood_type_user){
 
+        mLoadingCadastre.setVisibility(View.VISIBLE);
         String url = "http://doevida-grupoles.rhcloud.com/addUser";
         JSONObject json = new JSONObject();
         try {
@@ -219,7 +222,12 @@ public class UserCadastreActivity extends AppCompatActivity {
                     new AlertDialog.Builder(UserCadastreActivity.this)
                             .setTitle("Erro")
                             .setMessage(result.getString("msg"))
-                            .setNeutralButton("OK", null)
+                            .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mLoadingCadastre.setVisibility(View.GONE);
+                                }
+                            })
                             .create()
                             .show();
                 } else {
@@ -244,7 +252,12 @@ public class UserCadastreActivity extends AppCompatActivity {
                 new AlertDialog.Builder(UserCadastreActivity.this)
                         .setTitle("Erro")
                         .setMessage("Conexão não disponível")
-                        .setNeutralButton("OK", null)
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mLoadingCadastre.setVisibility(View.GONE);
+                            }
+                        })
                         .create()
                         .show();
             }

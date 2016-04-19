@@ -37,12 +37,15 @@
     <string name="err_msg_birth">Insira sua data de nascimento</string>
     <string name="err_msg_city">Insira sua Cidade</string>
     <string name="err_msg_state">Insira seu Estado</string>
+    <string name="err_msg_hospital">Insira o hospital</string>
     <string name="err_msg_username">Insira um nome de usuário</string>
     <string name="err_msg_password">Insira uma senha</string>
     <string name="err_msg_password_confirm">Insira sua senha novamente</string>
     <string name="err_short_name">Nome muito curto</string>
     <string name="err_invalid_birth">Data inválida</string>
     <string name="err_short_city_name">Nome de cidade muito curto</string>
+    <string name="err_short_state_name">Nome de estado muito curto</string>
+    <string name="err_short_hospital_name">Nome de hospital muito curto</string>
     <string name="err_short_username">Nome de usuário muito curto</string>
     <string name="err_short_password">A senha deve conter no mínimo 6 caracteres</string>
     <string name="title_activity_donors">Doadores</string>
