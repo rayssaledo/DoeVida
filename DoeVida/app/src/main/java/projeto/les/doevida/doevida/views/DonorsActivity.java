@@ -128,6 +128,7 @@ public class DonorsActivity extends AppCompatActivity {
                 final RadioButton rd1 = (RadioButton) dialogChooseForm.findViewById(R.id.rd1);
                 final RadioButton rd2 = (RadioButton) dialogChooseForm.findViewById(R.id.rd2);
                 final Button okButton = (Button) dialogChooseForm.findViewById(R.id.btn_ok);
+                final Button cancelButton = (Button) dialogChooseForm.findViewById(R.id.btn_cancel);
 
                 rd1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -145,6 +146,13 @@ public class DonorsActivity extends AppCompatActivity {
                 });
 
                 dialogChooseForm.show();
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogChooseForm.dismiss();
+                    }
+                });
 
                 okButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -247,6 +255,11 @@ public class DonorsActivity extends AppCompatActivity {
                                 }
                             });
                         }
+
+                        if(rd2.isChecked()){
+                            setView(DonorsActivity.this, MyRequestsActivity.class);
+                            dialogChooseForm.dismiss();
+                        }
                     }
                 });
             }
@@ -265,6 +278,7 @@ public class DonorsActivity extends AppCompatActivity {
                 final RadioButton rd1 = (RadioButton) dialogChooseForm.findViewById(R.id.rd1);
                 final RadioButton rd2 = (RadioButton) dialogChooseForm.findViewById(R.id.rd2);
                 final Button okButton = (Button) dialogChooseForm.findViewById(R.id.btn_ok);
+                final Button cancelButton = (Button) dialogChooseForm.findViewById(R.id.btn_cancel);
 
                 rd1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -281,6 +295,13 @@ public class DonorsActivity extends AppCompatActivity {
                     }
                 });
                 dialogChooseForm.show();
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogChooseForm.dismiss();
+                    }
+                });
 
                 okButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -352,23 +373,23 @@ public class DonorsActivity extends AppCompatActivity {
                                     name_patient = mNamePatient.getText().toString();
                                     hospital = mHospital.getText().toString();
                                     city = mCity.getText().toString();
-                                    state= mState.getText().toString();
+                                    state = mState.getText().toString();
                                     date_limit_donation = mDateLimitDonation.getText().toString();
 
-                                    if(validateName() && validateHospital() && validateCity() &&
-                                            validateState() && validateDateLimitDonation()){
+                                    if (validateName() && validateHospital() && validateCity() &&
+                                            validateState() && validateDateLimitDonation()) {
                                         addForm(name_patient, hospital, city, state, mBlood_Type,
                                                 date_limit_donation, dialogForm);
                                         dialogChooseForm.dismiss();
-                                    } else if (!validateName()){
+                                    } else if (!validateName()) {
                                         return;
-                                    } else if (!validateHospital()){
+                                    } else if (!validateHospital()) {
                                         return;
-                                    } else if (!validateCity()){
+                                    } else if (!validateCity()) {
                                         return;
                                     } else if (!validateState()) {
                                         return;
-                                    } else if (!validateDateLimitDonation()){
+                                    } else if (!validateDateLimitDonation()) {
                                         return;
                                     }
                                 }
@@ -383,6 +404,10 @@ public class DonorsActivity extends AppCompatActivity {
                                     dialogForm.dismiss();
                                 }
                             });
+                        }
+                        if(rd2.isChecked()){
+                            setView(DonorsActivity.this, MyRequestsActivity.class);
+                            dialogChooseForm.dismiss();
                         }
                     }
                 });
