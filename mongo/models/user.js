@@ -181,10 +181,11 @@ module.exports = function(mongodb, app, userCollection) {
 		var patientName = req.body.patientName;
 		var hospitalName = req.body.hospitalName;
 		var city = req.body.city;
+		var state = req.body.state;
 		var bloodType = req.body.bloodType;
 		var deadline = req.body.deadline;
 		
-		var inconsistency = checkInconsistencyForm(login, patientName, hospitalName, city, bloodType, deadline);
+		var inconsistency = checkInconsistencyForm(login, patientName, hospitalName, city, state, bloodType, deadline);
 		
 		if (inconsistency) {
 			res.send(inconsistency);
@@ -207,6 +208,7 @@ module.exports = function(mongodb, app, userCollection) {
 									patientName: patientName, 
 									hospitalName: hospitalName, 
 									city: city, 
+									state: state,
 									bloodType: bloodType, 
 									deadline: deadline								
 								} 
@@ -226,7 +228,7 @@ module.exports = function(mongodb, app, userCollection) {
 		}
 	});		
 		
-	function checkInconsistencyForm(login, patientName, hospitalName, city, bloodType, deadline) {
+	function checkInconsistencyForm(login, patientName, hospitalName, city, state, bloodType, deadline) {
 		if (!login) {
 			return '{ "ok" : 0, "msg" : "Login do usuário não informado!" }';
 		}
@@ -241,6 +243,10 @@ module.exports = function(mongodb, app, userCollection) {
 		
 		if (!city) {
 			return '{ "ok" : 0, "msg" : "Cidade não informada!" }';
+		}
+		
+		if (!state) {
+			return '{ "ok" : 0, "msg" : "Estado não informado!" }';
 		}
 		
 		if (!bloodType) {
