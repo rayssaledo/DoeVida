@@ -17,12 +17,17 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.Utils.HttpListener;
 import projeto.les.doevida.doevida.Utils.HttpUtils;
 import projeto.les.doevida.doevida.Utils.MySharedPreferences;
 import projeto.les.doevida.doevida.adapters.DonorsAdapter;
@@ -55,6 +60,8 @@ public class MyRequestsActivity extends AppCompatActivity {
     private MyRequestsAdapter adapter;
     private ListView listViewMyRequests;
     private List<Request> listMyRequests;
+    private HttpUtils mHttp;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +70,10 @@ public class MyRequestsActivity extends AppCompatActivity {
 
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
+        mHttp = new HttpUtils(this);
 
         String name = userDetails.get(MySharedPreferences.KEY_NAME_USER);
-        String username = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
+        username = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
 
         nameUserTextView = (TextView) findViewById(R.id.nameUser);
         nameUserTextView.setText(name);
@@ -73,28 +81,70 @@ public class MyRequestsActivity extends AppCompatActivity {
         loginUserTextView = (TextView) findViewById(R.id.login);
         loginUserTextView.setText(username);
 
+        listViewMyRequests = (ListView) findViewById(R.id.lv_my_requests);
         // Navigation bar
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
         context = this;
 
+        getListMyForms();
 
+//        try {
+//            listMyRequests = userLogged.getListRequests();
+//            adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
+//            listViewMyRequests.setAdapter(adapter);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        listViewMyRequests = (ListView) findViewById(R.id.lv_my_requests);
-        try {
-            listMyRequests = new ArrayList<Request>();
-            listMyRequests.add(new Request("Nome Solicitante", new Date("16/04/2016")));
-            Log.d("Cadastrou", "Certo");
-            listMyRequests.add(new Request("Nome Solicitante 2", new Date("16/04/2016")));
-            listMyRequests.add(new Request("Nome Solicitante 3", new Date("16/04/2016")));
-            adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
-            listViewMyRequests.setAdapter(adapter);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getListMyForms();
+    }
 
+    private void getListMyForms() {
+        String urlGetUser = "http://doevida-grupoles.rhcloud.com/getUser?login=" + username ;
+        mHttp.get(urlGetUser, new HttpListener() {
+            @Override
+            public void onSucess(JSONObject response) throws JSONException {
+                listViewMyRequests.setVisibility(View.VISIBLE);
+                if (response.getInt("ok") == 1) {
+                    JSONObject jsonUser = response.getJSONObject("result");
+                    JSONArray jsonArray = jsonUser.getJSONArray("forms");
+                    userLogged.saveListRequests(jsonArray.toString());
+                    listMyRequests = userLogged.getListRequests();
+                    if (listMyRequests.size() == 0) {
+                        listViewMyRequests.setVisibility(View.GONE);
+                    }
+                    adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
+                    listViewMyRequests.setAdapter(adapter);
+                    Log.d("lista de requests", "CERTO!!" +
+                            "");
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                if (userLogged.getListRequests() != null) {
+                    listMyRequests = userLogged.getListRequests();
+                }
+                if (listMyRequests != null && listMyRequests.size() == 0 || listMyRequests == null) {
+                    Log.d("Requests", "Tamanho da lista é zero");
+                    listViewMyRequests.setVisibility(View.GONE);
+                } else {
+                    adapter = new MyRequestsAdapter(context, listMyRequests);
+                    listViewMyRequests.setAdapter(adapter);
+                }
+            }
+        });
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {

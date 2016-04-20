@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import projeto.les.doevida.doevida.models.Request;
 import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.views.DonorsActivity;
 import projeto.les.doevida.doevida.views.LoginActivity;
@@ -28,6 +29,7 @@ public class MySharedPreferences {
     private Context mContext;
     int PRIVATE_MODE = 0;
     private List<User> listDonors;
+    private List<Request> my_forms;
 
     private static final String PREFER_NAME = "Pref";
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
@@ -41,6 +43,7 @@ public class MySharedPreferences {
     public static final String KEY_USERNAME_USER = "username_user";
     public static final String KEY_PASSWORD_USER = "password_user";
     public static final String KEY_LIST_DONORS = "list_donors";
+    public static final String KEY_LIST_FORMS = "list_forms";
 
 
     public MySharedPreferences(Context context){
@@ -134,6 +137,11 @@ public class MySharedPreferences {
         mEditor.commit();
     }
 
+    public void saveListRequests (String listForms) {
+        mEditor.putString(KEY_LIST_FORMS, listForms);
+        mEditor.commit();
+    }
+
     public List<User> getListDonors() {
         String jsonArrayString = mPref.getString(KEY_LIST_DONORS, "");
         try {
@@ -142,6 +150,38 @@ public class MySharedPreferences {
         } catch (JSONException e) {
             e.printStackTrace();
         } return listDonors;
+    }
+
+    public List<Request> getListRequests(){
+        String jsonArrayString = mPref.getString(KEY_LIST_FORMS, "");
+        try {
+            JSONArray jsonArray = new JSONArray(jsonArrayString);
+            loadMyForms(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } return my_forms;
+    }
+
+    private void loadMyForms(JSONArray jsonArray) throws JSONException{
+        my_forms =  new ArrayList<Request>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonRequest = jsonArray.getJSONObject(i);
+            String patientName = jsonRequest.getString("patientName");
+
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date deadline = null;
+            try {
+                deadline = format.parse(jsonRequest.getString("deadline"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                Request request = new Request(patientName, deadline);
+                my_forms.add(request);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void loadsList(JSONArray jsonArray) throws JSONException {
