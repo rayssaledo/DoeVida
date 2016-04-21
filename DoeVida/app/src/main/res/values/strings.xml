@@ -121,5 +121,7 @@
     <string name="deadline">XX/XX/XXXX</string>
     <string name="refuse">RECUSAR</string>
     <string name="accept">ACEITAR</string>
+    <string name="title_activity_non_connected">NonConnectedActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 
 </resources>

@@ -1,0 +1,61 @@
+{
+  "project_info": {
+    "project_number": "136630470731",
+    "project_id": "doevida-c2a"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136630470731:android:f36173e948059ccb",
+        "android_client_info": {
+          "package_name": "gcm.play.android.samples.com.gcmquickstart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2GSTRe75mZjtZ6bGS-fr4sXSJmwYm6-g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136630470731:android:9c8bd37a7365481d",
+        "android_client_info": {
+          "package_name": "projeto.les.doevida.doevida"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2GSTRe75mZjtZ6bGS-fr4sXSJmwYm6-g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

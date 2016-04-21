@@ -1,5 +1,8 @@
 package projeto.les.doevida.doevida.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,8 +11,7 @@ import java.util.List;
 /**
  * Created by Marcos Nascimento on 4/2/2016.
  */
-public class User implements Serializable{
-
+public class User implements Serializable {
     private String name, username, password, state, city;
     private Date birthdate, lastDonation;
     private Character gender;
@@ -17,7 +19,6 @@ public class User implements Serializable{
     private Boolean canDonate;
     private List<Form> forms;
     private List<Request> myRequests;
-
 
     public User(String name, String username, String password, String state, String city, Date birthdate,
                 Date lastDonation, Character gender, String typeOfBlood) throws Exception {
