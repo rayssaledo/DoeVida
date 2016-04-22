@@ -12,9 +12,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:name="com.hmkcode.android.gcm.permission.C2D_MESSAGE"
+    <permission android:name="android.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.hmkcode.android.gcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.gcm.permission.C2D_MESSAGE" />
 
     <uses-permission android:name="projeto.les.doevida.doevida.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -37,7 +37,10 @@
         <activity
             android:name=".views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".views.InformationActivity"
@@ -69,11 +72,6 @@
         <activity
             android:name=".views.TestActivity"
             android:label="@string/title_activity_test">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
 
         <receiver
@@ -81,7 +79,7 @@
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.hmkcode.android.gcm" />
+                <category android:name=".Utils" />
             </intent-filter>
         </receiver>
         <service android:name=".Utils.GcmMessageHandler" />

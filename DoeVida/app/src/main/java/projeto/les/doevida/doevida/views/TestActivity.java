@@ -1,15 +1,17 @@
 package projeto.les.doevida.doevida.views;
 
-import java.io.IOException;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.IOException;
 
 import projeto.les.doevida.doevida.R;
 
@@ -19,7 +21,7 @@ public class TestActivity extends Activity implements OnClickListener {
     EditText etRegId;
     GoogleCloudMessaging gcm;
     String regid;
-    String PROJECT_NUMBER = "102488860000";
+    String PROJECT_NUMBER = "904914935842";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
