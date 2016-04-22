@@ -76,13 +76,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String login = et_username.getText().toString();
                 String password = et_password.getText().toString();
-                login(login, password);
+                getRegId();
+                String reg_id = mySharedPreferences.getRegId();
+                Log.d("GCM_TESTE", reg_id);
+                login(login, password, reg_id);
             }
         });
 
     }
 
-    private void login(String login, String password) {
+    private void login(String login, String password, String reg_id) {
         mLoading.setVisibility(View.VISIBLE);
         String urlCheckLogin = "http://doevida-grupoles.rhcloud.com/checkLogin";
         final JSONObject json = new JSONObject();
@@ -90,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             json.put("login", login);
             json.put("pass", password);
+            json.put("regId", reg_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -110,9 +114,9 @@ public class LoginActivity extends AppCompatActivity {
                                 .create()
                                 .show();
                     } else {
-                        getRegId();
-                        String reg_id = mySharedPreferences.getRegId();
-                        Log.d("GCM_TESTE", reg_id);
+//                        getRegId();
+//                        String reg_id = mySharedPreferences.getRegId();
+//                        Log.d("GCM_TESTE", reg_id);
                         setView(LoginActivity.this, DonorsActivity.class);
                         finish();
                     }
