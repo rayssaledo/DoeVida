@@ -270,6 +270,62 @@ public class DonorsActivity extends AppCompatActivity {
         listViewDonors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
+                JSONObject json = new JSONObject();
+
+                try {
+                    json.put("titleNotification", "Solicitação de sangue");
+                    json.put("bodyNotification", "Formulario");
+                    json.put("receiverLogin", "lucas");
+                    json.put("senderLogin", loginUserLogged);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mHttp.post(url, json.toString(), new HttpListener() {
+                    @Override
+                    public void onSucess(JSONObject result) throws JSONException{
+                        if (result.getInt("ok") == 0) {
+                            new AlertDialog.Builder(DonorsActivity.this)
+                                    .setTitle("Erro")
+                                    .setMessage(result.getString("msg"))
+                                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            mLoading.setVisibility(View.GONE);
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        } else {
+                            new AlertDialog.Builder(DonorsActivity.this)
+                                    .setMessage("Fomulário criado com sucesso")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                           // dialog.dismiss();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    }
+                    @Override
+                    public void onTimeout() {
+                        new AlertDialog.Builder(DonorsActivity.this)
+                                .setTitle("Erro")
+                                .setMessage("Conexão não disponível")
+                                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        mLoading.setVisibility(View.GONE);
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                });
+
                 final Dialog dialogChooseForm = new Dialog(DonorsActivity.this);
                 dialogChooseForm.setContentView(R.layout.dialog_choose_form);
                 dialogChooseForm.setTitle("Fazer pedido");

@@ -421,6 +421,7 @@ public class UserCadastreActivity extends AppCompatActivity {
     }
 
     public void getRegId(){
+        Log.d("TESTE", "vai pegr o regid");
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
@@ -431,7 +432,7 @@ public class UserCadastreActivity extends AppCompatActivity {
                     }
                     regid = gcm.register(PROJECT_NUMBER);
                     msg = "Device registered, registration ID=" + regid;
-                    Log.i("GCM", msg);
+                    Log.d("GCM", msg);
                     mySharedPreferences.saveRegId(regid); //Salvou o regId
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
