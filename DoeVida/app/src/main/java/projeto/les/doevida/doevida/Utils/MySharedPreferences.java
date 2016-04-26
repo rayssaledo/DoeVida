@@ -44,12 +44,23 @@ public class MySharedPreferences {
     public static final String KEY_PASSWORD_USER = "password_user";
     public static final String KEY_LIST_DONORS = "list_donors";
     public static final String KEY_LIST_FORMS = "list_forms";
+    public static final String KEY_REG_ID = "reg_id";
 
 
     public MySharedPreferences(Context context){
         this.mContext = context;
         mPref = context.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
         mEditor = mPref.edit();
+    }
+
+    public void saveRegId(String reg_id){
+        mEditor.putString(KEY_REG_ID, reg_id);
+        mEditor.commit();
+    }
+
+    public String getRegId(){
+        String regId = mPref.getString(KEY_REG_ID, null);
+        return regId;
     }
 
     public void saveUser(String name, String date_birth, String city, String state, String gender,
@@ -64,6 +75,7 @@ public class MySharedPreferences {
         mEditor.putString(KEY_DATE_DONATION_USER, date_donation);
         mEditor.putString(KEY_USERNAME_USER, username);
         mEditor.putString(KEY_PASSWORD_USER, password);
+       // mEditor.putString(KEY_REG_ID, reg_id);
         mEditor.commit();
     }
 
@@ -221,8 +233,10 @@ public class MySharedPreferences {
     }
 
     public void logoutUser(){
+        Log.d("CACHE1",  mPref.getString(KEY_REG_ID, null) + "" );
         mEditor.clear();
         mEditor.commit();
+        Log.d("CACHE",  mPref.getString(KEY_REG_ID, null) + "" );
         Intent i = new Intent(mContext, LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -121,5 +121,6 @@
     <string name="deadline">XX/XX/XXXX</string>
     <string name="refuse">RECUSAR</string>
     <string name="accept">ACEITAR</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>

@@ -4,6 +4,13 @@
     package="projeto.les.doevida.doevida">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name=".permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name=".permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,9 +28,12 @@
         <activity
             android:name=".views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".views.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

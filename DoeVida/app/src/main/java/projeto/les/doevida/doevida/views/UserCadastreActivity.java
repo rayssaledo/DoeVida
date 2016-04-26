@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -15,9 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +72,9 @@ public class UserCadastreActivity extends AppCompatActivity {
     private HttpUtils mHttp;
     private User donor;
     private View mLoadingCadastre;
+    private GoogleCloudMessaging gcm;
+    private String reg_id;
+    private String PROJECT_NUMBER = "904914935842";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +120,8 @@ public class UserCadastreActivity extends AppCompatActivity {
         ArrayAdapter<String> spinnerArrayAdapterGenders = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genders);
         spinnerArrayAdapterGenders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         mGenders_spinner.setAdapter(spinnerArrayAdapterGenders);
+
+        getRegId(); //////aqui
 
         mGenders_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(final AdapterView<?> parent, final View view, final int pos, final long id) {
@@ -159,9 +169,13 @@ public class UserCadastreActivity extends AppCompatActivity {
 
                 if (validateName() && validateDateOfBirth() && validateCity() && validateState() &&
                         validateUsername() && validatePassword() && validatePasswordConfirm() && confirmationPassword()){
-
+//
+//                    getRegId();
+//                    String regId = mySharedPreferences.getRegId();
+//                    Log.d("TESTANDO", regId + "");
+                    Log.d("GCM_REGISTER", reg_id);
                     cadastreUser(name_user,date_birth_user, city_user, state_user, date_donation_user,
-                            username_user, password_user, mGender_user, mBlood_Type_user);
+                            username_user, password_user, mGender_user, mBlood_Type_user, reg_id);
                 } else if (!validateName()){
                     return;
                 } else if (!validateDateOfBirth()){
@@ -197,7 +211,7 @@ public class UserCadastreActivity extends AppCompatActivity {
     public void cadastreUser(final String name_user, final String date_birth_user, final String city_user,
                              final String state_user, final String date_donation_user,
                              final String username_user, final String password_user, final String
-                                     gender_user, final String blood_type_user){
+                                     gender_user, final String blood_type_user, final String regId){
 
         mLoadingCadastre.setVisibility(View.VISIBLE);
         String url = "http://doevida-grupoles.rhcloud.com/addUser";
@@ -212,6 +226,7 @@ public class UserCadastreActivity extends AppCompatActivity {
             json.put("gender", gender_user);
             json.put("bloodType", blood_type_user);
             json.put("lastDonation", date_donation_user);
+            json.put("regId", regId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -407,4 +422,30 @@ public class UserCadastreActivity extends AppCompatActivity {
         it.setClass(context, classe);
         startActivity(it);
     }
+
+    public void getRegId(){
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                    }
+                    reg_id = gcm.register(PROJECT_NUMBER);
+                    mySharedPreferences.saveRegId(reg_id);
+                    msg = "Device registered, registration ID=" + reg_id;
+                    Log.d("GCM",  msg);
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                }
+                return msg;
+            }
+            @Override
+            protected void onPostExecute(String msg) {
+                //etRegId.setText(msg + "\n");
+            }
+        }.execute(null, null, null);
+    }
+
 }
