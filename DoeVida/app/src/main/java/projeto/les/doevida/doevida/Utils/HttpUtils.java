@@ -1,6 +1,9 @@
 package projeto.les.doevida.doevida.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,11 +18,16 @@ public class HttpUtils {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private OkHttpClient mClient;
 
-    private Activity mContext;
+    private Context mContext;
 
-    public HttpUtils(Activity context) {
+    public HttpUtils(Context context) {
         mClient = new OkHttpClient();
         mContext = context;
+    }
+
+    public void runOnUiThread(Runnable runnable) {
+        Handler handler = new Handler(mContext.getMainLooper());
+        handler.post(runnable);
     }
 
     public void post(final String url, final String requestBodyJson, final HttpListener listener) {
@@ -32,7 +40,7 @@ public class HttpUtils {
                 try {
                     response = mClient.newCall(request).execute();
                     final String result = response.body().string();
-                    mContext.runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -44,7 +52,7 @@ public class HttpUtils {
                         }
                     });
                 } catch (Exception e) {
-                    mContext.runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             listener.onTimeout();
@@ -66,7 +74,7 @@ public class HttpUtils {
                 try {
                     response = mClient.newCall(request).execute();
                     final String result = response.body().string();
-                    mContext.runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -78,7 +86,7 @@ public class HttpUtils {
                         }
                     });
                 } catch (Exception e) {
-                    mContext.runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             listener.onTimeout();

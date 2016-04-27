@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = et_password.getText().toString();
 
                 //TODO : validar login, reg_id e password antes de mandar para o servidor
-                //Log.d("GCM_LOGIN", reg_id);
+                Log.d("GCM_LOGIN", reg_id);
                 login(login, password, reg_id);
             }
         });

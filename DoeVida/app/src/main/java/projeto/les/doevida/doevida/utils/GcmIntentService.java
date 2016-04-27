@@ -60,11 +60,9 @@ public class GcmIntentService extends IntentService {
     public static final String TAG = "GCM Demo";
 
     private NotificationManager mNotificationManager;
-    private HttpUtils mHttp;
 
     public GcmIntentService() {
         super("GcmIntentService");
-        //mHttp = new HttpUtils(this);
     }
 
     @Override
@@ -84,9 +82,9 @@ public class GcmIntentService extends IntentService {
              */
 
             if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification(extras.getString("titulo"), extras.getString("mensagem"), extras.getString("dataCriacao"), extras.getString("enderecado"));
+                sendNotification(extras.getString("titleNotification"), extras.getString("mensagem"));
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification(extras.getString("titulo"), extras.getString("mensagem"), extras.getString("dataCriacao"), extras.getString("enderecado"));
+                sendNotification(extras.getString("titleNotification"), extras.getString("mensagem"));
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
 
@@ -103,6 +101,12 @@ public class GcmIntentService extends IntentService {
                     }
                 }
                 Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
+
+                String titulo2 = extras.getString("titleNotification");
+                String titulo = extras.getString("titleNotification");
+                Log.d("NOTI", titulo + "");
+
+                sendNotification(titulo2, "MENSAGEM");
 
                 // Post notification of received message.
 //                final UsuarioController controller = new UsuarioController(GcmIntentService.this);
@@ -158,7 +162,7 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String titulo, String msg, String string, String enderecado) {
+    private void sendNotification(String titulo, String msg) {
 
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
