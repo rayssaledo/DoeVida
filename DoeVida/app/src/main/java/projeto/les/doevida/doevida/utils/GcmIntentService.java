@@ -23,11 +23,13 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 //import com.projetoles.dao.OnRequestListener;
 //import com.projetoles.model.Usuario;
 
+import android.app.AlertDialog;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -36,7 +38,11 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.views.NaoConectadoActivity;
@@ -54,9 +60,11 @@ public class GcmIntentService extends IntentService {
     public static final String TAG = "GCM Demo";
 
     private NotificationManager mNotificationManager;
+    private HttpUtils mHttp;
 
     public GcmIntentService() {
         super("GcmIntentService");
+        //mHttp = new HttpUtils(this);
     }
 
     @Override
@@ -95,6 +103,69 @@ public class GcmIntentService extends IntentService {
                     }
                 }
                 Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
+
+
+                /*mHttp.post(url, json.toString(), new HttpListener() {
+                    @Override
+                    public void onSucess(JSONObject result) throws JSONException {
+                        if (result.getInt("ok") == 0) {
+                            new AlertDialog.Builder(DonorsActivity.this)
+                                    .setTitle("Erro")
+                                    .setMessage(result.getString("msg"))
+                                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            mLoading.setVisibility(View.GONE);
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        } else {
+                            new AlertDialog.Builder(DonorsActivity.this)
+                                    .setMessage("Fomulário criado com sucesso")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            // dialog.dismiss();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onTimeout() {
+                        new AlertDialog.Builder(DonorsActivity.this)
+                                .setTitle("Erro")
+                                .setMessage("Conexão não disponível")
+                                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        mLoading.setVisibility(View.GONE);
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                });
+
+
+                gettingNotification(new HttpListener(){
+                    @Override
+                    public void onSucess(JSONObject jsonObject){
+
+                    }
+
+                    @Override
+                    public void onTimeout() {
+
+                    }
+
+                });*/
+
+
+
                 // Post notification of received message.
 //                final UsuarioController controller = new UsuarioController(GcmIntentService.this);
 //
@@ -140,6 +211,10 @@ public class GcmIntentService extends IntentService {
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
         GcmBroadcastReceiver.completeWakefulIntent(intent);
+    }
+
+    private void gettingNotification(HttpListener httpListener){
+
     }
 
     // Put the message into a notification and post it.
