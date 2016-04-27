@@ -1,6 +1,5 @@
 package projeto.les.doevida.doevida.views;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,20 +19,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.Utils.HttpListener;
-import projeto.les.doevida.doevida.Utils.HttpUtils;
-import projeto.les.doevida.doevida.Utils.MySharedPreferences;
-import projeto.les.doevida.doevida.adapters.DonorsAdapter;
+import projeto.les.doevida.doevida.utils.HttpListener;
+import projeto.les.doevida.doevida.utils.HttpUtils;
+import projeto.les.doevida.doevida.utils.MySharedPreferences;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.adapters.MyRequestsAdapter;
 import projeto.les.doevida.doevida.models.NavItem;
 import projeto.les.doevida.doevida.models.Request;
-import projeto.les.doevida.doevida.models.User;
 
 /**
  * Created by Andreza on 16/04/2016.

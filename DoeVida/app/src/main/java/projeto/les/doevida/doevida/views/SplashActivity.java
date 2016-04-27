@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.Utils.MySharedPreferences;
+import projeto.les.doevida.doevida.utils.MySharedPreferences;
 
 
 public class SplashActivity extends ActionBarActivity {

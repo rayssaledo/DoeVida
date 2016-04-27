@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.Utils.MySharedPreferences;
+import projeto.les.doevida.doevida.utils.MySharedPreferences;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.models.NavItem;
 

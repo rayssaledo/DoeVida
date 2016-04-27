@@ -28,9 +28,9 @@ import java.util.List;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.Utils.HttpListener;
-import projeto.les.doevida.doevida.Utils.HttpUtils;
-import projeto.les.doevida.doevida.Utils.MySharedPreferences;
+import projeto.les.doevida.doevida.utils.HttpListener;
+import projeto.les.doevida.doevida.utils.HttpUtils;
+import projeto.les.doevida.doevida.utils.MySharedPreferences;
 import projeto.les.doevida.doevida.models.User;
 
 public class UserCadastreActivity extends AppCompatActivity {

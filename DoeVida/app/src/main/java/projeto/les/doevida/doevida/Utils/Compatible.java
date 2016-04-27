@@ -1,4 +1,4 @@
-package projeto.les.doevida.doevida.Utils;
+package projeto.les.doevida.doevida.utils;
 
 /**
  * Created by Marcos Nascimento on 4/2/2016.

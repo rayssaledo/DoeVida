@@ -1,17 +1,23 @@
 package projeto.les.doevida.doevida.views;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -21,9 +27,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.Utils.HttpListener;
-import projeto.les.doevida.doevida.Utils.HttpUtils;
-import projeto.les.doevida.doevida.Utils.MySharedPreferences;
+import projeto.les.doevida.doevida.utils.HttpListener;
+import projeto.les.doevida.doevida.utils.HttpUtils;
+import projeto.les.doevida.doevida.utils.MySharedPreferences;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleCloudMessaging gcm;
     private String reg_id;
     private String PROJECT_NUMBER = "904914935842";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

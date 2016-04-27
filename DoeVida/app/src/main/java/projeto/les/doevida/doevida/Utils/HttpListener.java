@@ -1,4 +1,4 @@
-package projeto.les.doevida.doevida.Utils;
+package projeto.les.doevida.doevida.utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
