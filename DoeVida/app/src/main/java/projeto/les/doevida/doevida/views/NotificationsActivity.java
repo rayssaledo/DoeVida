@@ -113,7 +113,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
         actionBar =  getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.options);
+        actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu_white_24dp);
         actionBar.setHomeButtonEnabled(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -121,7 +121,7 @@ public class NotificationsActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(
                 NotificationsActivity.this,
                 mDrawerLayout,
-                R.drawable.options,
+                R.mipmap.ic_menu_white_24dp,
                 R.string.drawer_open,
                 R.string.drawer_close) {
 

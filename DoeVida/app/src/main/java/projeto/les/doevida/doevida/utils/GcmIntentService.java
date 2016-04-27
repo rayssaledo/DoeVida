@@ -104,68 +104,6 @@ public class GcmIntentService extends IntentService {
                 }
                 Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
 
-
-                /*mHttp.post(url, json.toString(), new HttpListener() {
-                    @Override
-                    public void onSucess(JSONObject result) throws JSONException {
-                        if (result.getInt("ok") == 0) {
-                            new AlertDialog.Builder(DonorsActivity.this)
-                                    .setTitle("Erro")
-                                    .setMessage(result.getString("msg"))
-                                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            mLoading.setVisibility(View.GONE);
-                                        }
-                                    })
-                                    .create()
-                                    .show();
-                        } else {
-                            new AlertDialog.Builder(DonorsActivity.this)
-                                    .setMessage("Fomulário criado com sucesso")
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            // dialog.dismiss();
-                                        }
-                                    })
-                                    .create()
-                                    .show();
-                        }
-                    }
-
-                    @Override
-                    public void onTimeout() {
-                        new AlertDialog.Builder(DonorsActivity.this)
-                                .setTitle("Erro")
-                                .setMessage("Conexão não disponível")
-                                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        mLoading.setVisibility(View.GONE);
-                                    }
-                                })
-                                .create()
-                                .show();
-                    }
-                });
-
-
-                gettingNotification(new HttpListener(){
-                    @Override
-                    public void onSucess(JSONObject jsonObject){
-
-                    }
-
-                    @Override
-                    public void onTimeout() {
-
-                    }
-
-                });*/
-
-
-
                 // Post notification of received message.
 //                final UsuarioController controller = new UsuarioController(GcmIntentService.this);
 //
