@@ -401,7 +401,7 @@ public class DonorsActivity extends AppCompatActivity {
 
                                         try {
                                             json.put("titleNotification", "Solicitação de sangue");
-                                            json.put("bodyNotification", jsonFormulario.toString());
+                                            json.put("bodyNotification", jsonFormulario);
                                             json.put("receiverLogin", loginDest);
                                             json.put("senderLogin", loginUserLogged);
                                         } catch (JSONException e) {
