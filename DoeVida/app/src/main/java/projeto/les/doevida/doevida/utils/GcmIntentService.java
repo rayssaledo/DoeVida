@@ -19,10 +19,6 @@ package projeto.les.doevida.doevida.utils;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-//import com.projetoles.controller.UsuarioController;
-//import com.projetoles.dao.OnRequestListener;
-//import com.projetoles.model.Usuario;
-
 import android.app.AlertDialog;
 import android.app.IntentService;
 import android.app.Notification;
@@ -47,13 +43,6 @@ import org.json.JSONObject;
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.views.NaoConectadoActivity;
 
-/**
- * This {@code IntentService} does the actual handling of the GCM message.
- * {@code GcmBroadcastReceiver} (a {@code WakefulBroadcastReceiver}) holds a
- * partial wake lock for this service while the service does its work. When the
- * service is finished, it calls {@code completeWakefulIntent()} to release the
- * wake lock.
- */
 public class GcmIntentService extends IntentService {
 
     public static final int NOTIFICATION_ID = 1;
@@ -70,99 +59,29 @@ public class GcmIntentService extends IntentService {
 
         final Bundle extras = intent.getExtras();
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
-        // The getMessageType() intent parameter must be the intent you received
-        // in your BroadcastReceiver.
         String messageType = gcm.getMessageType(intent);
 
         if (!extras.isEmpty()) {  // has effect of unparcelling Bundle
-            /*
-             * Filter messages based on message type. Since it is likely that GCM will be
-             * extended in the future with new message types, just ignore any message types you're
-             * not interested in, or that you don't recognize.
-             */
-
-            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification(extras.getString("titleNotification"), extras.getString("mensagem"));
-            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification(extras.getString("titleNotification"), extras.getString("mensagem"));
-                // If it's a regular GCM message, do some work.
-            } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-
-                // This loop represents the service doing some work.
-                for (int i = 0; i < 5; i++) {
-                    Log.i(TAG, "Working... " + (i + 1)
-                            + "/5 @ " + SystemClock.elapsedRealtime());
-                    try {
-
-                        Thread.sleep(5000);
-
-                    } catch (InterruptedException e) {
-
-                    }
+            try {
+                if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
+                    sendNotification(extras.getString("titleNotification"), new JSONObject(extras.getString("bodyNotification")));
+                } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
+                    sendNotification(extras.getString("titleNotification"), new JSONObject(extras.getString("bodyNotification")));
+                    // If it's a regular GCM message, do some work.
+                } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+                    String title = extras.getString("titleNotification");
+                    JSONObject body = new JSONObject(extras.getString("bodyNotification"));
+                    sendNotification(title, body);
                 }
-                Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-
-                String titulo2 = extras.getString("titleNotification");
-                String titulo = extras.getString("titleNotification");
-                Log.d("NOTI", titulo + "");
-
-                sendNotification(titulo2, "MENSAGEM");
-
-                // Post notification of received message.
-//                final UsuarioController controller = new UsuarioController(GcmIntentService.this);
-//
-//                controller.get(extras.getString("titulo"), new OnRequestListener<Usuario>(this) {
-//
-//                    @Override
-//                    public void onSuccess(Usuario result) {
-//                        sendNotification(result.getNome(), extras.getString("mensagem"), extras.getString("dataCriacao"), extras.getString("enderecado"));
-//
-//                        controller.getUsuarioLogado(new OnRequestListener<Usuario>(GcmIntentService.this) {
-//
-//                            @Override
-//                            public void onSuccess(Usuario usuario) {
-//                                if (extras.getString("enderecado").equals(usuario.getId()))
-//                                    usuario.getNotificacoes().add(extras.getString("_id"), Long.valueOf(extras.getString("date")));
-//                            }
-//
-//                            @Override
-//                            public void onError(String errorMessage) {
-//                                Toast.makeText(GcmIntentService.this, errorMessage, Toast.LENGTH_LONG).show();
-//                            }
-//
-//                            @Override
-//                            public void onTimeout() {
-//                                Toast.makeText(GcmIntentService.this, "Ocorreu um erro com a sua requisição. Verifique sua conexão com a internet.", Toast.LENGTH_LONG).show();
-//                            }
-//                        }, null);
-//
-//                        Log.i(TAG, "Received: " + extras.toString());
-//                    }
-//
-//                    @Override
-//                    public void onError(String errorMessage) {
-//                        Log.e(TAG, errorMessage);
-//                    }
-//
-//                    @Override
-//                    public void onTimeout() {
-//                        Log.e(TAG, "TIMEOUT");
-//                    }
-//                });
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
         GcmBroadcastReceiver.completeWakefulIntent(intent);
     }
 
-    private void gettingNotification(HttpListener httpListener){
-
-    }
-
-    // Put the message into a notification and post it.
-    // This is just one simple example of what you might choose to do with
-    // a GCM message.
-    private void sendNotification(String titulo, String msg) {
+    private void sendNotification(String title, JSONObject body) throws JSONException {
 
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -174,8 +93,8 @@ public class GcmIntentService extends IntentService {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_laucher)
                 .setContentTitle("Doe Vida")
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(titulo + msg))
-                .setContentText(titulo + msg);
+                        .bigText(title))
+                .setContentText(body.getString("login") + " lhe enviou uma solicitação.");
 
         mBuilder.setContentIntent(contentIntent);
 

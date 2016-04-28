@@ -398,10 +398,9 @@ public class DonorsActivity extends AppCompatActivity {
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-
                                         try {
-                                            json.put("titleNotification", "Solicitação de sangue");
-                                            json.put("bodyNotification", jsonFormulario);
+                                            json.put("titleNotification", "Solicitacao de sangue");
+                                            json.put("bodyNotification", jsonFormulario.toString());
                                             json.put("receiverLogin", loginDest);
                                             json.put("senderLogin", loginUserLogged);
                                         } catch (JSONException e) {
@@ -438,6 +437,7 @@ public class DonorsActivity extends AppCompatActivity {
 
                                             @Override
                                             public void onTimeout() {
+                                                System.out.println("TIMEOUT!!!!");
                                                 new AlertDialog.Builder(DonorsActivity.this)
                                                         .setTitle("Erro")
                                                         .setMessage("Conexão não disponível")
