@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,10 +15,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.adapters.MyRequestsAdapter;
+import projeto.les.doevida.doevida.adapters.NotificationsAdapter;
+import projeto.les.doevida.doevida.models.Request;
+import projeto.les.doevida.doevida.utils.HttpListener;
+import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.models.NavItem;
@@ -30,11 +41,18 @@ public class NotificationsActivity extends AppCompatActivity {
     private TextView nameUserTextView;
     private TextView loginUserTextView;
     private HashMap<String, String> userDetails;
+    private ListView listViewMyNotifications;
+    private HttpUtils mHttp;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
+    private String username;
+
+    private List<Request> listMyNotifications;
+
+    private NotificationsAdapter adapter;
 
     private android.support.v7.app.ActionBar actionBar;
     private CharSequence mTitle;
@@ -45,23 +63,73 @@ public class NotificationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
+        mHttp = new HttpUtils(this);
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
 
         String name = userDetails.get(MySharedPreferences.KEY_NAME_USER);
-        String username = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
+        username = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
 
         nameUserTextView = (TextView) findViewById(R.id.nameUser);
         nameUserTextView.setText(name);
 
         loginUserTextView = (TextView) findViewById(R.id.login);
         loginUserTextView.setText(username);
+        listViewMyNotifications = (ListView) findViewById(R.id.lv_notifications);
 
         // Navigation bar
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
         context = this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getListMyNotifications();
+    }
+
+    private void getListMyNotifications() {
+        String urlGetUser = "http://doevida-grupoles.rhcloud.com/getUser?login=" + username ;
+        mHttp.get(urlGetUser, new HttpListener() {
+            @Override
+            public void onSucess(JSONObject response) throws JSONException {
+                listViewMyNotifications.setVisibility(View.VISIBLE);
+                if (response.getInt("ok") == 1) {
+                    JSONObject jsonUser = response.getJSONObject("result");
+                    JSONArray jsonArray = jsonUser.getJSONArray("listMyNotifications");
+                    userLogged.saveListNotifications(jsonArray.toString());
+                    listMyNotifications = userLogged.getListRequests();
+                    if (listMyNotifications.size() == 0) {
+                        listViewMyNotifications.setVisibility(View.GONE);
+                    }
+                    adapter = new NotificationsAdapter(NotificationsActivity.this, listMyNotifications);
+                    listViewMyNotifications.setAdapter(adapter);
+                    Log.d("lista de requests", "CERTO!!" +
+                            "");
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                if (userLogged.getListRequests() != null) {
+                    listMyNotifications = userLogged.getListRequests();
+                }
+                if (listMyNotifications != null && listMyNotifications.size() == 0 || listMyNotifications == null) {
+                    Log.d("Notifications", "Tamanho da lista é zero");
+                    listViewMyNotifications.setVisibility(View.GONE);
+                } else {
+                    adapter = new NotificationsAdapter(context, listMyNotifications);
+                    listViewMyNotifications.setAdapter(adapter);
+                }
+            }
+        });
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {

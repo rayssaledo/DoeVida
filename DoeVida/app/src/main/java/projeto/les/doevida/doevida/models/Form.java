@@ -2,9 +2,6 @@ package projeto.les.doevida.doevida.models;
 
 import java.util.Date;
 
-/**
- * Created by Marcos Nascimento on 4/2/2016.
- */
 public class Form {
 
     private String patientName, hospitalName, city;

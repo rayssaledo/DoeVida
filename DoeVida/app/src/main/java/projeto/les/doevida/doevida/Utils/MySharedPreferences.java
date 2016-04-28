@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.models.Request;
 import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.views.DonorsActivity;
@@ -30,6 +31,8 @@ public class MySharedPreferences {
     int PRIVATE_MODE = 0;
     private List<User> listDonors;
     private List<Request> my_forms;
+    private List<Form> myForms;
+    private List<Form> requests;
 
     private static final String PREFER_NAME = "Pref";
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
@@ -44,6 +47,9 @@ public class MySharedPreferences {
     public static final String KEY_PASSWORD_USER = "password_user";
     public static final String KEY_LIST_DONORS = "list_donors";
     public static final String KEY_LIST_FORMS = "list_forms";
+    public static final String KEY_LIST_NOTIFICATIONS = "list_notifications";
+    public static final String KEY_LIST_MY_FORMS = "list_my_forms";
+
     public static final String KEY_REG_ID = "reg_id";
 
 
@@ -154,6 +160,16 @@ public class MySharedPreferences {
         mEditor.commit();
     }
 
+    public void saveListNotifications (String listNotifications) {
+        mEditor.putString(KEY_LIST_NOTIFICATIONS, listNotifications);
+        mEditor.commit();
+    }
+
+    public void saveMyForms(String listMyForms) {
+        mEditor.putString(KEY_LIST_MY_FORMS, listMyForms);
+        mEditor.commit();
+    }
+
     public List<User> getListDonors() {
         String jsonArrayString = mPref.getString(KEY_LIST_DONORS, "");
         try {
@@ -164,6 +180,28 @@ public class MySharedPreferences {
         } return listDonors;
     }
 
+    public List<Request> getListNotifications(){
+        String jsonArrayString = mPref.getString(KEY_LIST_NOTIFICATIONS, "");
+        try {
+            JSONArray jsonArray = new JSONArray(jsonArrayString);
+            loadMyNotifications(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } return my_forms;
+    }
+
+
+
+    public List<Form> getListMyForms(){
+        String jsonArrayString = mPref.getString(KEY_LIST_MY_FORMS, "");
+        try {
+            JSONArray jsonArray = new JSONArray(jsonArrayString);
+            loadMyFormsReceived(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return myForms;
+    }
     public List<Request> getListRequests(){
         String jsonArrayString = mPref.getString(KEY_LIST_FORMS, "");
         try {
@@ -172,6 +210,61 @@ public class MySharedPreferences {
         } catch (JSONException e) {
             e.printStackTrace();
         } return my_forms;
+    }
+
+    private void loadMyNotifications(JSONArray jsonArray) throws JSONException{
+        my_forms =  new ArrayList<Request>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonRequest = jsonArray.getJSONObject(i);
+            String patientName = jsonRequest.getString("senderLogin");
+
+            JSONObject jsonBody = jsonRequest.getJSONObject("bodyNotification");
+
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date deadline = null;
+            try {
+                deadline = format.parse(jsonBody.getString("deadline"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                Request request = new Request(patientName, deadline);
+                my_forms.add(request);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //paciente, hospital, cidade, deadline
+
+
+    private void loadMyFormsReceived(JSONArray jsonArray) throws JSONException{
+        myForms =  new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonRequest = jsonArray.getJSONObject(i);
+            JSONObject bodyNotification = jsonRequest.getJSONObject("bodyNotification");
+
+            String patient = bodyNotification.getString("patientName");
+            String hospital = bodyNotification.getString("hospitalName");
+            String city = bodyNotification.getString("city");
+           // String state = bodyNotification.getString("state");
+            String bloodType = bodyNotification.getString("bloodType");
+
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date deadline = null;
+            try {
+                deadline = format.parse(bodyNotification.getString("deadline"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                Form form = new Form(patient, hospital, city, bloodType, deadline);
+                myForms.add(form);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void loadMyForms(JSONArray jsonArray) throws JSONException{
@@ -196,6 +289,8 @@ public class MySharedPreferences {
         }
     }
 
+
+
     private void loadsList(JSONArray jsonArray) throws JSONException {
         listDonors = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -209,6 +304,10 @@ public class MySharedPreferences {
             String lastDonation = jsonDonor.getString("lastDonation");
             String gender = jsonDonor.getString("gender");
             String typeOfBlood = jsonDonor.getString("bloodType");
+
+            //JSONArray jsonForms = jsonDonor.getJSONArray("forms");
+
+
 
             char genderDonor = gender.charAt(0);
 

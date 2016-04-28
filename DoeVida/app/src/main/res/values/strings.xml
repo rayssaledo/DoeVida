@@ -102,7 +102,7 @@
     <string name="title_activity_requested_me">Pediram-me</string>
     <string name="status">STATUS</string>
 
-    <string name="title_activity_my_requests" />
+    <string name="title_activity_my_requests">Meus pedidos</string>
     <string name="hint_name_requester">Nome do solicitante</string>
     <string name="hint_date_request">XX/XX/XXXX</string>
 
@@ -123,5 +123,6 @@
     <string name="accept">ACEITAR</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_nao_conectado">NaoConectadoActivity</string>
+    <string name="title_activity_requests">RequestsActivity</string>
 
 </resources>

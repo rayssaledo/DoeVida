@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
@@ -84,6 +85,14 @@ public class MyRequestsActivity extends AppCompatActivity {
 
         getListMyForms();
 
+        listViewMyRequests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+
+
+
 //        try {
 //            listMyRequests = userLogged.getListRequests();
 //            adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
@@ -102,43 +111,6 @@ public class MyRequestsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         getListMyForms();
-    }
-
-    private void getListMyForms() {
-        String urlGetUser = "http://doevida-grupoles.rhcloud.com/getUser?login=" + username ;
-        mHttp.get(urlGetUser, new HttpListener() {
-            @Override
-            public void onSucess(JSONObject response) throws JSONException {
-                listViewMyRequests.setVisibility(View.VISIBLE);
-                if (response.getInt("ok") == 1) {
-                    JSONObject jsonUser = response.getJSONObject("result");
-                    JSONArray jsonArray = jsonUser.getJSONArray("forms");
-                    userLogged.saveListRequests(jsonArray.toString());
-                    listMyRequests = userLogged.getListRequests();
-                    if (listMyRequests.size() == 0) {
-                        listViewMyRequests.setVisibility(View.GONE);
-                    }
-                    adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
-                    listViewMyRequests.setAdapter(adapter);
-                    Log.d("lista de requests", "CERTO!!" +
-                            "");
-                }
-            }
-
-            @Override
-            public void onTimeout() {
-                if (userLogged.getListRequests() != null) {
-                    listMyRequests = userLogged.getListRequests();
-                }
-                if (listMyRequests != null && listMyRequests.size() == 0 || listMyRequests == null) {
-                    Log.d("Requests", "Tamanho da lista é zero");
-                    listViewMyRequests.setVisibility(View.GONE);
-                } else {
-                    adapter = new MyRequestsAdapter(context, listMyRequests);
-                    listViewMyRequests.setAdapter(adapter);
-                }
-            }
-        });
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {
@@ -213,6 +185,43 @@ public class MyRequestsActivity extends AppCompatActivity {
             }
         };
 
+    }
+
+    private void getListMyForms() {
+        String urlGetUser = "http://doevida-grupoles.rhcloud.com/getUser?login=" + username ;
+        mHttp.get(urlGetUser, new HttpListener() {
+            @Override
+            public void onSucess(JSONObject response) throws JSONException {
+                listViewMyRequests.setVisibility(View.VISIBLE);
+                if (response.getInt("ok") == 1) {
+                    JSONObject jsonUser = response.getJSONObject("result");
+                    JSONArray jsonArray = jsonUser.getJSONArray("forms");
+                    userLogged.saveListRequests(jsonArray.toString());
+                    listMyRequests = userLogged.getListRequests();
+                    if (listMyRequests.size() == 0) {
+                        listViewMyRequests.setVisibility(View.GONE);
+                    }
+                    adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
+                    listViewMyRequests.setAdapter(adapter);
+                    Log.d("lista de requests", "CERTO!!" +
+                            "");
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                if (userLogged.getListRequests() != null) {
+                    listMyRequests = userLogged.getListRequests();
+                }
+                if (listMyRequests != null && listMyRequests.size() == 0 || listMyRequests == null) {
+                    Log.d("Requests", "Tamanho da lista é zero");
+                    listViewMyRequests.setVisibility(View.GONE);
+                } else {
+                    adapter = new MyRequestsAdapter(context, listMyRequests);
+                    listViewMyRequests.setAdapter(adapter);
+                }
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

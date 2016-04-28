@@ -11,18 +11,15 @@ import java.util.List;
 
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.models.Form;
-import projeto.les.doevida.doevida.models.User;
 
-/**
- * Created by Lucas on 16/04/2016.
- */
-public class RequestedMeAdapter extends BaseAdapter {
+
+public class RequestsAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private List<Form> items;
     Context context;
 
-    public RequestedMeAdapter(Context context, List<Form> items) {
+    public RequestsAdapter(Context context, List<Form> items) {
         this.items = items;
         mInflater = LayoutInflater.from(context);
     }
@@ -45,15 +42,22 @@ public class RequestedMeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = mInflater.inflate(R.layout.my_item_requested_me, null);
+        convertView = mInflater.inflate(R.layout.my_item_requests, null);
 
         Form item = items.get(position);
 
         ((TextView) convertView.findViewById(R.id.tv_name)).setText(item.getPatientName());
-       // ((TextView) convertView.findViewById(R.id.tv_date_request)).setText(item.getDeadline().toString());//TODO data do pedido e nao deadline
+        ((TextView) convertView.findViewById(R.id.tv_hospital)).setText(item.getHospitalName());
+        ((TextView) convertView.findViewById(R.id.tv_city)).setText(item.getCity());
+        ((TextView) convertView.findViewById(R.id.tv_name)).setText(item.getPatientName());
+      //  ((TextView) convertView.findViewById(R.id.tv_deadline)).setText(item.getDeadline());
+
+
+
+
+        ((TextView) convertView.findViewById(R.id.tv_date_request)).setText(item.getDeadline().toString());//TODO data do pedido e nao deadline
         //((TextView) convertView.findViewById(R.id.tv_status)).setText("");
 
         return convertView;
     }
 }
-

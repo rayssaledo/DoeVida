@@ -40,7 +40,7 @@
             android:label="@string/title_activity_donors" />
         <activity
             android:name=".views.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -78,20 +78,25 @@
             android:name=".views.RequestedMeActivity"
             android:label="@string/title_activity_requested_me" />
 
+        <activity
+            android:name=".views.RequestsActivity"
+            android:label="Quem precisa" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <receiver
-            android:name="projeto.les.doevida.doevida.utils.GcmBroadcastReceiver"
+            android:name=".utils.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="projeto.les.doevida.doevida.utils" />
             </intent-filter>
         </receiver>
 
-        <service android:name="projeto.les.doevida.doevida.utils.GcmIntentService" />
+        <service android:name=".utils.GcmIntentService" />
     </application>
 
 </manifest>
