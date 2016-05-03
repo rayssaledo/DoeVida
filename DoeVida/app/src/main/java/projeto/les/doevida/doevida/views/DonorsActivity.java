@@ -103,14 +103,10 @@ public class DonorsActivity extends AppCompatActivity {
         String name = userDetails.get(MySharedPreferences.KEY_NAME_USER);
         loginUserLogged = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
 
-        Log.d("TESTE", "Nome: " + name);
-
         nameUserTextView = (TextView) findViewById(R.id.nameUser);
         nameUserTextView.setText(name);
-
         loginUserTextView = (TextView) findViewById(R.id.login);
         loginUserTextView.setText(loginUserLogged);
-
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 

@@ -1,8 +1,9 @@
 package projeto.les.doevida.doevida.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Form {
+public class Form implements Serializable {
 
     private String patientName, hospitalName, city;
     private String typeOfBlood;
