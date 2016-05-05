@@ -267,7 +267,7 @@ public class DonorsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 User item = (User) adapter.getItem(position);
-                final String loginDest = item.getUserame();
+                final String loginDest = item.getUsername();
 
                 final Dialog dialogChooseForm = new Dialog(DonorsActivity.this);
                 dialogChooseForm.setContentView(R.layout.dialog_choose_form);

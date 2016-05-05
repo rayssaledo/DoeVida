@@ -49,7 +49,7 @@ public class LoginTest extends AndroidTestCase {
         Assert.assertEquals(name, user.getName());
         Assert.assertEquals(state, user.getState());
         Assert.assertEquals(city, user.getCity());
-        Assert.assertEquals(username, user.getUserame());
+        Assert.assertEquals(username, user.getUsername());
         Assert.assertEquals(password, user.getPassword());
         Assert.assertEquals(blood_type, user.getTypeOfBlood());
         Assert.assertEquals(gender, user.getGender());

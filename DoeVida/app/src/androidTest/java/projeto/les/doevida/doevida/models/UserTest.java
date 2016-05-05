@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class UserTest extends AndroidTestCase {
 
-    private User user;
+    private User user, user2;
     private Form form;
     private DateFormat formatter;
     private Date birthdate, today, deadline;
@@ -30,7 +30,10 @@ public class UserTest extends AndroidTestCase {
 
         user = new User("Marcos Nascimento", "marcosn", "mypassiseasy", "Paraíba", "Campina Grande", birthdate,
                 today, 'M', "+O");
-        form = new Form("jefferson Ricelle Silva Nascimento", "Hemocentro de Campina Grande", "Campina Grande", "+O", deadline);
+        user2 = new User("Ricardo Toledo Sampaio", "ricardots", "mypassiseasy", "Paraíba", "Campina Grande", birthdate,
+                today, 'M', "+O");
+        form = new Form(user2.getUsername(), "jefferson Ricelle Silva Nascimento", "Hemocentro de Campina Grande",
+                "Campina Grande","Paraíba", "+O", deadline);
         request = new Request(form.getPatientName(), deadline);
     }
 
@@ -137,7 +140,7 @@ public class UserTest extends AndroidTestCase {
     @Test
     public void testGetsUser() {
         assertEquals(user.getName(), new String("Marcos Nascimento"));
-        assertEquals(user.getUserame(), new String("marcosn"));
+        assertEquals(user.getUsername(), new String("marcosn"));
         assertEquals(user.getPassword(), new String("mypassiseasy"));
         assertEquals(user.getCity(), new String("Campina Grande"));
         assertEquals(user.getState(), new String("Paraíba"));
@@ -166,7 +169,7 @@ public class UserTest extends AndroidTestCase {
         user.addRequest(form.getPatientName(), deadline);
 
         assertEquals(user.getName(), new String("Marcos Antônio Silva Nascimento"));
-        assertEquals(user.getUserame(), new String("marcosnas"));
+        assertEquals(user.getUsername(), new String("marcosnas"));
         assertEquals(user.getPassword(), new String("m4rc0s"));
         assertEquals(user.getCity(), new String("João Pessoa"));
         assertEquals(user.getState(), new String("PB"));

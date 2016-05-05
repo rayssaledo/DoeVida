@@ -65,7 +65,7 @@ public class User implements Serializable{
         return name;
     }
 
-    public String getUserame() {
+    public String getUsername() {
         return username;
     }
 

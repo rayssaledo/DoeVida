@@ -13,7 +13,8 @@ public class Form implements Serializable {
     private String typeOfBlood;
     private Date deadline;
 
-    public Form(String loginDest, String patientName, String hospitalName, String city, String state, String typeOfBlood, Date deadline) throws Exception {
+    public Form(String loginDest, String patientName, String hospitalName, String city, String state,
+                String typeOfBlood, Date deadline) throws Exception {
         if(loginDest == null || loginDest.equals("")){
             throw new Exception("Login receiver is invalid.");
         }
@@ -25,6 +26,9 @@ public class Form implements Serializable {
         }
         if(city == null || city.equals("")){
             throw new Exception("City is invalid.");
+        }
+        if(state == null || state.equals("")){
+            throw new Exception("State is invalid.");
         }
         if(typeOfBlood == null || typeOfBlood.equals("")){
             throw new Exception("Type of blood is invalid.");
