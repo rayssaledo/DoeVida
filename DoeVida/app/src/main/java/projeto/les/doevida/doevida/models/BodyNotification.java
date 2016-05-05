@@ -13,7 +13,8 @@ public class BodyNotification implements Serializable {
     private String patientName;
     private String bloodTypePatient;
 
-    public BodyNotification(String loginDest, String donorName, String bloodTypeDonor, String patientName, String bloodTypePatient) throws Exception {
+    public BodyNotification(String loginDest, String donorName, String bloodTypeDonor, String patientName,
+                            String bloodTypePatient) throws Exception {
         if(loginDest == null || loginDest.equals("")){
             throw new Exception("Login receiver is invalid.");
         }
@@ -90,5 +91,4 @@ public class BodyNotification implements Serializable {
         }
         this.bloodTypePatient = bloodTypePatient;
     }
-
 }
