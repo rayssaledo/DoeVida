@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.models.BodyNotification;
 import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.views.DonationOrderActivity;
 
@@ -89,27 +90,51 @@ public class GcmIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Intent notificationIntent = new Intent(this, DonationOrderActivity.class);
+        Intent notificationIntent = null;
 
-        String patient = body.getString("patientName");
-        String hospital = body.getString("hospitalName");
-        String city = body.getString("city");
-        String typeOfBlood = body.getString("bloodType");
+        if(title.equals("Solicitacao de sangue")){
+            notificationIntent = new Intent(this, DonationOrderActivity.class);
 
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = format.parse(body.getString("deadline"));
-        } catch (ParseException e) {
-            e.printStackTrace();
+            String loginDest = body.getString("login");
+            String patient = body.getString("patientName");
+            String hospital = body.getString("hospitalName");
+            String city = body.getString("city");
+            String state = body.getString("state");
+            String typeOfBlood = body.getString("bloodType");
+
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = null;
+            try {
+                date = format.parse(body.getString("deadline"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Form form = new Form(loginDest, patient, hospital, city, state, typeOfBlood, date);
+                notificationIntent.putExtra("FORMORDER", form);
+                startActivity(notificationIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        try {
-            Form form = new Form(patient, hospital, city, typeOfBlood, date);
-            notificationIntent.putExtra("FORM_ORDER", form);
-            startActivity(notificationIntent);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(title.equals("Pedido aceito")){
+            notificationIntent = new Intent(this, DonationOrderActivity.class);
+
+            String loginDest = body.getString("login");
+            String donorName = body.getString("donorName");
+            String bloodTypeName = body.getString("bloodTypeDonor");
+            String patientName = body.getString("patientName");
+            String bloodTypePatient = body.getString("bloodTypePatient");
+
+            try {
+                BodyNotification bodyNotification = new BodyNotification(loginDest, donorName, bloodTypeName, patientName, bloodTypePatient);
+                notificationIntent.putExtra("BODYNOTIFICATION", bodyNotification);
+                startActivity(notificationIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -118,7 +143,7 @@ public class GcmIntentService extends IntentService {
                 .setContentTitle("Doe Vida")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(title))
-                .setContentText("Solicitação de sangue.");
+                .setContentText(title);
 
         mBuilder.setContentIntent(contentIntent);
 

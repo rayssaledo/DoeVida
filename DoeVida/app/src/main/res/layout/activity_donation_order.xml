@@ -198,7 +198,7 @@
                         android:text="@string/refuse"
                         android:textAlignment="textStart"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blue"
                         android:textSize="16sp"/>
 
                     <Button
@@ -207,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/accept"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blue"
                         android:textSize="16sp"
                         android:layout_toRightOf="@+id/btn_refuse"/>
                 </RelativeLayout>
@@ -219,5 +219,20 @@
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingDonationOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#64000000"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="?android:attr/progressBarStyleLarge"/>
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
