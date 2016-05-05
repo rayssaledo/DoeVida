@@ -19,8 +19,8 @@ public class Form implements Serializable {
         if(city == null || city.equals("")){
             throw new Exception("City is invalid.");
         }
-        if(typeOfBlood == null){
-            throw new Exception("Type of blood is null.");
+        if(typeOfBlood == null || typeOfBlood.equals("")){
+            throw new Exception("Type of blood is invalid.");
         }
         if(deadline == null){
             throw new Exception("Deadline is null.");

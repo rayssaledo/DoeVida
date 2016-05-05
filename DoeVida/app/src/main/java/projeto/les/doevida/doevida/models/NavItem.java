@@ -1,6 +1,7 @@
 package projeto.les.doevida.doevida.models;
 
 public class NavItem {
+
     public String title;
     public int icon;
 

@@ -71,10 +71,8 @@ public class GcmIntentService extends IntentService {
                     // If it's a regular GCM message, do some work.
                 } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                     String title = extras.getString("titleNotification");
-                         JSONObject body = new JSONObject(extras.getString("bodyNotification"));
-
+                    JSONObject body = new JSONObject(extras.getString("bodyNotification"));
                     sendNotification(title, body);
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -85,7 +83,6 @@ public class GcmIntentService extends IntentService {
     }
 
     private void sendNotification(String title, JSONObject body) throws JSONException {
-
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 

@@ -1,6 +1,7 @@
 package projeto.les.doevida.doevida.models;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by Andreza on 16/04/2016.
@@ -17,7 +18,7 @@ public class Request {
 
     public void setRequesterName (String requesterName) throws Exception {
         if (requesterName == null || requesterName.equals("")) {
-            throw new Exception("Nome do solicitante e obrigatório!");
+            throw new Exception("Nome do solicitante é obrigatório!");
         }
         this.requesterName = requesterName;
     }
@@ -37,4 +38,13 @@ public class Request {
         return this.requestDate;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null || !(obj instanceof Request) ){
+            return false;
+        }
+        Request obj2 = (Request) obj;
+        return this.getRequesterName().equals(obj2.getRequesterName()) &&
+                this.getRequestDate().equals(obj2.getRequestDate());
+    }
 }

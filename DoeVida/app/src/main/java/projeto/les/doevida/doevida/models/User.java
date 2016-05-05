@@ -18,7 +18,6 @@ public class User implements Serializable{
     private List<Form> forms;
     private List<Request> myRequests;
 
-
     public User(String name, String username, String password, String state, String city, Date birthdate,
                 Date lastDonation, Character gender, String typeOfBlood) throws Exception {
         if(name == null || name.equals("")){
@@ -42,8 +41,11 @@ public class User implements Serializable{
         if(gender == null){
             throw new Exception("Gender is null.");
         }
-        if(typeOfBlood == null){
-            throw new Exception("Type of blood is null.");
+        if(typeOfBlood == null || typeOfBlood.equals("")){
+            throw new Exception("Type of blood is invalid.");
+        }
+        if(birthdate != null && lastDonation != null && birthdate.equals(lastDonation)){
+            throw new Exception("Last donation date is invalid.");
         }
         this.name = name;
         this.username = username;
@@ -56,6 +58,7 @@ public class User implements Serializable{
         this.typeOfBlood = typeOfBlood;
         this.forms = new ArrayList<Form>();
         this.myRequests =  new ArrayList<Request>();
+        this.canDonate = false;
     }
 
     public String getName() {
@@ -106,6 +109,20 @@ public class User implements Serializable{
 
     public List<Form> getForms(){
         return forms;
+    }
+
+    public void setGender(Character gender) throws Exception {
+        if(gender == null){
+            throw new Exception("Gender is invalid.");
+        }
+        this.gender = gender;
+    }
+
+    public void setTypeOfBlood(String typeOfBlood) throws Exception {
+        if(typeOfBlood == null || typeOfBlood.equals("")){
+            throw new Exception("Type of blood is invalid.");
+        }
+        this.typeOfBlood = typeOfBlood;
     }
 
     public void setName(String name) throws Exception {
