@@ -5,11 +5,18 @@ import java.util.Date;
 
 public class Form implements Serializable {
 
-    private String patientName, hospitalName, city;
+    private String loginDest;
+    private String patientName;
+    private String hospitalName;
+    private String city;
+    private String state;
     private String typeOfBlood;
     private Date deadline;
 
-    public Form(String patientName, String hospitalName, String city, String typeOfBlood, Date deadline) throws Exception {
+    public Form(String loginDest, String patientName, String hospitalName, String city, String state, String typeOfBlood, Date deadline) throws Exception {
+        if(loginDest == null || loginDest.equals("")){
+            throw new Exception("Login receiver is invalid.");
+        }
         if(patientName == null || patientName.equals("")){
             throw new Exception("Patient name is invalid.");
         }
@@ -25,11 +32,24 @@ public class Form implements Serializable {
         if(deadline == null){
             throw new Exception("Deadline is null.");
         }
+        this.loginDest = loginDest;
         this.patientName = patientName;
         this.hospitalName = hospitalName;
         this.city = city;
+        this.state = state;
         this.typeOfBlood = typeOfBlood;
         this.deadline = deadline;
+    }
+
+    public String getLoginDest() {
+        return loginDest;
+    }
+
+    public void setLoginDest(String loginDest) throws Exception {
+        if(loginDest == null || loginDest.equals("")){
+            throw new Exception("Login receiver is invalid.");
+        }
+        this.loginDest = loginDest;
     }
 
     public String getPatientName() {
@@ -63,6 +83,17 @@ public class Form implements Serializable {
             throw new Exception("City is invalid.");
         }
         this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) throws Exception {
+        if(state == null || state.equals("")){
+            throw new Exception("State is invalid.");
+        }
+        this.state = state;
     }
 
     public String getTypeOfBlood() {

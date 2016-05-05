@@ -245,10 +245,11 @@ public class MySharedPreferences {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
             JSONObject bodyNotification = jsonRequest.getJSONObject("bodyNotification");
 
+            String loginDest = bodyNotification.getString("senderLogin");
             String patient = bodyNotification.getString("patientName");
             String hospital = bodyNotification.getString("hospitalName");
             String city = bodyNotification.getString("city");
-           // String state = bodyNotification.getString("state");
+            String state = bodyNotification.getString("state");
             String bloodType = bodyNotification.getString("bloodType");
 
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -259,7 +260,7 @@ public class MySharedPreferences {
                 e.printStackTrace();
             }
             try {
-                Form form = new Form(patient, hospital, city, bloodType, deadline);
+                Form form = new Form(loginDest, patient, hospital, city, state, bloodType, deadline);
                 myForms.add(form);
             } catch (Exception e) {
                 e.printStackTrace();

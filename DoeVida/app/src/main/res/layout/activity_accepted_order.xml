@@ -109,7 +109,7 @@
                     android:text="@string/ok"
                     android:textAlignment="textStart"
                     style="@style/Widget.AppCompat.Button.Borderless"
-                    android:textColor="@color/red"
+                    android:textColor="@color/blue"
                     android:textSize="16sp"/>
 
             </LinearLayout>
