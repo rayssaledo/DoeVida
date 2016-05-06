@@ -77,7 +77,6 @@
         <activity
             android:name=".views.RequestedMeActivity"
             android:label="@string/title_activity_requested_me" />
-
         <activity
             android:name=".views.RequestsActivity"
             android:label="Quem precisa" />

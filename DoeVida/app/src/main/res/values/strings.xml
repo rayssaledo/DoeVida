@@ -83,6 +83,7 @@
     <string name="cancel">CANCELAR</string>
     <string name="ok">OK</string>
     <string name="send">ENVIAR</string>
+    <string name="recebi">RECEBI</string>
 
     <string name="blood_type">Tipo sanguíneo</string>
     <string name="hint_name_user">Nome do usuário</string>
@@ -97,6 +98,8 @@
     <string name="accepted_order1">aceitou seu pedido de doação de sangue para:</string>
     <string name="receptor_name">Nome do receptor</string>
     <string name="accepted_order2">Aguarde a doação.</string>
+
+
 
 
     <string name="title_activity_requested_me">Pediram-me</string>
@@ -124,5 +127,11 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_nao_conectado">NaoConectadoActivity</string>
     <string name="title_activity_requests">RequestsActivity</string>
+
+    <string name="title_activity_confirmation_donation">ConfirmationDonationActivity</string>
+    <string name="held_donation">realizou a doação de sangue para:</string>
+    <string name="receptor">Nome do receptor</string>
+    <string name="confirm_received">Confirme o recebimento.</string>
+
 
 </resources>
