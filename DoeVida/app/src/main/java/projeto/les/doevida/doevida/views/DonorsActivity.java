@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,13 +34,13 @@ import java.util.List;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.utils.HttpUtils;
-import projeto.les.doevida.doevida.utils.HttpListener;
-import projeto.les.doevida.doevida.utils.MySharedPreferences;
 import projeto.les.doevida.doevida.adapters.DonorsAdapter;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.models.NavItem;
 import projeto.les.doevida.doevida.models.User;
+import projeto.les.doevida.doevida.utils.HttpListener;
+import projeto.les.doevida.doevida.utils.HttpUtils;
+import projeto.les.doevida.doevida.utils.MySharedPreferences;
 
 public class DonorsActivity extends AppCompatActivity {
 
@@ -96,7 +95,6 @@ public class DonorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donors);
 
         context = this;
-
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
 
@@ -110,154 +108,12 @@ public class DonorsActivity extends AppCompatActivity {
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
-        Button ask_all = (Button) findViewById(R.id.btn_ask_all);
+        final Button ask_all = (Button) findViewById(R.id.btn_ask_all);
 
         ask_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final Dialog dialogChooseForm = new Dialog(DonorsActivity.this);
-                dialogChooseForm.setContentView(R.layout.dialog_choose_form);
-                dialogChooseForm.setTitle("Fazer pedido");
-                dialogChooseForm.setCancelable(true);
-
-                final RadioButton rd1 = (RadioButton) dialogChooseForm.findViewById(R.id.rd1);
-                final RadioButton rd2 = (RadioButton) dialogChooseForm.findViewById(R.id.rd2);
-                final Button okButton = (Button) dialogChooseForm.findViewById(R.id.btn_ok);
-                final Button cancelButton = (Button) dialogChooseForm.findViewById(R.id.btn_cancel);
-
-                rd1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rd1.setChecked(true);
-                        rd2.setChecked(false);
-                    }
-                });
-                rd2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rd2.setChecked(true);
-                        rd1.setChecked(false);
-                    }
-                });
-
-                dialogChooseForm.show();
-
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogChooseForm.dismiss();
-                    }
-                });
-
-                okButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (rd1.isChecked()) {
-                            final Dialog dialogForm = new Dialog(DonorsActivity.this);
-                            dialogForm.setContentView(R.layout.dialog_form);
-                            dialogForm.setTitle("Pedido de doação");
-                            dialogForm.setCancelable(true);
-                            dialogForm.show();
-
-                            final EditText input_date_limit_donation = (EditText) dialogForm.
-                                    findViewById(R.id.input_date_limit_donation);
-                            final MaskEditTextChangedListener maskDateLimitDonation =
-                                    new MaskEditTextChangedListener("##/##/####",
-                                            input_date_limit_donation);
-                            input_date_limit_donation.addTextChangedListener(maskDateLimitDonation);
-
-                            final Spinner mBlood_types_spinner = (Spinner) dialogForm.
-                                    findViewById(R.id.sp_blood_type);
-
-                            putBloodTypeElementsOnSpinnerArray();
-                            ArrayAdapter<String> spinnerArrayAdapterBloodTypes =
-                                    new ArrayAdapter<>(context,
-                                            android.R.layout.simple_spinner_item, mTypes);
-                            spinnerArrayAdapterBloodTypes.setDropDownViewResource(android.
-                                    R.layout.simple_spinner_dropdown_item); // The drop down view
-                            mBlood_types_spinner.setAdapter(spinnerArrayAdapterBloodTypes);
-
-                            mBlood_types_spinner.setOnItemSelectedListener(new AdapterView.
-                                    OnItemSelectedListener() {
-                                public void onItemSelected(final AdapterView<?> parent,
-                                                           final View view, final int pos,
-                                                           final long id) {
-                                    Object item = parent.getItemAtPosition(pos);
-                                    mBlood_Type = item.toString();
-                                }
-
-                                public void onNothingSelected(final AdapterView<?> parent) {
-                                }
-                            });
-
-                            final Button btn_send = (Button) dialogForm.findViewById(R.id.btn_send);
-
-                            btn_send.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mLoading = dialogForm.findViewById(R.id.loadingForm);
-                                    mNamePatient = (EditText) dialogForm.
-                                            findViewById(R.id.input_name_patient);
-                                    mHospital = (EditText) dialogForm.findViewById(R.id.input_hospital);
-                                    mCity = (EditText) dialogForm.findViewById(R.id.input_city);
-                                    mState = (EditText) dialogForm.findViewById(R.id.input_state);
-                                    mDateLimitDonation = (EditText) dialogForm.
-                                            findViewById(R.id.input_date_limit_donation);
-
-                                    layout_name_patient = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_name_patient);
-                                    layout_hospital = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_hospital);
-                                    layout_city = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_city);
-                                    layout_state = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_state);
-                                    layout_date_limit_donation = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_date_limit_donation);
-
-                                    name_patient = mNamePatient.getText().toString();
-                                    hospital = mHospital.getText().toString();
-                                    city = mCity.getText().toString();
-                                    state = mState.getText().toString();
-                                    date_limit_donation = mDateLimitDonation.getText().toString();
-
-                                    if (validateName() && validateHospital() && validateCity() &&
-                                            validateState() && validateDateLimitDonation()) {
-                                        addForm(name_patient, hospital, city, state, mBlood_Type,
-                                                date_limit_donation, dialogForm);
-                                        dialogChooseForm.dismiss();
-                                    } else if (!validateName()){
-                                        return;
-                                    } else if (!validateHospital()){
-                                        return;
-                                    } else if (!validateCity()){
-                                        return;
-                                    } else if (!validateState()) {
-                                        return;
-                                    } else if (!validateDateLimitDonation()){
-                                        return;
-                                    }
-
-                                }
-                            });
-
-                            final Button btn_cancel = (Button) dialogForm.findViewById(R.id.btn_cancel);
-
-                            btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialogForm.dismiss();
-                                }
-                            });
-                        }
-
-                        if(rd2.isChecked()){
-                            setView(DonorsActivity.this, MyRequestsActivity.class);
-                            dialogChooseForm.dismiss();
-                        }
-                    }
-                });
+                //openForm();
             }
         });
 
@@ -266,216 +122,172 @@ public class DonorsActivity extends AppCompatActivity {
         listViewDonors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User item = (User) adapter.getItem(position);
-                final String loginDest = item.getUsername();
-
-                final Dialog dialogChooseForm = new Dialog(DonorsActivity.this);
-                dialogChooseForm.setContentView(R.layout.dialog_choose_form);
-                dialogChooseForm.setTitle("Fazer pedido");
-                dialogChooseForm.setCancelable(true);
-
-                final RadioButton rd1 = (RadioButton) dialogChooseForm.findViewById(R.id.rd1);
-                final RadioButton rd2 = (RadioButton) dialogChooseForm.findViewById(R.id.rd2);
-                final Button okButton = (Button) dialogChooseForm.findViewById(R.id.btn_ok);
-                final Button cancelButton = (Button) dialogChooseForm.findViewById(R.id.btn_cancel);
-
-                rd1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rd1.setChecked(true);
-                        rd2.setChecked(false);
-                    }
-                });
-                rd2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rd2.setChecked(true);
-                        rd1.setChecked(false);
-                    }
-                });
-                dialogChooseForm.show();
-
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogChooseForm.dismiss();
-                    }
-                });
-
-                okButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (rd1.isChecked()) {
-                            final Dialog dialogForm = new Dialog(DonorsActivity.this);
-                            dialogForm.setContentView(R.layout.dialog_form);
-                            dialogForm.setTitle("Pedido de doação");
-                            dialogForm.setCancelable(true);
-                            dialogForm.show();
-
-                            final EditText input_date_limit_donation = (EditText) dialogForm.
-                                    findViewById(R.id.input_date_limit_donation);
-                            final MaskEditTextChangedListener maskDateLimitDonation =
-                                    new MaskEditTextChangedListener("##/##/####",
-                                            input_date_limit_donation);
-                            input_date_limit_donation.addTextChangedListener(maskDateLimitDonation);
-
-                            final Spinner mBlood_types_spinner = (Spinner) dialogForm.
-                                    findViewById(R.id.sp_blood_type);
-
-                            putBloodTypeElementsOnSpinnerArray();
-                            ArrayAdapter<String> spinnerArrayAdapterBloodTypes =
-                                    new ArrayAdapter<>(context,
-                                            android.R.layout.simple_spinner_item, mTypes);
-                            spinnerArrayAdapterBloodTypes.setDropDownViewResource(android.
-                                    R.layout.simple_spinner_dropdown_item); // The drop down view
-                            mBlood_types_spinner.setAdapter(spinnerArrayAdapterBloodTypes);
-
-                            mBlood_types_spinner.setOnItemSelectedListener(new AdapterView.
-                                    OnItemSelectedListener() {
-                                public void onItemSelected(final AdapterView<?> parent,
-                                                           final View view, final int pos,
-                                                           final long id) {
-                                    Object item = parent.getItemAtPosition(pos);
-                                    mBlood_Type = item.toString();
-                                }
-
-                                public void onNothingSelected(final AdapterView<?> parent) {
-                                }
-                            });
-
-                            final Button btn_send = (Button) dialogForm.findViewById(R.id.btn_send);
-                            btn_send.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mLoading = dialogForm.findViewById(R.id.loadingForm);
-                                    mNamePatient = (EditText) dialogForm.
-                                            findViewById(R.id.input_name_patient);
-                                    mHospital = (EditText) dialogForm.
-                                            findViewById(R.id.input_hospital);
-                                    mCity = (EditText) dialogForm.findViewById(R.id.input_city);
-                                    mState = (EditText) dialogForm.findViewById(R.id.input_state);
-                                    mDateLimitDonation = (EditText) dialogForm.
-                                            findViewById(R.id.input_date_limit_donation);
-
-                                    layout_name_patient = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_name_patient);
-                                    layout_hospital = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_hospital);
-                                    layout_city = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_city);
-                                    layout_state = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_state);
-                                    layout_date_limit_donation = (TextInputLayout) dialogForm.
-                                            findViewById(R.id.input_layout_date_limit_donation);
-
-                                    name_patient = mNamePatient.getText().toString();
-                                    hospital = mHospital.getText().toString();
-                                    city = mCity.getText().toString();
-                                    state = mState.getText().toString();
-                                    date_limit_donation = mDateLimitDonation.getText().toString();
-
-                                    if (validateName() && validateHospital() && validateCity() &&
-                                            validateState() && validateDateLimitDonation()) {
-                                        addForm(name_patient, hospital, city, state, mBlood_Type,
-                                                date_limit_donation, dialogForm);
-
-                                        String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
-                                        JSONObject json = new JSONObject();
-                                        JSONObject jsonFormulario = new JSONObject();
-
-                                        try {
-                                            jsonFormulario.put("login", loginUserLogged);
-                                            jsonFormulario.put("patientName", name_patient);
-                                            jsonFormulario.put("hospitalName", hospital);
-                                            jsonFormulario.put("city", city);
-                                            jsonFormulario.put("state", state);
-                                            jsonFormulario.put("bloodType", mBlood_Type);
-                                            jsonFormulario.put("deadline", date_limit_donation);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            json.put("titleNotification", "Solicitacao de sangue");
-                                            json.put("bodyNotification", jsonFormulario.toString());
-                                            json.put("receiverLogin", loginDest);
-                                            json.put("senderLogin", loginUserLogged);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        mHttp.post(url, json.toString(), new HttpListener() {
-                                            @Override
-                                            public void onSucess(JSONObject result) throws JSONException {
-                                                if (result.getInt("ok") == 0) {
-                                                    new AlertDialog.Builder(DonorsActivity.this)
-                                                            .setTitle("Erro")
-                                                            .setMessage(result.getString("msg"))
-                                                            .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                                    mLoading.setVisibility(View.GONE);
-                                                                }
-                                                            })
-                                                            .create()
-                                                            .show();
-                                                } else {
-                                                    new AlertDialog.Builder(DonorsActivity.this)
-                                                            .setMessage("Fomulário criado com sucesso")
-                                                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                                    // dialog.dismiss();
-                                                                }
-                                                            })
-                                                            .create()
-                                                            .show();
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onTimeout() {
-                                                System.out.println("TIMEOUT!!!!");
-                                                new AlertDialog.Builder(DonorsActivity.this)
-                                                        .setTitle("Erro")
-                                                        .setMessage("Conexão não disponível")
-                                                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                                mLoading.setVisibility(View.GONE);
-                                                            }
-                                                        })
-                                                        .create()
-                                                        .show();
-                                            }
-                                        });
-                                        dialogChooseForm.dismiss();
-                                    }
-                                    else {
-
-                                    }
-                                }
-                            });
-
-                            final Button btn_cancel = (Button) dialogForm.findViewById(R.id.btn_cancel);
-                            btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialogForm.dismiss();
-                                }
-                            });
-                        }
-
-                        if(rd2.isChecked()){
-                            setView(DonorsActivity.this, MyRequestsActivity.class);
-                            dialogChooseForm.dismiss();
-                        }
-                    }
-                });
+                User user_item = (User) adapter.getItem(position);
+                openForm(user_item);
             }
         });
+
         context = this;
         getListDonors();
+    }
 
+    private void openForm(User item){
 
+        final String loginDest = item.getUsername();
+        final Dialog dialogForm = new Dialog(DonorsActivity.this);
+        dialogForm.setContentView(R.layout.dialog_form);
+        dialogForm.setTitle("Pedido de doação");
+        dialogForm.setCancelable(true);
+        dialogForm.show();
+
+        final EditText input_date_limit_donation = (EditText) dialogForm.
+                findViewById(R.id.input_date_limit_donation);
+        final MaskEditTextChangedListener maskDateLimitDonation =
+                new MaskEditTextChangedListener("##/##/####",
+                        input_date_limit_donation);
+        input_date_limit_donation.addTextChangedListener(maskDateLimitDonation);
+
+        final Spinner mBlood_types_spinner = (Spinner) dialogForm.
+                findViewById(R.id.sp_blood_type);
+
+        putBloodTypeElementsOnSpinnerArray();
+        ArrayAdapter<String> spinnerArrayAdapterBloodTypes =
+                new ArrayAdapter<>(context,
+                        android.R.layout.simple_spinner_item, mTypes);
+        spinnerArrayAdapterBloodTypes.setDropDownViewResource(android.
+                R.layout.simple_spinner_dropdown_item); // The drop down view
+        mBlood_types_spinner.setAdapter(spinnerArrayAdapterBloodTypes);
+
+        mBlood_types_spinner.setOnItemSelectedListener(new AdapterView.
+                OnItemSelectedListener() {
+            public void onItemSelected(final AdapterView<?> parent,
+                                       final View view, final int pos,
+                                       final long id) {
+                Object item = parent.getItemAtPosition(pos);
+                mBlood_Type = item.toString();
+            }
+
+            public void onNothingSelected(final AdapterView<?> parent) {
+            }
+        });
+
+        final Button btn_send = (Button) dialogForm.findViewById(R.id.btn_send);
+        final Button btn_cancel = (Button) dialogForm.findViewById(R.id.btn_cancel);
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLoading = dialogForm.findViewById(R.id.loadingForm);
+                mNamePatient = (EditText) dialogForm.
+                        findViewById(R.id.input_name_patient);
+                mHospital = (EditText) dialogForm.
+                        findViewById(R.id.input_hospital);
+                mCity = (EditText) dialogForm.findViewById(R.id.input_city);
+                mState = (EditText) dialogForm.findViewById(R.id.input_state);
+                mDateLimitDonation = (EditText) dialogForm.
+                        findViewById(R.id.input_date_limit_donation);
+
+                layout_name_patient = (TextInputLayout) dialogForm.
+                        findViewById(R.id.input_layout_name_patient);
+                layout_hospital = (TextInputLayout) dialogForm.
+                        findViewById(R.id.input_layout_hospital);
+                layout_city = (TextInputLayout) dialogForm.
+                        findViewById(R.id.input_layout_city);
+                layout_state = (TextInputLayout) dialogForm.
+                        findViewById(R.id.input_layout_state);
+                layout_date_limit_donation = (TextInputLayout) dialogForm.
+                        findViewById(R.id.input_layout_date_limit_donation);
+
+                name_patient = mNamePatient.getText().toString();
+                hospital = mHospital.getText().toString();
+                city = mCity.getText().toString();
+                state = mState.getText().toString();
+                date_limit_donation = mDateLimitDonation.getText().toString();
+
+                if (validateName() && validateHospital() && validateCity() &&
+                        validateState() && validateDateLimitDonation()) {
+                    addForm(name_patient, hospital, city, state, mBlood_Type,
+                            date_limit_donation, dialogForm);
+
+                    String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
+                    JSONObject json = new JSONObject();
+                    JSONObject jsonFormulario = new JSONObject();
+
+                    try {
+                        jsonFormulario.put("login", loginUserLogged);
+                        jsonFormulario.put("patientName", name_patient);
+                        jsonFormulario.put("hospitalName", hospital);
+                        jsonFormulario.put("city", city);
+                        jsonFormulario.put("state", state);
+                        jsonFormulario.put("bloodType", mBlood_Type);
+                        jsonFormulario.put("deadline", date_limit_donation);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        json.put("titleNotification", "Solicitacao de sangue");
+                        json.put("bodyNotification", jsonFormulario.toString());
+                        json.put("receiverLogin", loginDest);
+                        json.put("senderLogin", loginUserLogged);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    mHttp.post(url, json.toString(), new HttpListener() {
+                        @Override
+                        public void onSucess(JSONObject result) throws JSONException {
+                            if (result.getInt("ok") == 0) {
+                                new AlertDialog.Builder(DonorsActivity.this)
+                                        .setTitle("Erro")
+                                        .setMessage(result.getString("msg"))
+                                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                mLoading.setVisibility(View.GONE);
+                                            }
+                                        })
+                                        .create()
+                                        .show();
+                            } else {
+                                new AlertDialog.Builder(DonorsActivity.this)
+                                        .setMessage("Fomulário criado com sucesso")
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                // dialog.dismiss();
+                                            }
+                                        })
+                                        .create()
+                                        .show();
+                            }
+                        }
+
+                        @Override
+                        public void onTimeout() {
+                            System.out.println("TIMEOUT!!!!");
+                            new AlertDialog.Builder(DonorsActivity.this)
+                                    .setTitle("Erro")
+                                    .setMessage("Conexão não disponível")
+                                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            mLoading.setVisibility(View.GONE);
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    });
+
+                }
+
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogForm.dismiss();
+            }
+        });
 
     }
 
