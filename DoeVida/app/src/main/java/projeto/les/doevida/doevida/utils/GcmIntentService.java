@@ -42,6 +42,7 @@ import java.util.Date;
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.models.BodyNotification;
 import projeto.les.doevida.doevida.models.Form;
+import projeto.les.doevida.doevida.views.AcceptedOrderActivity;
 import projeto.les.doevida.doevida.views.DonationOrderActivity;
 
 public class GcmIntentService extends IntentService {
@@ -117,7 +118,7 @@ public class GcmIntentService extends IntentService {
         }
 
         if(title.equals("Pedido aceito")){
-            notificationIntent = new Intent(this, DonationOrderActivity.class);
+            notificationIntent = new Intent(this, AcceptedOrderActivity.class);
 
             String loginDest = body.getString("login");
             String donorName = body.getString("donorName");
