@@ -60,9 +60,7 @@ public class DonorsActivity extends AppCompatActivity {
     private TextView nameUserTextView;
     private TextView loginUserTextView;
     private android.support.v7.app.ActionBar actionBar;
-
     private CharSequence mTitle;
-
     private String[] mPlanetTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
