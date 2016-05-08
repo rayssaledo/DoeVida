@@ -3,7 +3,6 @@ package projeto.les.doevida.doevida.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,11 +61,6 @@ public class MySharedPreferences {
     public void saveRegId(String reg_id){
         mEditor.putString(KEY_REG_ID, reg_id);
         mEditor.commit();
-    }
-
-    public String getRegId(){
-        String regId = mPref.getString(KEY_REG_ID, null);
-        return regId;
     }
 
     public void saveUser(String name, String date_birth, String city, String state, String gender,
@@ -177,7 +171,8 @@ public class MySharedPreferences {
             loadsList(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
-        } return listDonors;
+        }
+        return listDonors;
     }
 
     public List<Request> getListNotifications(){
@@ -213,7 +208,7 @@ public class MySharedPreferences {
     }
 
     private void loadMyNotifications(JSONArray jsonArray) throws JSONException{
-        my_forms =  new ArrayList<Request>();
+        my_forms =  new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
             String patientName = jsonRequest.getString("senderLogin");
@@ -235,8 +230,6 @@ public class MySharedPreferences {
             }
         }
     }
-
-    //paciente, hospital, cidade, deadline
 
 
     private void loadMyFormsReceived(JSONArray jsonArray) throws JSONException{
@@ -306,10 +299,6 @@ public class MySharedPreferences {
             String gender = jsonDonor.getString("gender");
             String typeOfBlood = jsonDonor.getString("bloodType");
 
-            //JSONArray jsonForms = jsonDonor.getJSONArray("forms");
-
-
-
             char genderDonor = gender.charAt(0);
 
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -325,18 +314,59 @@ public class MySharedPreferences {
             User donor = null;
             try {
                 donor = new User(name, login, pass, state, city, birthdateDonor, lastDonationDonor, genderDonor, typeOfBlood);
-                listDonors.add(donor);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
+            try {
+                JSONArray jsonForms = jsonDonor.getJSONArray("forms");
+                String patient = "";
+                String hospital = "";
+                String city_patient = "";
+                String state_patient = "";
+                String blood_type_patient = "";
+                String deadline_date = "";
+                Date deadline = new Date();
+
+            Form form;
+            for (int j = 0; j < jsonForms.length(); j++) {
+                JSONObject formjson = jsonForms.getJSONObject(j);
+
+                patient = formjson.getString("patientName");
+                hospital = formjson.getString("hospitalName");
+                city_patient = formjson.getString("city");
+                state_patient = formjson.getString("state");
+                blood_type_patient = formjson.getString("bloodType");
+                deadline_date = formjson.getString("deadline");
+
+                try {
+                    deadline = format.parse(deadline_date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+                try {
+                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient, deadline);
+                    donor.addForm(form);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            listDonors.add(donor);
+
+
+
+            }
     }
 
     public void logoutUser(){
-        Log.d("CACHE1",  mPref.getString(KEY_REG_ID, null) + "" );
         mEditor.clear();
         mEditor.commit();
-        Log.d("CACHE",  mPref.getString(KEY_REG_ID, null) + "" );
         Intent i = new Intent(mContext, LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

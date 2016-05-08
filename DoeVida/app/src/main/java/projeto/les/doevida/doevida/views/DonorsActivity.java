@@ -278,7 +278,6 @@ public class DonorsActivity extends AppCompatActivity {
                     });
 
                 }
-
             }
         });
 

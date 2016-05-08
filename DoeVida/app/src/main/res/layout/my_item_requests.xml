@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="match_parent"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/iv_blood_type"
@@ -15,11 +14,11 @@
         android:contentDescription="@string/blood_type"/>
 
     <TextView
-        android:id="@+id/tv_donor_name"
+        android:id="@+id/tv_patient_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:hint="@string/hint_name_user"
+        android:hint="@string/patient_name"
         android:textSize="16sp"
         android:layout_toEndOf="@+id/iv_blood_type"
         android:layout_marginTop="10dp"/>
@@ -29,9 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:hint="Hospital"
+        android:hint="@string/hospital_name"
         android:textSize="14sp"
-        android:layout_below="@+id/tv_donor_name"
+        android:layout_below="@+id/tv_patient_name"
         android:layout_toEndOf="@+id/iv_blood_type"
         android:layout_marginTop="2dp"/>
 
@@ -40,11 +39,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:hint="@string/hint_city_user"
+        android:hint="@string/city_name"
         android:textSize="14sp"
         android:layout_below="@+id/tv_hospital_name"
         android:layout_toEndOf="@+id/iv_blood_type"
         android:layout_marginTop="2dp"/>
+
+    <TextView
+        android:id="@+id/tv_state_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:hint="@string/state_name"
+        android:textSize="14sp"
+        android:layout_below="@+id/tv_city_name"
+        android:layout_toEndOf="@+id/iv_blood_type"
+        android:layout_marginTop="2dp"/>
+
+    <LinearLayout
+        android:id="@+id/points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/ic_share_black_24dp"
+            android:contentDescription="@string/img_share"/>
+    </LinearLayout>
 
 
     <TextView
@@ -52,14 +82,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Data limite para doação"
+        android:text="@string/donation_deadline"
         android:textSize="14sp"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:layout_marginEnd="8dp"
-        android:layout_toRightOf="@+id/tv_deadline"
-        android:layout_below="@+id/tv_hospital_name"
-        android:layout_alignTop="@+id/tv_date_last_donation"
-        android:layout_toStartOf="@+id/tv_date_last_donation" />
+        android:layout_below="@+id/tv_state_name"
+        android:layout_alignTop="@+id/tv_deadline"
+        android:layout_toStartOf="@+id/tv_deadline" />
 
     <TextView
         android:id="@+id/tv_deadline"
@@ -67,10 +96,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_alignParentEnd="true"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:layout_marginEnd="8dp"
-        android:hint="00/00/00"
+        android:hint="@string/hint_date_last_donation"
         android:textSize="14sp"
-        android:layout_below="@+id/tv_hospital_name" />
+        android:layout_below="@+id/tv_state_name" />
 
-</LinearLayout>
+
+</RelativeLayout>
