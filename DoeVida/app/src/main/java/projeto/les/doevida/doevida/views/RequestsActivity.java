@@ -1,12 +1,7 @@
 package projeto.les.doevida.doevida.views;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -17,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.adapters.NotificationsAdapter;
-import projeto.les.doevida.doevida.adapters.RequestedMeAdapter;
 import projeto.les.doevida.doevida.adapters.RequestsAdapter;
 import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.models.User;
@@ -48,7 +41,6 @@ public class RequestsActivity extends AppCompatActivity {
         getAllForms();
 
     }
-
 
     private void getAllForms() {
         String url = "http://doevida-grupoles.rhcloud.com/getAllUsers";

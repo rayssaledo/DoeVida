@@ -45,6 +45,36 @@ public class Form implements Serializable {
         this.deadline = deadline;
     }
 
+    public Form(String patientName, String hospitalName, String city, String state,
+                String typeOfBlood, Date deadline) throws Exception {
+        if(patientName == null || patientName.equals("")){
+            throw new Exception("Patient name is invalid.");
+        }
+        if(hospitalName == null || hospitalName.equals("")){
+            throw new Exception("Hospital name is invalid.");
+        }
+        if(city == null || city.equals("")){
+            throw new Exception("City is invalid.");
+        }
+        if(state == null || state.equals("")){
+            throw new Exception("State is invalid.");
+        }
+        if(typeOfBlood == null || typeOfBlood.equals("")){
+            throw new Exception("Type of blood is invalid.");
+        }
+        if(deadline == null){
+            throw new Exception("Deadline is null.");
+        }
+        this.loginDest = loginDest;
+        this.patientName = patientName;
+        this.hospitalName = hospitalName;
+        this.city = city;
+        this.state = state;
+        this.typeOfBlood = typeOfBlood;
+        this.deadline = deadline;
+    }
+
+
     public String getLoginDest() {
         return loginDest;
     }

@@ -1,12 +1,17 @@
 package projeto.les.doevida.doevida.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
@@ -17,11 +22,13 @@ public class RequestsAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private List<Form> items;
-    Context context;
+    Context mContext;
 
     public RequestsAdapter(Context context, List<Form> items) {
+        mContext = context;
         this.items = items;
         mInflater = LayoutInflater.from(context);
+
     }
 
     @Override
@@ -46,17 +53,36 @@ public class RequestsAdapter extends BaseAdapter {
 
         Form item = items.get(position);
 
-        ((TextView) convertView.findViewById(R.id.tv_name)).setText(item.getPatientName());
-        ((TextView) convertView.findViewById(R.id.tv_hospital)).setText(item.getHospitalName());
-        ((TextView) convertView.findViewById(R.id.tv_city)).setText(item.getCity());
-        ((TextView) convertView.findViewById(R.id.tv_name)).setText(item.getPatientName());
-      //  ((TextView) convertView.findViewById(R.id.tv_deadline)).setText(item.getDeadline());
+        Date deadline_date = item.getDeadline();
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        String deadline  = format1.format(deadline_date);
 
+        Bitmap imageBloodType = null;
 
+        if (item.getTypeOfBlood().equals("A-")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_a_negative);
+        } else if (item.getTypeOfBlood().equals("A+")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_a_positive);
+        } else if (item.getTypeOfBlood().equals("AB-")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_ab_negative);
+        } else if (item.getTypeOfBlood().equals("AB+")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_ab_positive);
+        } else if (item.getTypeOfBlood().equals("B-")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_b_negative);
+        } else if (item.getTypeOfBlood().equals("B+")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_b_positive);
+        } else if (item.getTypeOfBlood().equals("O-")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_o_negativo);
+        } else if (item.getTypeOfBlood().equals("O+")){
+            imageBloodType = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.blood_o_positive);
+        }
 
-
-        ((TextView) convertView.findViewById(R.id.tv_date_request)).setText(item.getDeadline().toString());//TODO data do pedido e nao deadline
-        //((TextView) convertView.findViewById(R.id.tv_status)).setText("");
+        ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
+        ((TextView) convertView.findViewById(R.id.tv_patient_name)).setText(item.getPatientName());
+        ((TextView) convertView.findViewById(R.id.tv_hospital_name)).setText(item.getHospitalName());
+        ((TextView) convertView.findViewById(R.id.tv_city_name)).setText(item.getCity());
+        ((TextView) convertView.findViewById(R.id.tv_state_name)).setText(item.getState());
+        ((TextView) convertView.findViewById(R.id.tv_deadline)).setText(deadline);
 
         return convertView;
     }

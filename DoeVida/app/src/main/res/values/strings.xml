@@ -127,11 +127,14 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_nao_conectado">NaoConectadoActivity</string>
     <string name="title_activity_requests">RequestsActivity</string>
+    <string name="img_share">Botão Compartilhar</string>
+
 
     <string name="title_activity_confirmation_donation">ConfirmationDonationActivity</string>
     <string name="held_donation">realizou a doação de sangue para:</string>
     <string name="receptor">Nome do receptor</string>
     <string name="confirm_received">Confirme o recebimento.</string>
+
 
 
 </resources>
