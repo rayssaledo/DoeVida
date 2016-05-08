@@ -1,5 +1,6 @@
 package projeto.les.doevida.doevida.views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -60,8 +61,15 @@ public class AcceptedOrderActivity extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setView(AcceptedOrderActivity.this, DonorsActivity.class);
+                finish();
             }
         });
+    }
+
+    public void setView(Context context, Class classe){
+        Intent it = new Intent();
+        it.setClass(context, classe);
+        startActivity(it);
     }
 }

@@ -69,7 +69,7 @@ public class GcmIntentService extends IntentService {
                     //sendNotification(extras.getString("titleNotification"), form);
                 } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
 
-                  //  sendNotification(extras.getString("titleNotification"), form);
+                    //  sendNotification(extras.getString("titleNotification"), form);
                     // If it's a regular GCM message, do some work.
                 } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                     String title = extras.getString("titleNotification");

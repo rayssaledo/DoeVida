@@ -86,9 +86,53 @@ public class LoginActivity extends AppCompatActivity {
                 //TODO : validar login, reg_id e password antes de mandar para o servidor
                 Log.d("GCM_LOGIN", reg_id);
                 login(login, password, reg_id);
+//                if(!validateUsername(login)){
+//                    new AlertDialog.Builder(LoginActivity.this)
+//                            .setTitle("Campo obrigatório")
+//                            .setMessage("Insira seu login")
+//                            .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                }
+//                            })
+//                            .create()
+//                            .show();
+//                } else if(!validatePassword(password)){
+//                    new AlertDialog.Builder(LoginActivity.this)
+//                            .setTitle("Campo obrigatório")
+//                            .setMessage("Insira sua senha")
+//                            .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                }
+//                            })
+//                            .create()
+//                            .show();
+//                } else {
+//                    login(login, password, reg_id);
+//                }
+
             }
         });
 
+    }
+
+    private boolean validateUsername(String login) {
+        if(login == null || login.equals("")){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean validatePassword(String password) {
+        if(password==null || password.equals("")){
+            return false;
+        } else{
+            return true;
+        }
     }
 
     private void login(String login, String password, String regId) {

@@ -100,6 +100,7 @@ public class DonationOrderActivity extends AppCompatActivity {
         btn_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
                 JSONObject json = new JSONObject();
                 JSONObject jsonBodyNotification = new JSONObject();
@@ -142,11 +143,13 @@ public class DonationOrderActivity extends AppCompatActivity {
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                        setView(DonationOrderActivity.this, DonorsActivity.class);
+                                            setView(DonationOrderActivity.this, DonorsActivity.class);
+                                            finish();
                                         }
                                     })
                                     .create()
                                     .show();
+
                         }
                     }
 
