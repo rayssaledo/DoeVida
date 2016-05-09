@@ -31,7 +31,8 @@ public class MySharedPreferences {
     private List<User> listDonors;
     private List<Request> my_forms;
     private List<Form> myForms;
-    private List<Form> requests;
+    private List<Form> requestAccepted;
+    private JSONArray jsonArrayRequestedme;
 
     private static final String PREFER_NAME = "Pref";
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
@@ -48,6 +49,7 @@ public class MySharedPreferences {
     public static final String KEY_LIST_FORMS = "list_forms";
     public static final String KEY_LIST_NOTIFICATIONS = "list_notifications";
     public static final String KEY_LIST_MY_FORMS = "list_my_forms";
+    public static final String KEY_REQUESTS_ACCEPTED = "list_requests_accepted";
 
     public static final String KEY_REG_ID = "reg_id";
 
@@ -56,6 +58,7 @@ public class MySharedPreferences {
         this.mContext = context;
         mPref = context.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
         mEditor = mPref.edit();
+        jsonArrayRequestedme = new JSONArray();
     }
 
     public void saveRegId(String reg_id){
@@ -63,6 +66,50 @@ public class MySharedPreferences {
         mEditor.commit();
     }
 
+    public void saveRequestsAccepted(String jsonForm){
+        jsonArrayRequestedme.put(jsonForm);
+        mEditor.putString(KEY_REQUESTS_ACCEPTED, jsonArrayRequestedme.toString());
+        mEditor.commit();
+    }
+
+    public void loadsListRequestMe(JSONArray jsonArray) throws JSONException{
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonForm = jsonArray.getJSONObject(i);
+            String loginDest = jsonForm.getString("loginDest");
+            String hospital = jsonForm.getString("hospitalName");
+            String patientName = jsonForm.getString("patientName");
+            String city= jsonForm.getString("city");
+            String state = jsonForm.getString("state");
+            String bloodType = jsonForm.getString("bloodType");
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date deadline = null;
+            try {
+                deadline = format.parse(jsonForm.getString("deadline"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                Form form = new Form(loginDest, patientName, hospital, city, state, bloodType, deadline);
+                requestAccepted.add(form);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+    public List<Form> getListRequestsAccepted(){
+        String jsonFormString = mPref.getString(KEY_REQUESTS_ACCEPTED, "");
+
+        try {
+            JSONArray jsonArray = new JSONArray(jsonFormString);
+            loadsListRequestMe(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return requestAccepted;
+    }
     public void saveUser(String name, String date_birth, String city, String state, String gender,
                          String blood_type, String date_donation,String username, String password){
         mEditor.putBoolean(IS_USER_LOGIN, true);
@@ -75,7 +122,6 @@ public class MySharedPreferences {
         mEditor.putString(KEY_DATE_DONATION_USER, date_donation);
         mEditor.putString(KEY_USERNAME_USER, username);
         mEditor.putString(KEY_PASSWORD_USER, password);
-       // mEditor.putString(KEY_REG_ID, reg_id);
         mEditor.commit();
     }
 

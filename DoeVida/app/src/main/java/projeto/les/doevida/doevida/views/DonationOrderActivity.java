@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,8 +32,12 @@ public class DonationOrderActivity extends AppCompatActivity {
     private String loginUserLogged;
     private String bloodTypeDonor;
     private String patientName;
+    private String cityPatient;
+    private String statePatient;
+    private String hospitalPatient;
     private String bloodTypePatient;
     private String loginDest;
+    private Date date;
 
     private Button btn_refuse;
     private Button btn_accept;
@@ -67,7 +72,7 @@ public class DonationOrderActivity extends AppCompatActivity {
         deadline = (TextView) findViewById(R.id.tv_deadline);
 
         Intent it = getIntent();
-        Form form = (Form) it.getSerializableExtra("FORMORDER");
+        form = (Form) it.getSerializableExtra("FORMORDER");
 
         patient_name.setText(form.getPatientName());
         hospital_name.setText(form.getHospitalName());
@@ -75,14 +80,17 @@ public class DonationOrderActivity extends AppCompatActivity {
         state.setText(form.getState());
         bloodType.setText(form.getTypeOfBlood());
 
-        Date date = form.getDeadline();
+        date = form.getDeadline();
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
         String mDeadline = format1.format(date);
 
         deadline.setText(mDeadline);
 
-        patientName = patient_name.getText().toString();
-        bloodTypePatient = bloodType.getText().toString();
+        patientName = form.getPatientName();
+        hospitalPatient = form.getHospitalName();
+        cityPatient = form.getCity();
+        statePatient = form.getState();
+        bloodTypePatient = form.getTypeOfBlood();
         loginDest = form.getLoginDest();
 
         mHttp = new HttpUtils(this);
@@ -100,6 +108,9 @@ public class DonationOrderActivity extends AppCompatActivity {
         btn_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                saveRequestsAccepted(form);
+                Log.d("TESTE_DANI", form.getHospitalName());
 
                 String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
                 JSONObject json = new JSONObject();
@@ -170,6 +181,22 @@ public class DonationOrderActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void saveRequestsAccepted(Form form){
+        JSONObject jsonFormulario = new JSONObject();
+        try {
+            jsonFormulario.put("login", loginDest);
+            jsonFormulario.put("patientName", patientName);
+            jsonFormulario.put("hospitalName", hospitalPatient);
+            jsonFormulario.put("city", cityPatient);
+            jsonFormulario.put("state", statePatient);
+            jsonFormulario.put("bloodType", bloodTypePatient);
+            jsonFormulario.put("deadline", date);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        userLogged.saveRequestsAccepted(jsonFormulario.toString());
     }
 
     public void setView(Context context, Class classe){

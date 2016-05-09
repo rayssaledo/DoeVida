@@ -7,17 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +23,6 @@ import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.adapters.RequestedMeAdapter;
 import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.models.NavItem;
-import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
 
@@ -36,7 +30,7 @@ public class RequestedMeActivity extends AppCompatActivity {
 
     private ListView lv_requested_me;
     private RequestedMeAdapter adapter;
-    private List<Form> myForms;
+    private List<Form> requests_accepeted;
     private HttpUtils mHttp;
     private String myLogin;
     private MySharedPreferences userLogged;
@@ -72,8 +66,6 @@ public class RequestedMeActivity extends AppCompatActivity {
 
             }
         });
-
-        getRequestsMe();
         userDetails = userLogged.getUserDetails();
         String name = userDetails.get(MySharedPreferences.KEY_NAME_USER);
         loginUserLogged = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
@@ -86,45 +78,13 @@ public class RequestedMeActivity extends AppCompatActivity {
         setmDrawer(mNavItems);
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
-    }
+
+        //requests_accepeted = userLogged.getListRequestsAccepted();
+
+        ///adapter = new RequestedMeAdapter(RequestedMeActivity.this, requests_accepeted);
+        //lv_requested_me.setAdapter(adapter);
 
 
-    private void getRequestsMe() {
-        String urlGetUser = "http://doevida-grupoles.rhcloud.com/getUser?login=" + myLogin;
-        mHttp.get(urlGetUser, new HttpListener() {
-            @Override
-            public void onSucess(JSONObject response) throws JSONException {
-                if (response.getInt("ok") == 1) {
-                    JSONObject jsonUser = response.getJSONObject("result");
-                    JSONArray jsonNotifications = jsonUser.getJSONArray("listMyNotifications");
-                  //  JSONObject jsonForm = jsonNotifications.getJSONObject();
-                  //listMyNotifications  userLogged.saveMyForms(jsonForm.toString());
-                   // myForms = userLogged.getListRequests();
-                    userLogged.saveMyForms(jsonNotifications.toString());
-
-                    myForms = userLogged.getListMyForms();
-
-                    adapter = new RequestedMeAdapter(RequestedMeActivity.this,myForms);
-                    lv_requested_me.setAdapter(adapter);
-                    Log.d("lista de requests", "CERTO!!" +
-                            "");
-                }
-            }
-
-            @Override
-            public void onTimeout() {
-                if (userLogged.getListRequests() != null) {
-                    myForms = userLogged.getListMyForms();
-                }
-                if (myForms != null && myForms.size() == 0 || myForms == null) {
-                    Log.d("Notifications", "Tamanho da lista é zero");
-                    lv_requested_me.setVisibility(View.GONE);
-                } else {
-                    adapter = new RequestedMeAdapter(RequestedMeActivity.this, myForms);
-                    lv_requested_me.setAdapter(adapter);
-                }
-            }
-        });
     }
 
     public void setmDrawer(ArrayList<NavItem> mNavItems) {
