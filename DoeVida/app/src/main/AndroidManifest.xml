@@ -54,6 +54,9 @@
             android:name=".views.InformationActivity"
             android:label="@string/title_activity_information" />
         <activity
+            android:name=".views.InformationOrderActivity"
+            android:label="@string/title_activity_information_order" />
+        <activity
             android:name=".views.MoreInformation1Activity"
             android:label="@string/title_activity_information" />
         <activity

@@ -234,10 +234,11 @@ public class MySharedPreferences {
 
 
     public List<Form> getListMyForms(){
-        String jsonArrayString = mPref.getString(KEY_LIST_MY_FORMS, "");
+        String jsonArrayString = mPref.getString(KEY_LIST_FORMS, "");
         try {
             JSONArray jsonArray = new JSONArray(jsonArrayString);
-            loadMyFormsReceived(jsonArray);
+           // loadMyFormsReceived(jsonArray);
+            loadMyFormsSend(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -278,7 +279,7 @@ public class MySharedPreferences {
     }
 
 
-    private void loadMyFormsReceived(JSONArray jsonArray) throws JSONException{
+    private void loadMyFormsSend(JSONArray jsonArray) throws JSONException{
         myForms =  new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
@@ -306,6 +307,8 @@ public class MySharedPreferences {
             }
         }
     }
+
+
 
     private void loadMyForms(JSONArray jsonArray) throws JSONException{
         my_forms =  new ArrayList<Request>();

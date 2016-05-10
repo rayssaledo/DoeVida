@@ -100,8 +100,6 @@
     <string name="accepted_order2">Aguarde a doação.</string>
 
 
-
-
     <string name="title_activity_requested_me">Pediram-me</string>
     <string name="status">STATUS</string>
 
@@ -134,7 +132,7 @@
     <string name="held_donation">realizou a doação de sangue para:</string>
     <string name="receptor">Nome do receptor</string>
     <string name="confirm_received">Confirme o recebimento.</string>
-
+    <string name="title_activity_information_order">Pedido</string>
 
 
 </resources>

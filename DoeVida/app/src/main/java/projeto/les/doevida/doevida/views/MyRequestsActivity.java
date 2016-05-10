@@ -24,6 +24,7 @@ import java.util.List;
 
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.models.Form;
+import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
@@ -54,7 +55,7 @@ public class MyRequestsActivity extends AppCompatActivity {
 
     private MyRequestsAdapter adapter;
     private ListView listViewMyRequests;
-    private List<Request> listMyRequests;
+    private List<Form> listMyRequests;
     private HttpUtils mHttp;
     private String username;
 
@@ -88,6 +89,11 @@ public class MyRequestsActivity extends AppCompatActivity {
         listViewMyRequests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Request item = (Request) adapter.getItem(position);
+                Intent i = getIntent();
+                User user = (User) i.getSerializableExtra("DOADOR");
+                Intent intent = new Intent(MyRequestsActivity.this, InformationOrderActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -197,10 +203,7 @@ public class MyRequestsActivity extends AppCompatActivity {
                     JSONObject jsonUser = response.getJSONObject("result");
                     JSONArray jsonArray = jsonUser.getJSONArray("forms");
                     userLogged.saveListRequests(jsonArray.toString());
-                    listMyRequests = userLogged.getListRequests();
-                    if (listMyRequests.size() == 0) {
-                        listViewMyRequests.setVisibility(View.GONE);
-                    }
+                    listMyRequests = userLogged.getListMyForms();
                     adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
                     listViewMyRequests.setAdapter(adapter);
                     Log.d("lista de requests", "CERTO!!" +
@@ -211,7 +214,7 @@ public class MyRequestsActivity extends AppCompatActivity {
             @Override
             public void onTimeout() {
                 if (userLogged.getListRequests() != null) {
-                    listMyRequests = userLogged.getListRequests();
+                    listMyRequests = userLogged.getListMyForms();
                 }
                 if (listMyRequests != null && listMyRequests.size() == 0 || listMyRequests == null) {
                     Log.d("Requests", "Tamanho da lista é zero");

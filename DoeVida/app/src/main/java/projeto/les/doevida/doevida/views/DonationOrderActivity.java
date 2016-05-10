@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,7 +101,85 @@ public class DonationOrderActivity extends AppCompatActivity {
         btn_refuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String url = "http://doevida-grupoles.rhcloud.com/refuseRequestDonation";
+                JSONObject json = new JSONObject();
+                JSONObject jsonBody = new JSONObject();
+                try {
+                    jsonBody.put("login", loginDest);
+                    jsonBody.put("patientName", patientName);
+                    jsonBody.put("hospitalName", hospitalPatient);
+                    jsonBody.put("city", cityPatient);
+                    jsonBody.put("state", statePatient);
+                    jsonBody.put("bloodType", bloodTypePatient);
+                    SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+                    String mDeadline = format1.format(date);
+                    Date dateFormat = format1.parse(mDeadline);
+                    jsonBody.put("deadline", dateFormat);
 
+                    System.out.println(mDeadline + "deadlineLLL");
+                    System.out.println(jsonBody + "JSONBODY");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    json.put("receiverLogin", loginUserLogged);
+                    json.put("senderLogin", loginDest);
+                    json.put("titleNotification", "Solicitacao de sangue");
+                    json.put("bodyNotification", jsonBody);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mHttp.post(url, json.toString(), new HttpListener() {
+
+                    @Override
+                    public void onSucess(JSONObject response) throws JSONException {
+                        if (response.getInt("ok") == 0) {
+                            new AlertDialog.Builder(DonationOrderActivity.this)
+                                    .setTitle("Erro")
+                                    .setMessage(response.getString("msg"))
+                                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            mLoading.setVisibility(View.GONE);
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        } else {
+                            new AlertDialog.Builder(DonationOrderActivity.this)
+                                    .setMessage(response.getString("msg"))
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            setView(DonationOrderActivity.this, DonorsActivity.class);
+                                            finish();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onTimeout() {
+                        new AlertDialog.Builder(DonationOrderActivity.this)
+                                .setTitle("Erro")
+                                .setMessage("Conexão não disponível")
+                                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        mLoading.setVisibility(View.GONE);
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                });
             }
         });
 
@@ -127,7 +206,7 @@ public class DonationOrderActivity extends AppCompatActivity {
                 }
                 try {
                     json.put("titleNotification", "Pedido aceito");
-                    json.put("bodyNotification", jsonBodyNotification.toString());
+                    json.put("bodyNotification", jsonBodyNotification);
                     json.put("receiverLogin", loginDest);
                     json.put("senderLogin", loginUserLogged);
                 } catch (JSONException e) {

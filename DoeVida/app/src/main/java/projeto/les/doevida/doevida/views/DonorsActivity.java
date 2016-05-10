@@ -28,7 +28,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +40,7 @@ import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.adapters.DonorsAdapter;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
+import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.models.NavItem;
 import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.utils.HttpListener;
@@ -129,7 +134,7 @@ public class DonorsActivity extends AppCompatActivity {
         getListDonors();
     }
 
-    private void openForm(User item){
+    private void openForm(final User item){
 
         final String loginDest = item.getUsername();
         final Dialog dialogForm = new Dialog(DonorsActivity.this);
@@ -174,6 +179,9 @@ public class DonorsActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(DonorsActivity.this, MyRequestsActivity.class);
+                intent.putExtra("DOADOR", item);
+
                 mLoading = dialogForm.findViewById(R.id.loadingForm);
                 mNamePatient = (EditText) dialogForm.
                         findViewById(R.id.input_name_patient);
@@ -209,6 +217,22 @@ public class DonorsActivity extends AppCompatActivity {
                     String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
                     JSONObject json = new JSONObject();
                     JSONObject jsonFormulario = new JSONObject();
+                   Form form;
+
+                    DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    Date deadline = new Date();
+                    try {
+                        deadline = format.parse(date_limit_donation);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        form = new Form(loginUserLogged, name_patient, hospital, city, state, mBlood_Type, deadline);
+                        intent.putExtra("FORM", form);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
 
                     try {
                         jsonFormulario.put("login", loginUserLogged);
@@ -223,7 +247,7 @@ public class DonorsActivity extends AppCompatActivity {
                     }
                     try {
                         json.put("titleNotification", "Solicitacao de sangue");
-                        json.put("bodyNotification", jsonFormulario.toString());
+                        json.put("bodyNotification", jsonFormulario);
                         json.put("receiverLogin", loginDest);
                         json.put("senderLogin", loginUserLogged);
                     } catch (JSONException e) {
