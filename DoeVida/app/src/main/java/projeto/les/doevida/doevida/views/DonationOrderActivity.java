@@ -110,8 +110,6 @@ public class DonationOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 saveRequestsAccepted(form);
-                Log.d("TESTE_DANI", form.getHospitalName());
-
                 String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
                 JSONObject json = new JSONObject();
                 JSONObject jsonBodyNotification = new JSONObject();

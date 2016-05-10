@@ -112,6 +112,7 @@ public class GcmIntentService extends IntentService {
                 Form form = new Form(loginDest, patient, hospital, city, state, typeOfBlood, date);
                 notificationIntent.putExtra("FORMORDER", form);
                 startActivity(notificationIntent);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -135,7 +136,7 @@ public class GcmIntentService extends IntentService {
             }
         }
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_laucher)
                 .setContentTitle("Doe Vida")
