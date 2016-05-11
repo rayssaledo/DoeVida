@@ -67,8 +67,8 @@ public class MySharedPreferences {
         mEditor.commit();
     }
 
-    public void saveRequestsAccepted(String jsonForm){
-        Log.d("JSON_ARRAY", jsonArrayRequestedme.toString());
+    public void saveRequestsAccepted(JSONObject jsonForm){
+        Log.d("JSON_ARRAY", jsonArrayRequestedme + "");
         jsonArrayRequestedme.put(jsonForm);
         Log.d("JSON_ARRAY", jsonArrayRequestedme.toString());
 
@@ -81,23 +81,33 @@ public class MySharedPreferences {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonForm = jsonArray.getJSONObject(i);
             Log.d("JSON_I", jsonForm.toString());
-            String loginDest = jsonForm.getString("loginDest");
-            Log.d("IMPRIMINDO", loginDest);
+            String loginDest = jsonForm.getString("login");
+            Log.d("IMPRIMINDO_LOGIN", loginDest);
             String hospital = jsonForm.getString("hospitalName");
+            Log.d("IMPRIMINDO_HOSPITAL", hospital);
             String patientName = jsonForm.getString("patientName");
+            Log.d("IMPRIMINDO_patient", patientName);
             String city= jsonForm.getString("city");
+            Log.d("IMPRIMINDO_cidade", city);
             String state = jsonForm.getString("state");
+            Log.d("IMPRIMINDO_estado", state);
             String bloodType = jsonForm.getString("bloodType");
+            Log.d("IMPRIMINDO_tipo", bloodType);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date deadline = null;
             try {
                 deadline = format.parse(jsonForm.getString("deadline"));
+                Log.d("IMPRIMINDO_data", deadline + "");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             try {
                 Form form = new Form(loginDest, patientName, hospital, city, state, bloodType, deadline);
+                Log.d("IMPRIMINDO2", form.getPatientName());
+                Log.d("IMPRIMINDO3", requestAccepted.size() + "");
                 requestAccepted.add(form);
+                Log.d("IMPRIMINDO4", requestAccepted.size() + "");
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

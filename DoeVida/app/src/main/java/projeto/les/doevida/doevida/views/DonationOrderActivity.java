@@ -259,7 +259,7 @@ public class DonationOrderActivity extends AppCompatActivity {
         });
     }
 
-    private void saveRequestsAccepted(Form form){
+    private void saveRequestsAccepted(Form form) {
         JSONObject jsonFormulario = new JSONObject();
         try {
             jsonFormulario.put("login", form.getLoginDest());
@@ -272,12 +272,12 @@ public class DonationOrderActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        userLogged.saveRequestsAccepted(jsonFormulario.toString());
+        userLogged.saveRequestsAccepted(jsonFormulario);
     }
 
-    public void setView(Context context, Class classe){
+    public void setView(Context context, Class classe) {
         Intent it = new Intent();
         it.setClass(context, classe);
         startActivity(it);
     }
- }
+}
