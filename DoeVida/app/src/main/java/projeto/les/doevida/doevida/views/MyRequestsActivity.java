@@ -86,11 +86,7 @@ public class MyRequestsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Form item = (Form) adapter.getItem(position);
-                Intent i = getIntent();
-                String donor = (String) i.getSerializableExtra("DOADOR");
-
                 Intent intent = new Intent(MyRequestsActivity.this, InformationOrderActivity.class);
-                intent.putExtra("USERDONOR", donor);
                 intent.putExtra("FORM", item);
                 startActivity(intent);
             }

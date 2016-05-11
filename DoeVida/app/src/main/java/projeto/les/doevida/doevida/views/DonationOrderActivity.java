@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -263,13 +262,13 @@ public class DonationOrderActivity extends AppCompatActivity {
     private void saveRequestsAccepted(Form form){
         JSONObject jsonFormulario = new JSONObject();
         try {
-            jsonFormulario.put("login", loginDest);
-            jsonFormulario.put("patientName", patientName);
-            jsonFormulario.put("hospitalName", hospitalPatient);
-            jsonFormulario.put("city", cityPatient);
-            jsonFormulario.put("state", statePatient);
-            jsonFormulario.put("bloodType", bloodTypePatient);
-            jsonFormulario.put("deadline", date);
+            jsonFormulario.put("login", form.getLoginDest());
+            jsonFormulario.put("patientName", form.getPatientName());
+            jsonFormulario.put("hospitalName", form.getHospitalName());
+            jsonFormulario.put("city", form.getCity());
+            jsonFormulario.put("state", form.getState());
+            jsonFormulario.put("bloodType", form.getTypeOfBlood());
+            jsonFormulario.put("deadline", form.getDeadline());
         } catch (JSONException e) {
             e.printStackTrace();
         }

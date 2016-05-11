@@ -179,9 +179,6 @@ public class DonorsActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DonorsActivity.this, MyRequestsActivity.class);
-                intent.putExtra("DOADOR", user.getName());
-                startActivity(intent);
 
                 mLoading = dialogForm.findViewById(R.id.loadingForm);
                 mNamePatient = (EditText) dialogForm.

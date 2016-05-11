@@ -79,10 +79,10 @@ public class RequestedMeActivity extends AppCompatActivity {
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
-        //requests_accepeted = userLogged.getListRequestsAccepted();
-
-        ///adapter = new RequestedMeAdapter(RequestedMeActivity.this, requests_accepeted);
-        //lv_requested_me.setAdapter(adapter);
+//        requests_accepeted = userLogged.getListRequestsAccepted();
+//
+//        adapter = new RequestedMeAdapter(RequestedMeActivity.this, requests_accepeted);
+//        lv_requested_me.setAdapter(adapter);
 
 
     }

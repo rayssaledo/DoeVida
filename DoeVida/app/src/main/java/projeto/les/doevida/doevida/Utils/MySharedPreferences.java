@@ -3,6 +3,7 @@ package projeto.les.doevida.doevida.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,15 +68,21 @@ public class MySharedPreferences {
     }
 
     public void saveRequestsAccepted(String jsonForm){
+        Log.d("JSON_ARRAY", jsonArrayRequestedme.toString());
         jsonArrayRequestedme.put(jsonForm);
+        Log.d("JSON_ARRAY", jsonArrayRequestedme.toString());
+
         mEditor.putString(KEY_REQUESTS_ACCEPTED, jsonArrayRequestedme.toString());
         mEditor.commit();
     }
 
     public void loadsListRequestMe(JSONArray jsonArray) throws JSONException{
+        requestAccepted = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonForm = jsonArray.getJSONObject(i);
+            Log.d("JSON_I", jsonForm.toString());
             String loginDest = jsonForm.getString("loginDest");
+            Log.d("IMPRIMINDO", loginDest);
             String hospital = jsonForm.getString("hospitalName");
             String patientName = jsonForm.getString("patientName");
             String city= jsonForm.getString("city");
@@ -101,6 +108,7 @@ public class MySharedPreferences {
 
     public List<Form> getListRequestsAccepted(){
         String jsonFormString = mPref.getString(KEY_REQUESTS_ACCEPTED, "");
+        Log.d("JSON_RECUPERADO", jsonFormString);
 
         try {
             JSONArray jsonArray = new JSONArray(jsonFormString);
