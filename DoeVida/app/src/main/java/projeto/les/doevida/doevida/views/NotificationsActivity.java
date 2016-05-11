@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,14 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.adapters.MyRequestsAdapter;
+import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.adapters.NotificationsAdapter;
+import projeto.les.doevida.doevida.models.NavItem;
 import projeto.les.doevida.doevida.models.Request;
 import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
-import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
-import projeto.les.doevida.doevida.models.NavItem;
 
 public class NotificationsActivity extends AppCompatActivity {
 
@@ -106,9 +104,6 @@ public class NotificationsActivity extends AppCompatActivity {
                     JSONArray jsonArray = jsonUser.getJSONArray("listMyNotifications");
                     userLogged.saveListNotifications(jsonArray.toString());
                     listMyNotifications = userLogged.getListRequests();
-                    if (listMyNotifications.size() == 0) {
-                        listViewMyNotifications.setVisibility(View.GONE);
-                    }
                     adapter = new NotificationsAdapter(NotificationsActivity.this, listMyNotifications);
                     listViewMyNotifications.setAdapter(adapter);
                     Log.d("lista de requests", "CERTO!!" +

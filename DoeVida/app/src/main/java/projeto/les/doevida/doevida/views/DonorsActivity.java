@@ -180,7 +180,8 @@ public class DonorsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DonorsActivity.this, MyRequestsActivity.class);
-                intent.putExtra("DOADOR", item);
+                intent.putExtra("DOADOR", user.getName());
+                startActivity(intent);
 
                 mLoading = dialogForm.findViewById(R.id.loadingForm);
                 mNamePatient = (EditText) dialogForm.
@@ -217,7 +218,6 @@ public class DonorsActivity extends AppCompatActivity {
                     String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
                     JSONObject json = new JSONObject();
                     JSONObject jsonFormulario = new JSONObject();
-                   Form form;
 
                     DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     Date deadline = new Date();
@@ -227,8 +227,7 @@ public class DonorsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     try {
-                        form = new Form(loginUserLogged, name_patient, hospital, city, state, mBlood_Type, deadline);
-                        intent.putExtra("FORM", form);
+                        Form form = new Form(loginUserLogged, name_patient, hospital, city, state, mBlood_Type, deadline);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

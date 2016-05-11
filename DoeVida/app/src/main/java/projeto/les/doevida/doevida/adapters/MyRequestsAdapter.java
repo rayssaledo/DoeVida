@@ -78,8 +78,6 @@ import java.util.List;
 
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.models.Form;
-import projeto.les.doevida.doevida.models.User;
-import projeto.les.doevida.doevida.views.MyRequestsActivity;
 
 /**
  * Created by Lucas on 16/04/2016.
@@ -113,11 +111,11 @@ public class MyRequestsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = mInflater.inflate(R.layout.my_item_requested_me, null);
+        convertView = mInflater.inflate(R.layout.my_item_my_registration, null);
 
         Form item = items.get(position);
 
-        ((TextView) convertView.findViewById(R.id.tv_name)).setText(item.getPatientName());
+        ((TextView) convertView.findViewById(R.id.tv_requester_name)).setText(item.getPatientName());
         // ((TextView) convertView.findViewById(R.id.tv_date_request)).setText(item.getDeadline().toString());//TODO data do pedido e nao deadline
         //((TextView) convertView.findViewById(R.id.tv_status)).setText("");
 

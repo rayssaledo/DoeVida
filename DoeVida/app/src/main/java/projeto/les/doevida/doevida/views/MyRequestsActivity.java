@@ -23,19 +23,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
+import projeto.les.doevida.doevida.adapters.MyRequestsAdapter;
 import projeto.les.doevida.doevida.models.Form;
-import projeto.les.doevida.doevida.models.User;
+import projeto.les.doevida.doevida.models.NavItem;
 import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
-import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
-import projeto.les.doevida.doevida.adapters.MyRequestsAdapter;
-import projeto.les.doevida.doevida.models.NavItem;
-import projeto.les.doevida.doevida.models.Request;
 
-/**
- * Created by Andreza on 16/04/2016.
- */
+
 public class MyRequestsActivity extends AppCompatActivity {
 
     private ArrayList<NavItem> mNavItems;
@@ -89,25 +85,19 @@ public class MyRequestsActivity extends AppCompatActivity {
         listViewMyRequests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Request item = (Request) adapter.getItem(position);
+                Form item = (Form) adapter.getItem(position);
                 Intent i = getIntent();
-                User user = (User) i.getSerializableExtra("DOADOR");
+                String donor = (String) i.getSerializableExtra("DOADOR");
+
                 Intent intent = new Intent(MyRequestsActivity.this, InformationOrderActivity.class);
+                intent.putExtra("USERDONOR", donor);
+                intent.putExtra("FORM", item);
                 startActivity(intent);
             }
         });
 
-
-
-//        try {
-//            listMyRequests = userLogged.getListRequests();
-//            adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
-//            listViewMyRequests.setAdapter(adapter);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -159,7 +149,6 @@ public class MyRequestsActivity extends AppCompatActivity {
                 } else if (position == 6) { // sair
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     userLogged.logoutUser();
-//                  setView(MyRequestsActivity.this, UserCadastreActivity.class);
                 }
 
             }
@@ -202,8 +191,10 @@ public class MyRequestsActivity extends AppCompatActivity {
                 if (response.getInt("ok") == 1) {
                     JSONObject jsonUser = response.getJSONObject("result");
                     JSONArray jsonArray = jsonUser.getJSONArray("forms");
-                    userLogged.saveListRequests(jsonArray.toString());
+                    userLogged.saveMyForms(jsonArray.toString());
+                    //userLogged.saveListRequests(jsonArray.toString());
                     listMyRequests = userLogged.getListMyForms();
+
                     adapter = new MyRequestsAdapter(MyRequestsActivity.this, listMyRequests);
                     listViewMyRequests.setAdapter(adapter);
                     Log.d("lista de requests", "CERTO!!" +

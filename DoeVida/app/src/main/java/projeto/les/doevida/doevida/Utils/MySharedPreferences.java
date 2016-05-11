@@ -234,10 +234,9 @@ public class MySharedPreferences {
 
 
     public List<Form> getListMyForms(){
-        String jsonArrayString = mPref.getString(KEY_LIST_FORMS, "");
+        String jsonArrayString = mPref.getString(KEY_LIST_MY_FORMS, "");
         try {
             JSONArray jsonArray = new JSONArray(jsonArrayString);
-           // loadMyFormsReceived(jsonArray);
             loadMyFormsSend(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -283,24 +282,21 @@ public class MySharedPreferences {
         myForms =  new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
-            JSONObject bodyNotification = jsonRequest.getJSONObject("bodyNotification");
-
-            String loginDest = bodyNotification.getString("senderLogin");
-            String patient = bodyNotification.getString("patientName");
-            String hospital = bodyNotification.getString("hospitalName");
-            String city = bodyNotification.getString("city");
-            String state = bodyNotification.getString("state");
-            String bloodType = bodyNotification.getString("bloodType");
+            String patient = jsonRequest.getString("patientName");
+            String hospital = jsonRequest.getString("hospitalName");
+            String city = jsonRequest.getString("city");
+            String state = jsonRequest.getString("state");
+            String bloodType = jsonRequest.getString("bloodType");
 
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date deadline = null;
             try {
-                deadline = format.parse(bodyNotification.getString("deadline"));
+                deadline = format.parse(jsonRequest.getString("deadline"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             try {
-                Form form = new Form(loginDest, patient, hospital, city, state, bloodType, deadline);
+                Form form = new Form(patient, hospital, city, state, bloodType, deadline);
                 myForms.add(form);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -311,7 +307,7 @@ public class MySharedPreferences {
 
 
     private void loadMyForms(JSONArray jsonArray) throws JSONException{
-        my_forms =  new ArrayList<Request>();
+        my_forms =  new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
             String patientName = jsonRequest.getString("patientName");
@@ -404,11 +400,7 @@ public class MySharedPreferences {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
             listDonors.add(donor);
-
-
 
             }
     }
