@@ -1,5 +1,6 @@
 package projeto.les.doevida.doevida.views;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,6 +54,7 @@ public class RequestedMeActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private HashMap<String, String> userDetails;
     private String loginUserLogged;
+    private Dialog dialogConfirmation;
 
 
     @Override
@@ -69,7 +72,8 @@ public class RequestedMeActivity extends AppCompatActivity {
         lv_requested_me.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Form request_accepeted_item = (Form) adapter.getItem(position);
+                openDialogConfirmation(request_accepeted_item);
             }
         });
         userDetails = userLogged.getUserDetails();
@@ -169,6 +173,43 @@ public class RequestedMeActivity extends AppCompatActivity {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+    }
+
+    private void openDialogConfirmation(Form request_accepeted_item) {
+        dialogConfirmation = new Dialog(RequestedMeActivity.this);
+        dialogConfirmation.setContentView(R.layout.dialog_confirmation_donation);
+        dialogConfirmation.setTitle("Confirme a doação");
+        dialogConfirmation.setCancelable(true);
+        dialogConfirmation.show();
+
+        final TextView patient_name = (TextView) dialogConfirmation.
+                findViewById(R.id.tv_patient_name);
+        //patient_name.setText(patient);
+
+        final Button btn_ok = (Button) dialogConfirmation.findViewById(R.id.btn_ok);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialogConfirmationReceipt();
+            }
+        });
+    }
+
+    private void openDialogConfirmationReceipt() {
+        dialogConfirmation.dismiss();
+        final Dialog dialogConfirmationReceipt = new Dialog(RequestedMeActivity.this);
+        dialogConfirmationReceipt.setContentView(R.layout.dialog_confirmation_receipt);
+        dialogConfirmationReceipt.setTitle("Aguarde");
+        dialogConfirmationReceipt.setCancelable(true);
+        dialogConfirmationReceipt.show();
+
+        final Button btn_ok = (Button) dialogConfirmationReceipt.findViewById(R.id.btn_ok);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogConfirmationReceipt.dismiss();
+            }
+        });
     }
 
 

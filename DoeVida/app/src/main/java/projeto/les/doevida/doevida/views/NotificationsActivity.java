@@ -149,25 +149,31 @@ public class NotificationsActivity extends AppCompatActivity {
                 if (position == 0) { // Doadores
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(NotificationsActivity.this, DonorsActivity.class);
+                    finish();
                 } else if (position == 1) { // Informativos
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(NotificationsActivity.this, InformationActivity.class);
+                    finish();
                 } else if (position == 2) { // quem precisa
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(NotificationsActivity.this, RequestsActivity.class);
+                    finish();
                 } else if (position == 3) { // meus pedidos
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(NotificationsActivity.this, MyRequestsActivity.class);
+                    finish();
                 } else if (position == 4) { // notificacoes
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(NotificationsActivity.this, NotificationsActivity.class);
+                    finish();
                 } else if (position == 5) { // Pediram-me
-//                    mDrawerLayout.closeDrawer(mDrawerPane);
-//                    setView(DonorsActivity.this, UserCadastreActivity.class);
+                    mDrawerLayout.closeDrawer(mDrawerPane);
+                    setView(NotificationsActivity.this, RequestedMeActivity.class);
+                    finish();
                 } else if (position == 6) { // sair
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     userLogged.logoutUser();
-//                  setView(DonorsActivity.this, UserCadastreActivity.class);
+                    finish();
                 }
 
             }

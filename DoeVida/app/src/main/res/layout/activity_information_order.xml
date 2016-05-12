@@ -46,7 +46,9 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="10dp"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"/>
+                        android:paddingEnd="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tv_donor_name"
@@ -55,7 +57,10 @@
                         android:text="@string/donor_name"
                         android:textSize="20dp"
                         android:textColor="@color/black"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:paddingStart="4dp"/>
 
                 </LinearLayout>
 
@@ -72,7 +77,9 @@
                         android:textSize="20dp"
                         android:textColor="@color/black"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"/>
+                        android:paddingEnd="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tv_patient_name"
@@ -80,7 +87,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/patient_name"
                         android:textSize="20dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                 </LinearLayout>
 
@@ -97,7 +106,9 @@
                         android:textSize="20dp"
                         android:textColor="@color/black"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"/>
+                        android:paddingEnd="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tv_hospital_name"
@@ -105,7 +116,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/hospital_name"
                         android:textSize="20dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                 </LinearLayout>
 
@@ -122,7 +135,9 @@
                         android:textSize="20dp"
                         android:textColor="@color/black"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"/>
+                        android:paddingEnd="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tv_city_name"
@@ -130,7 +145,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/city_name"
                         android:textSize="20dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                 </LinearLayout>
 
@@ -148,7 +165,9 @@
                         android:textSize="20dp"
                         android:textColor="@color/black"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"/>
+                        android:paddingEnd="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tv_state_name"
@@ -156,7 +175,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/state_name"
                         android:textSize="20dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
                 </LinearLayout>
 

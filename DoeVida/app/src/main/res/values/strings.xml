@@ -134,5 +134,10 @@
     <string name="confirm_received">Confirme o recebimento.</string>
     <string name="title_activity_information_order">Pedido</string>
 
+    <string name="confirmation_donation1">Confirmo minha doação </string>
+    <string name="confirmation_donation2">de sangue para</string>
+    <string name="confirmation_receipt1">Aguarde confirmação</string>
+    <string name="confirmation_receipt2">de recebimento</string>
+
 
 </resources>
