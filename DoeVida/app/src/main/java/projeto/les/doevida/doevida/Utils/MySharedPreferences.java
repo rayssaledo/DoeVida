@@ -33,6 +33,7 @@ public class MySharedPreferences {
     private List<Request> my_forms;
     private List<Form> myForms;
     private List<Form> requestAccepted;
+    private List<Form> myFormsReceived;
     private JSONArray jsonArrayRequestedme;
 
     private static final String PREFER_NAME = "Pref";
@@ -51,6 +52,7 @@ public class MySharedPreferences {
     public static final String KEY_LIST_NOTIFICATIONS = "list_notifications";
     public static final String KEY_LIST_MY_FORMS = "list_my_forms";
     public static final String KEY_REQUESTS_ACCEPTED = "list_requests_accepted";
+    public static final String KEY_LIST_MY_FORMS_RECEIVED = "list_requests_received";
 
     public static final String KEY_REG_ID = "reg_id";
 
@@ -213,18 +215,22 @@ public class MySharedPreferences {
         mEditor.commit();
     }
 
-    public void saveListRequests (String listForms) {
+    public void saveListRequests(String listForms) {
         mEditor.putString(KEY_LIST_FORMS, listForms);
         mEditor.commit();
     }
 
-    public void saveListNotifications (String listNotifications) {
+    public void saveListNotifications(String listNotifications) {
         mEditor.putString(KEY_LIST_NOTIFICATIONS, listNotifications);
         mEditor.commit();
     }
 
     public void saveMyForms(String listMyForms) {
         mEditor.putString(KEY_LIST_MY_FORMS, listMyForms);
+        mEditor.commit();
+    }
+    public void saveMyFormsReceived(String listMyFormsReceived) {
+        mEditor.putString(KEY_LIST_MY_FORMS_RECEIVED, listMyFormsReceived);
         mEditor.commit();
     }
 
@@ -249,8 +255,6 @@ public class MySharedPreferences {
         } return my_forms;
     }
 
-
-
     public List<Form> getListMyForms(){
         String jsonArrayString = mPref.getString(KEY_LIST_MY_FORMS, "");
         try {
@@ -261,6 +265,19 @@ public class MySharedPreferences {
         }
         return myForms;
     }
+
+    public List<Form> getListMyFormsReceived(){
+        String jsonArrayString = mPref.getString( KEY_LIST_MY_FORMS_RECEIVED, "");
+        try {
+            JSONArray jsonArray = new JSONArray(jsonArrayString);
+            loadMyFormsReceived(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return myFormsReceived;
+    }
+
+
     public List<Request> getListRequests(){
         String jsonArrayString = mPref.getString(KEY_LIST_FORMS, "");
         try {
@@ -289,6 +306,34 @@ public class MySharedPreferences {
             try {
                 Request request = new Request(patientName, deadline);
                 my_forms.add(request);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void loadMyFormsReceived(JSONArray jsonArray) throws JSONException{
+        myFormsReceived =  new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonRequest = jsonArray.getJSONObject(i);
+            String loginDest = jsonRequest.getString("senderLogin");
+            JSONObject jsonBody = jsonRequest.getJSONObject("bodyNotification");
+            String patient = jsonBody.getString("patientName");
+            String hospital = jsonBody.getString("hospitalName");
+            String city = jsonBody.getString("city");
+            String state = jsonBody.getString("state");
+            String bloodType = jsonBody.getString("bloodType");
+
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date deadline = null;
+            try {
+                deadline = format.parse(jsonBody.getString("deadline"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+               Form form = new Form(loginDest, patient, hospital, city, state, bloodType, deadline);
+                myFormsReceived.add(form);
             } catch (Exception e) {
                 e.printStackTrace();
             }

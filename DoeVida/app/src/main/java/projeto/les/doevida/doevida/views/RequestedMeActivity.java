@@ -7,12 +7,17 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +28,7 @@ import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.adapters.RequestedMeAdapter;
 import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.models.NavItem;
+import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
 
@@ -79,11 +85,7 @@ public class RequestedMeActivity extends AppCompatActivity {
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
-        requests_accepeted = userLogged.getListRequestsAccepted();
-
-        adapter = new RequestedMeAdapter(RequestedMeActivity.this, requests_accepeted);
-        lv_requested_me.setAdapter(adapter);
-
+        getListMyFormsReceived();
 
     }
 
@@ -169,6 +171,39 @@ public class RequestedMeActivity extends AppCompatActivity {
 
     }
 
+
+    private void getListMyFormsReceived() {
+        String urlGetUser = "http://doevida-grupoles.rhcloud.com/getUser?login=" + loginUserLogged ;
+        mHttp.get(urlGetUser, new HttpListener() {
+            @Override
+            public void onSucess(JSONObject response) throws JSONException {
+                if (response.getInt("ok") == 1) {
+                    JSONObject jsonUser = response.getJSONObject("result");
+                    JSONArray jsonArray = jsonUser.getJSONArray("listMyNotifications");
+                    userLogged.saveMyFormsReceived(jsonArray.toString());
+                    requests_accepeted = userLogged.getListMyFormsReceived();
+                    adapter = new RequestedMeAdapter(RequestedMeActivity.this, requests_accepeted);
+                    lv_requested_me.setAdapter(adapter);
+                    Log.d("lista de requests", "CERTO!!" +
+                            "");
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                if (userLogged.getListRequests() != null) {
+                    requests_accepeted = userLogged.getListMyFormsReceived();
+                }
+                if (requests_accepeted != null && requests_accepeted.size() == 0 || requests_accepeted == null) {
+                    lv_requested_me.setVisibility(View.GONE);
+                } else {
+                    adapter = new RequestedMeAdapter(RequestedMeActivity.this, requests_accepeted);
+                    lv_requested_me.setAdapter(adapter);
+                }
+            }
+        });
+    }
+
     public void setView(Context context, Class classe){
         Intent it = new Intent();
         it.setClass(context, classe);
@@ -202,8 +237,4 @@ public class RequestedMeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
 }
