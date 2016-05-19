@@ -139,5 +139,10 @@
     <string name="confirmation_receipt1">Aguarde confirmação</string>
     <string name="confirmation_receipt2">de recebimento</string>
 
+    ------------ activity_confirmation_receipt_donation -------------
+    <string name="update_last_donation_date">Atualize a data da última doação.</string>
+    <string name="update">ATUALIZAR</string>
+    <string name="confirmed_donation_receipt">confirmou o recebimento da sua doação de sangue para</string>
+    <string name="user_requester_name">Nome do usuário</string>
 
 </resources>

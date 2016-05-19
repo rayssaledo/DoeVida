@@ -1,7 +1,9 @@
 package projeto.les.doevida.doevida.views;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ public class RequestedMeActivity extends AppCompatActivity {
     private List<Form> requests_accepeted;
     private HttpUtils mHttp;
     private String myLogin;
+    private String myName;
     private MySharedPreferences userLogged;
     private RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -66,13 +69,14 @@ public class RequestedMeActivity extends AppCompatActivity {
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
         myLogin = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
+        myName = userDetails.get(MySharedPreferences.KEY_NAME_USER);
 
         lv_requested_me = (ListView) findViewById(R.id.lv_requested_me);
       //  lv_requested_me.setAdapter(adapter);
         lv_requested_me.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Form request_accepeted_item = (Form) adapter.getItem(position);
+                final Form request_accepeted_item = (Form) adapter.getItem(position);
                 openDialogConfirmation(request_accepeted_item);
             }
         });
@@ -175,7 +179,7 @@ public class RequestedMeActivity extends AppCompatActivity {
 
     }
 
-    private void openDialogConfirmation(Form request_accepeted_item) {
+    private void openDialogConfirmation(final Form request_accepeted_item) {
         dialogConfirmation = new Dialog(RequestedMeActivity.this);
         dialogConfirmation.setContentView(R.layout.dialog_confirmation_donation);
         dialogConfirmation.setTitle("Confirme a doação");
@@ -184,12 +188,78 @@ public class RequestedMeActivity extends AppCompatActivity {
 
         final TextView patient_name = (TextView) dialogConfirmation.
                 findViewById(R.id.tv_patient_name);
-        //patient_name.setText(patient);
+        patient_name.setText(request_accepeted_item.getPatientName());
 
         final Button btn_ok = (Button) dialogConfirmation.findViewById(R.id.btn_ok);
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String url = "http://doevida-grupoles.rhcloud.com/sendNotification";
+                JSONObject json = new JSONObject();
+                JSONObject jsonBodyNotification = new JSONObject();
+
+                try {
+                    jsonBodyNotification.put("donorName", myName);
+                    jsonBodyNotification.put("patientName", patient_name);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    json.put("titleNotification", "Confirmacao de doacao");
+                    json.put("bodyNotification", jsonBodyNotification);
+                    json.put("receiverLogin", request_accepeted_item.getLoginDest());
+                    json.put("senderLogin", loginUserLogged);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mHttp.post(url, json.toString(), new HttpListener() {
+                    @Override
+                    public void onSucess(JSONObject result) throws JSONException {
+                        if (result.getInt("ok") == 0) {
+                            new AlertDialog.Builder(RequestedMeActivity.this)
+                                    .setTitle("Erro")
+                                    .setMessage(result.getString("msg"))
+                                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            //mLoading.setVisibility(View.GONE);
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        } else {
+                            /*new AlertDialog.Builder(RequestedMeActivity.this)
+                                    .setMessage("Pedido aceito")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            setView(RequestedMeActivity.this, DonorsActivity.class);
+                                            finish();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+*/
+                        }
+                    }
+
+                    @Override
+                    public void onTimeout() {
+                        new AlertDialog.Builder(RequestedMeActivity.this)
+                                .setTitle("Erro")
+                                .setMessage("Conexão não disponível")
+                                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //mLoading.setVisibility(View.GONE);
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                });
                 openDialogConfirmationReceipt();
             }
         });
@@ -199,7 +269,7 @@ public class RequestedMeActivity extends AppCompatActivity {
         dialogConfirmation.dismiss();
         final Dialog dialogConfirmationReceipt = new Dialog(RequestedMeActivity.this);
         dialogConfirmationReceipt.setContentView(R.layout.dialog_confirmation_receipt);
-        dialogConfirmationReceipt.setTitle("Aguarde");
+        dialogConfirmationReceipt.setTitle("Aguarde...");
         dialogConfirmationReceipt.setCancelable(true);
         dialogConfirmationReceipt.show();
 
