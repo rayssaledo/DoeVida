@@ -146,4 +146,21 @@
     <string name="user_requester_name">Nome do usuário</string>
     <string name="date_of_last_donation">Data da doação</string>
 
+    --------------activity_my_profile--------------------------
+    <string name="title_activity_my_profile">Meu perfil</string>
+    <string name="name">Nome: </string>
+    <string name="input_name">Nome</string>
+    <string name="user_name">Nome do usuário: </string>
+    <string name="input_user_name">Nome do usuário</string>
+    <string name="date_of_birth">Data de nascimento: </string>
+    <string name="input_date_of_birth">XX/XX/XXXX</string>
+    <string name="gender">Sexo: </string>
+    <string name="input_gender">Sexo</string>
+    <string name="blood_type_name">Tipo sanguíneo: </string>
+    <string name="input_blood_type">Tipo sanguíneo</string>
+    <string name="date_of_last_donation2">Data da última doação: </string>
+    <string name="input_date_of_last_donation">XX/XX/XXXX</string>
+    <string name="btn_change_data"> Alterar dados</string>
+
+
 </resources>
