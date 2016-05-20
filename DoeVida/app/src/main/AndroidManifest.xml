@@ -84,6 +84,14 @@
             android:name=".views.RequestsActivity"
             android:label="Quem precisa" />
 
+        <activity
+            android:name=".views.ConfirmationDonationActivity"
+            android:label="Confirmação de pedido" />
+
+        <activity
+            android:name=".views.ConfirmationReceiptDonationActivity"
+            android:label="Confirmação de pedido" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

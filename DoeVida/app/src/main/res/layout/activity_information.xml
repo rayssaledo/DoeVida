@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/btn_more_information"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blue"
                         android:textSize="16sp"/>
 
                 </LinearLayout>
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/btn_more_information"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blue"
                         android:textSize="16sp"/>
 
                 </LinearLayout>
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/btn_more_information"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:textColor="@color/red"
+                        android:textColor="@color/blue"
                         android:textSize="16sp"/>
 
                 </LinearLayout>

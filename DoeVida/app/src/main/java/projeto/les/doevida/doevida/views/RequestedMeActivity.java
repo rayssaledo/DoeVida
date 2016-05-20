@@ -44,6 +44,7 @@ public class RequestedMeActivity extends AppCompatActivity {
     private HttpUtils mHttp;
     private String myLogin;
     private String myName;
+    private String myBloodType;
     private MySharedPreferences userLogged;
     private RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -70,6 +71,7 @@ public class RequestedMeActivity extends AppCompatActivity {
         userDetails = userLogged.getUserDetails();
         myLogin = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
         myName = userDetails.get(MySharedPreferences.KEY_NAME_USER);
+        myBloodType = userDetails.get(MySharedPreferences.KEY_BLOOD_TYPE_USER);
 
         lv_requested_me = (ListView) findViewById(R.id.lv_requested_me);
       //  lv_requested_me.setAdapter(adapter);
@@ -200,8 +202,10 @@ public class RequestedMeActivity extends AppCompatActivity {
                 JSONObject jsonBodyNotification = new JSONObject();
 
                 try {
+                    jsonBodyNotification.put("login", loginUserLogged);
                     jsonBodyNotification.put("donorName", myName);
-                    jsonBodyNotification.put("patientName", patient_name);
+                    jsonBodyNotification.put("bloodTypeDonor", myBloodType);
+                    jsonBodyNotification.put("patientName", request_accepeted_item.getPatientName());
 
                 } catch (JSONException e) {
                     e.printStackTrace();

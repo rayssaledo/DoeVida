@@ -43,7 +43,9 @@ import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.models.BodyNotification;
 import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.views.AcceptedOrderActivity;
+import projeto.les.doevida.doevida.views.ConfirmationDonationActivity;
 import projeto.les.doevida.doevida.views.DonationOrderActivity;
+import projeto.les.doevida.doevida.views.MoreInformation1Activity;
 
 public class GcmIntentService extends IntentService {
 
@@ -130,6 +132,23 @@ public class GcmIntentService extends IntentService {
             try {
                 BodyNotification bodyNotification = new BodyNotification(loginDest, donorName, bloodTypeName, patientName, bloodTypePatient);
                 notificationIntent.putExtra("BODYNOTIFICATION", bodyNotification);
+                startActivity(notificationIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(title.equals("Confirmacao de doacao")){
+            notificationIntent = new Intent(this, ConfirmationDonationActivity.class);
+
+            String loginDest = body.getString("login");
+            String donorName = body.getString("donorName");
+            String bloodTypeDonor = body.getString("bloodTypeDonor");
+            String patientName = body.getString("patientName");
+
+            try {
+                BodyNotification bodyNotification = new BodyNotification(loginDest, donorName, bloodTypeDonor, patientName);
+                notificationIntent.putExtra("CONFIRMATIONDONATION", bodyNotification);
                 startActivity(notificationIntent);
             } catch (Exception e) {
                 e.printStackTrace();
