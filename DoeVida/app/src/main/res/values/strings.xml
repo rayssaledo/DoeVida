@@ -144,5 +144,6 @@
     <string name="update">ATUALIZAR</string>
     <string name="confirmed_donation_receipt">confirmou o recebimento da sua doação de sangue para</string>
     <string name="user_requester_name">Nome do usuário</string>
+    <string name="date_of_last_donation">Data da doação</string>
 
 </resources>

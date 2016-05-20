@@ -104,7 +104,7 @@
                     android:paddingEnd="10dp"/>
 
                 <Button
-                    android:id="@+id/btn_atualizar"
+                    android:id="@+id/btn_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/update"
