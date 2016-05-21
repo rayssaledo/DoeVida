@@ -206,6 +206,7 @@ public class RequestedMeActivity extends AppCompatActivity {
                     jsonBodyNotification.put("donorName", myName);
                     jsonBodyNotification.put("bloodTypeDonor", myBloodType);
                     jsonBodyNotification.put("patientName", request_accepeted_item.getPatientName());
+                    jsonBodyNotification.put("bloodTypePatient", request_accepeted_item.getTypeOfBlood());
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -44,6 +44,7 @@ import projeto.les.doevida.doevida.models.BodyNotification;
 import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.views.AcceptedOrderActivity;
 import projeto.les.doevida.doevida.views.ConfirmationDonationActivity;
+import projeto.les.doevida.doevida.views.ConfirmationReceiptDonationActivity;
 import projeto.les.doevida.doevida.views.DonationOrderActivity;
 import projeto.les.doevida.doevida.views.MoreInformation1Activity;
 
@@ -145,10 +146,28 @@ public class GcmIntentService extends IntentService {
             String donorName = body.getString("donorName");
             String bloodTypeDonor = body.getString("bloodTypeDonor");
             String patientName = body.getString("patientName");
+            String bloodTypePatient = body.getString("bloodTypePatient");
 
             try {
-                BodyNotification bodyNotification = new BodyNotification(loginDest, donorName, bloodTypeDonor, patientName);
+                BodyNotification bodyNotification = new BodyNotification(loginDest, donorName, bloodTypeDonor, patientName, bloodTypePatient);
                 notificationIntent.putExtra("CONFIRMATIONDONATION", bodyNotification);
+                startActivity(notificationIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(title.equals("Doacao recebida")){
+            notificationIntent = new Intent(this, ConfirmationReceiptDonationActivity.class);
+
+            String nameOfUser = body.getString("nameOfUser");
+            String receptorName = body.getString("receptorName");
+            String bloodTypeReceptor = body.getString("bloodTypeReceptor");
+
+
+            try {
+                BodyNotification bodyNotification = new BodyNotification(nameOfUser, receptorName, bloodTypeReceptor);
+                notificationIntent.putExtra("DONATIONRECEIVED", bodyNotification);
                 startActivity(notificationIntent);
             } catch (Exception e) {
                 e.printStackTrace();

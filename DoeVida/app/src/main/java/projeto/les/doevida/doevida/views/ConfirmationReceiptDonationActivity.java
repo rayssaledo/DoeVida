@@ -1,6 +1,7 @@
 package projeto.les.doevida.doevida.views;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,14 +11,15 @@ import android.widget.TextView;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
+import projeto.les.doevida.doevida.models.BodyNotification;
 
 public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
 
     private TextView tv_user_requester_name;
-    private TextView tv_blood_type_requester;
     private TextView tv_receptor_name;
     private TextView tv_blood_type_receptor;
     private TextView btn_update;
+    private BodyNotification bodyNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +27,16 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirmation_receipt_donation);
 
         tv_user_requester_name = (TextView) findViewById(R.id.tv_user_requester_name);
-        tv_blood_type_requester = (TextView) findViewById(R.id.tv_blood_type_requester);
         tv_receptor_name = (TextView) findViewById(R.id.tv_receptor_name);
         tv_blood_type_receptor = (TextView) findViewById(R.id.tv_blood_type_receptor);
         btn_update = (Button) findViewById(R.id.btn_update);
 
-        tv_user_requester_name.setText("login pedinte");
-        tv_blood_type_requester.setText("tipo sanguíeo pedinte");
-        tv_receptor_name.setText("nome paciente");
-        tv_blood_type_receptor.setText("tipo sanguíneo paciente");
+        Intent it = getIntent();
+        bodyNotification = (BodyNotification) it.getSerializableExtra("DONATIONRECEIVED");
+
+        tv_user_requester_name.setText(bodyNotification.getNameOfUser());
+        tv_receptor_name.setText(bodyNotification.getPatientName());
+        tv_blood_type_receptor.setText(bodyNotification.getBloodTypePatient());
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override

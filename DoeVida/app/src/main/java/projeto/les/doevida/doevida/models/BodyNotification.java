@@ -12,6 +12,7 @@ public class BodyNotification implements Serializable {
     private String bloodTypeDonor;
     private String patientName;
     private String bloodTypePatient;
+    private String nameOfUser;
 
     public BodyNotification(String loginDest, String donorName, String bloodTypeDonor, String patientName,
                              String bloodTypePatient) throws Exception {
@@ -37,25 +38,20 @@ public class BodyNotification implements Serializable {
         this.bloodTypePatient = bloodTypePatient;
     }
 
-    public BodyNotification(String loginDest, String donorName, String bloodTypeDonor,
-                            String patientName) throws Exception {
-        if(loginDest == null || loginDest.equals("")){
-            throw new Exception("Login receiver is invalid.");
-        }
-        if(donorName == null || donorName.equals("")){
-            throw new Exception("Donor name is invalid.");
-        }
-        if(bloodTypeDonor == null || bloodTypeDonor.equals("")){
-            throw new Exception("Blood type donor is invalid.");
+    public BodyNotification(String nameOfUser, String patientName, String bloodTypePatient) throws Exception {
+        if(nameOfUser == null || nameOfUser.equals("")){
+            throw new Exception("Name of user is invalid.");
         }
         if(patientName == null || patientName.equals("")){
             throw new Exception("Patient name is invalid.");
         }
+        if(bloodTypePatient == null || bloodTypePatient.equals("")){
+            throw new Exception("Blood type patient is invalid.");
+        }
 
-        this.loginDest = loginDest;
-        this.donorName = donorName;
-        this.bloodTypeDonor = bloodTypeDonor;
+        this.nameOfUser = nameOfUser;
         this.patientName = patientName;
+        this.bloodTypePatient = bloodTypePatient;
     }
 
     public String getLoginDest() {
@@ -111,5 +107,16 @@ public class BodyNotification implements Serializable {
             throw new Exception("Blood type petient is invalid.");
         }
         this.bloodTypePatient = bloodTypePatient;
+    }
+
+    public String getNameOfUser() {
+        return nameOfUser;
+    }
+
+    public void setNameOfUser(String nameOfUser) throws Exception {
+        if(nameOfUser == null || nameOfUser.equals("")){
+            throw new Exception("Name of user is invalid.");
+        }
+        this.nameOfUser = nameOfUser;
     }
 }
