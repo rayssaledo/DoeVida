@@ -26,7 +26,7 @@ import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.adapters.NotificationsAdapter;
 import projeto.les.doevida.doevida.models.NavItem;
-import projeto.les.doevida.doevida.models.Request;
+import projeto.les.doevida.doevida.models.Notification;
 import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
@@ -47,14 +47,12 @@ public class NotificationsActivity extends AppCompatActivity {
     private RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
     private String username;
-
-    private List<Request> listMyNotifications;
+    private List<Notification> list_notifications;
 
     private NotificationsAdapter adapter;
 
     private android.support.v7.app.ActionBar actionBar;
     private CharSequence mTitle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,31 +96,30 @@ public class NotificationsActivity extends AppCompatActivity {
         mHttp.get(urlGetUser, new HttpListener() {
             @Override
             public void onSucess(JSONObject response) throws JSONException {
-                listViewMyNotifications.setVisibility(View.VISIBLE);
                 if (response.getInt("ok") == 1) {
                     JSONObject jsonUser = response.getJSONObject("result");
                     JSONArray jsonArray = jsonUser.getJSONArray("listMyNotifications");
                     userLogged.saveListNotifications(jsonArray.toString());
-                    listMyNotifications = userLogged.getListRequests();
-                    adapter = new NotificationsAdapter(NotificationsActivity.this, listMyNotifications);
+                    Log.d("DANI_JSON_DANI", jsonArray.toString());
+                    list_notifications = new ArrayList<>();
+                    list_notifications = userLogged.getListNotifications();
+                    adapter = new NotificationsAdapter(NotificationsActivity.this, list_notifications);
                     listViewMyNotifications.setAdapter(adapter);
-                    Log.d("lista de requests", "CERTO!!" +
-                            "");
                 }
             }
 
             @Override
             public void onTimeout() {
-                if (userLogged.getListRequests() != null) {
-                    listMyNotifications = userLogged.getListRequests();
-                }
-                if (listMyNotifications != null && listMyNotifications.size() == 0 || listMyNotifications == null) {
-                    Log.d("Notifications", "Tamanho da lista é zero");
-                    listViewMyNotifications.setVisibility(View.GONE);
-                } else {
-                    adapter = new NotificationsAdapter(context, listMyNotifications);
-                    listViewMyNotifications.setAdapter(adapter);
-                }
+//                if (userLogged.getListRequests() != null) {
+//                    listMyNotifications = userLogged.getListRequests();
+//                }
+//                if (listMyNotifications != null && listMyNotifications.size() == 0 || listMyNotifications == null) {
+//                    Log.d("Notifications", "Tamanho da lista é zero");
+//                    listViewMyNotifications.setVisibility(View.GONE);
+//                } else {
+//                    adapter = new NotificationsAdapter(context, listMyNotifications);
+//                    listViewMyNotifications.setAdapter(adapter);
+//                }
             }
         });
     }

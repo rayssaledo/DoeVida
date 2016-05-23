@@ -5,25 +5,60 @@
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/tv_donor_name"
+        android:id="@+id/tv_label_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:hint="@string/hint_name_user"
-        android:textSize="16sp"
+        android:hint="Nome do paciente/doador:"
+        android:textSize="12sp"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="12dp"/>
+        android:layout_marginStart="8dp"/>
 
     <TextView
-        android:id="@+id/tv_date_last_donation"
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="@string/hint_name_requester"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_label_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Enviado em:"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="12dp"
-        android:hint="@string/hint_date_last_donation"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/hint_date_request"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/status"
         android:textSize="16sp"
-        android:layout_marginTop="10dp"/>
+        android:textAllCaps="true"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="12dp"
+        android:layout_below="@+id/tv_name"/>
 
 </RelativeLayout>
 

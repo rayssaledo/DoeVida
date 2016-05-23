@@ -12,19 +12,15 @@ import java.util.Date;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.models.Request;
-import projeto.les.doevida.doevida.models.User;
+import projeto.les.doevida.doevida.models.Notification;
 
-/**
- * Created by Rayssa- on 15/04/2016.
- */
 public class NotificationsAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private List<Request> items;
+    private List<Notification> items;
     Context context;
 
-    public NotificationsAdapter(Context context, List<Request> items) {
+    public NotificationsAdapter(Context context, List<Notification> items) {
         this.items = items;
         mInflater = LayoutInflater.from(context);
     }
@@ -47,15 +43,36 @@ public class NotificationsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Request item = items.get(position);
+        Notification item = items.get(position);
         convertView = mInflater.inflate(R.layout.my_item_notification, null);
 
-        Date dateLastDonation = item.getRequestDate();
+        Date date = item.getDate();
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        String lastDonation = format1.format(dateLastDonation);
+        String date_send = format1.format(date);
 
-        ((TextView) convertView.findViewById(R.id.tv_donor_name)).setText(item.getRequesterName());
-        ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText(lastDonation);
+        String status = "PEDIDO DE SANGUE";
+        String label_name = "Nome do paciente";
+        String name = item.getForm().getPatientName();
+
+        if (item.getTitle().equals("Confirmacao de doacao")){
+            status = "DOAÇÃO REALIZADA";
+            label_name = "Nome do doador";
+            name = item.getDonorName();
+        }
+        else if (item.getTitle().equals("Pedido aceito")){
+            status = "PEDIDO ACEITO";
+            label_name = "Nome do doador";
+            name = item.getDonorName();
+        }
+        else if (item.getTitle().equals("Doacao recebida")){
+            status = "DOAÇÃO RECEBIDA";
+        }
+
+
+        ((TextView) convertView.findViewById(R.id.tv_label_name)).setText(label_name);
+        ((TextView) convertView.findViewById(R.id.tv_name)).setText(name);
+        ((TextView) convertView.findViewById(R.id.tv_date)).setText(date_send);
+        ((TextView) convertView.findViewById(R.id.tv_status)).setText(status);
 
         return convertView;
     }

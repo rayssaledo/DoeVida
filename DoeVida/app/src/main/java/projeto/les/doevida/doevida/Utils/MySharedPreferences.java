@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import projeto.les.doevida.doevida.models.Form;
+import projeto.les.doevida.doevida.models.Notification;
 import projeto.les.doevida.doevida.models.Request;
 import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.views.DonorsActivity;
@@ -32,6 +33,7 @@ public class MySharedPreferences {
     private List<User> listDonors;
     private List<Request> my_forms;
     private List<Form> myForms;
+    private List<Notification> my_notifications;
     private List<Form> requestAccepted;
     private List<Form> myFormsReceived;
     private JSONArray jsonArrayRequestedme;
@@ -82,34 +84,22 @@ public class MySharedPreferences {
         requestAccepted = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonForm = jsonArray.getJSONObject(i);
-            Log.d("JSON_I", jsonForm.toString());
             String loginDest = jsonForm.getString("login");
-            Log.d("IMPRIMINDO_LOGIN", loginDest);
             String hospital = jsonForm.getString("hospitalName");
-            Log.d("IMPRIMINDO_HOSPITAL", hospital);
             String patientName = jsonForm.getString("patientName");
-            Log.d("IMPRIMINDO_patient", patientName);
-            String city= jsonForm.getString("city");
-            Log.d("IMPRIMINDO_cidade", city);
+            String city = jsonForm.getString("city");
             String state = jsonForm.getString("state");
-            Log.d("IMPRIMINDO_estado", state);
             String bloodType = jsonForm.getString("bloodType");
-            Log.d("IMPRIMINDO_tipo", bloodType);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date deadline = null;
             try {
                 deadline = format.parse(jsonForm.getString("deadline"));
-                Log.d("IMPRIMINDO_data", deadline + "");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             try {
                 Form form = new Form(loginDest, patientName, hospital, city, state, bloodType, deadline);
-                Log.d("IMPRIMINDO2", form.getPatientName());
-                Log.d("IMPRIMINDO3", requestAccepted.size() + "");
                 requestAccepted.add(form);
-                Log.d("IMPRIMINDO4", requestAccepted.size() + "");
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -120,8 +110,6 @@ public class MySharedPreferences {
 
     public List<Form> getListRequestsAccepted(){
         String jsonFormString = mPref.getString(KEY_REQUESTS_ACCEPTED, "");
-        Log.d("JSON_RECUPERADO", jsonFormString);
-
         try {
             JSONArray jsonArray = new JSONArray(jsonFormString);
             loadsListRequestMe(jsonArray);
@@ -245,14 +233,14 @@ public class MySharedPreferences {
         return listDonors;
     }
 
-    public List<Request> getListNotifications(){
+    public List<Notification> getListNotifications(){
         String jsonArrayString = mPref.getString(KEY_LIST_NOTIFICATIONS, "");
         try {
             JSONArray jsonArray = new JSONArray(jsonArrayString);
             loadMyNotifications(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
-        } return my_forms;
+        } return my_notifications;
     }
 
     public List<Form> getListMyForms(){
@@ -289,11 +277,12 @@ public class MySharedPreferences {
     }
 
     private void loadMyNotifications(JSONArray jsonArray) throws JSONException{
-        my_forms =  new ArrayList<>();
+        my_notifications =  new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
-            String patientName = jsonRequest.getString("senderLogin");
-
+            String senderlogin = jsonRequest.getString("senderLogin");
+            //  String receiverlogin = jsonRequest.getString("receiverLogin");
+            String title = jsonRequest.getString("titleNotification");
             JSONObject jsonBody = jsonRequest.getJSONObject("bodyNotification");
 
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -303,12 +292,39 @@ public class MySharedPreferences {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            try {
-                Request request = new Request(patientName, deadline);
-                my_forms.add(request);
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            if (title.equals("Solicitacao de sangue")){
+                String patient = jsonBody.getString("patientName");
+                String hospital = jsonBody.getString("hospitalName");
+                String city = jsonBody.getString("city");
+                String state = jsonBody.getString("state");
+                String bloodType = jsonBody.getString("bloodType");
+                try {
+                    Form form = new Form(patient, hospital, city, state, bloodType, deadline);
+                    Notification notification = new Notification(senderlogin, "receiver", title, deadline, form);
+                    my_notifications.add(notification);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+            else if (title.equals("Doacao recebida")){
+                String patient = jsonBody.getString("patientName");
+                String bloodType = jsonBody.getString("bloodType");
+                Notification notification = new Notification(senderlogin, "receiver", title, deadline, "", patient, bloodType);
+                my_notifications.add(notification);
+            }
+            else {
+                String patient = jsonBody.getString("patientName");
+                String bloodTypeDonor = jsonBody.getString("bloodTypeDonor");
+                String bloodTypePatient = jsonBody.getString("bloodTypePatient");
+                String donor = jsonBody.getString("donorName");
+                Notification notification = new Notification(senderlogin, "receiver", title, deadline, donor,
+                        patient, bloodTypePatient, bloodTypeDonor);
+                my_notifications.add(notification);
+            }
+
+            Log.d("IMPRIME I: ", i + "");
+            //NÃO TÁ PERCORRENDO TUDO
         }
     }
 
