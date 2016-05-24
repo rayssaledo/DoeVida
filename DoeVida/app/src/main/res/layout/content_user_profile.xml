@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="projeto.les.doevida.doevida.views.MyProfileActivity"
-    tools:showIn="@layout/activity_my_profile">
+    tools:context=".views.UserProfileActivity"
+    tools:showIn="@layout/activity_user_profile">
 
 </RelativeLayout>

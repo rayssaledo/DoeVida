@@ -90,8 +90,11 @@
             android:name=".views.ConfirmationReceiptDonationActivity"
             android:label="Confirmação de pedido" />
         <activity
-            android:name=".views.MyProfileActivity"
-            android:label="Confirmação de pedido" />
+            android:name=".views.UserProfileActivity"
+            android:label="Meu Perfil" />
+        <activity
+            android:name=".views.EditUserProfileActivity"
+            android:label="Editar Perfil" />
 
         <meta-data
             android:name="com.google.android.gms.version"
