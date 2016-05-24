@@ -235,8 +235,10 @@ public class MySharedPreferences {
 
     public List<Notification> getListNotifications(){
         String jsonArrayString = mPref.getString(KEY_LIST_NOTIFICATIONS, "");
+        Log.d("JSON_ARRAY_STRING", jsonArrayString);
         try {
             JSONArray jsonArray = new JSONArray(jsonArrayString);
+            Log.d("JSON_ARRAY", jsonArray +"");
             loadMyNotifications(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -278,20 +280,23 @@ public class MySharedPreferences {
 
     private void loadMyNotifications(JSONArray jsonArray) throws JSONException{
         my_notifications =  new ArrayList<>();
+        Log.d("TAMANHO", jsonArray.length() + "" );
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
+
+            Log.d("json_body", jsonRequest+"");
             String senderlogin = jsonRequest.getString("senderLogin");
             //  String receiverlogin = jsonRequest.getString("receiverLogin");
             String title = jsonRequest.getString("titleNotification");
             JSONObject jsonBody = jsonRequest.getJSONObject("bodyNotification");
 
-            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            Date deadline = null;
-            try {
-                deadline = format.parse(jsonBody.getString("deadline"));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+//            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//            Date deadline = null;
+//            try {
+//                deadline = format.parse(jsonBody.getString("deadline"));
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
 
             if (title.equals("Solicitacao de sangue")){
                 String patient = jsonBody.getString("patientName");
@@ -300,8 +305,10 @@ public class MySharedPreferences {
                 String state = jsonBody.getString("state");
                 String bloodType = jsonBody.getString("bloodType");
                 try {
-                    Form form = new Form(patient, hospital, city, state, bloodType, deadline);
-                    Notification notification = new Notification(senderlogin, "receiver", title, deadline, form);
+//                    Form form = new Form(patient, hospital, city, state, bloodType, deadline);
+//                    Notification notification = new Notification(senderlogin, "receiver", title, deadline, form);
+                    Form form = new Form(patient, hospital, city, state, bloodType);
+                    Notification notification = new Notification(senderlogin, "receiver", title, form);
                     my_notifications.add(notification);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -310,7 +317,8 @@ public class MySharedPreferences {
             else if (title.equals("Doacao recebida")){
                 String patient = jsonBody.getString("patientName");
                 String bloodType = jsonBody.getString("bloodType");
-                Notification notification = new Notification(senderlogin, "receiver", title, deadline, "", patient, bloodType);
+//                Notification notification = new Notification(senderlogin, "receiver", title, deadline, "", patient, bloodType);
+                Notification notification = new Notification(senderlogin, "receiver", title, "", patient, bloodType);
                 my_notifications.add(notification);
             }
             else {
@@ -318,13 +326,14 @@ public class MySharedPreferences {
                 String bloodTypeDonor = jsonBody.getString("bloodTypeDonor");
                 String bloodTypePatient = jsonBody.getString("bloodTypePatient");
                 String donor = jsonBody.getString("donorName");
-                Notification notification = new Notification(senderlogin, "receiver", title, deadline, donor,
+//                Notification notification = new Notification(senderlogin, "receiver", title, deadline, donor,
+//                        patient, bloodTypePatient, bloodTypeDonor);
+                Notification notification = new Notification(senderlogin, "receiver", title, donor,
                         patient, bloodTypePatient, bloodTypeDonor);
                 my_notifications.add(notification);
             }
 
             Log.d("IMPRIME I: ", i + "");
-            //NÃO TÁ PERCORRENDO TUDO
         }
     }
 
@@ -333,25 +342,33 @@ public class MySharedPreferences {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
             String loginDest = jsonRequest.getString("senderLogin");
+            String title = jsonRequest.getString("titleNotification");
             JSONObject jsonBody = jsonRequest.getJSONObject("bodyNotification");
-            String patient = jsonBody.getString("patientName");
-            String hospital = jsonBody.getString("hospitalName");
-            String city = jsonBody.getString("city");
-            String state = jsonBody.getString("state");
-            String bloodType = jsonBody.getString("bloodType");
 
-            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            Date deadline = null;
-            try {
-                deadline = format.parse(jsonBody.getString("deadline"));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-               Form form = new Form(loginDest, patient, hospital, city, state, bloodType, deadline);
-                myFormsReceived.add(form);
-            } catch (Exception e) {
-                e.printStackTrace();
+
+//            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//            Date deadline = null;
+//            try {
+//                deadline = format.parse(jsonBody.getString("deadline"));
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//
+//  }
+
+            if (title.equals("Solicitacao de sangue")){
+                String patient = jsonBody.getString("patientName");
+                String hospital = jsonBody.getString("hospitalName");
+                String city = jsonBody.getString("city");
+                String state = jsonBody.getString("state");
+                String bloodType = jsonBody.getString("bloodType");
+                try {
+//                    Form form = new Form(patient, hospital, city, state, bloodType, deadline);
+//                    Notification notification = new Notification(senderlogin, "receiver", title, deadline, form);
+                    Form form = new Form(patient, hospital, city, state, bloodType);
+                    myFormsReceived.add(form);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -450,7 +467,7 @@ public class MySharedPreferences {
                 String state_patient = "";
                 String blood_type_patient = "";
                 String deadline_date = "";
-                Date deadline = new Date();
+//                Date deadline = new Date();
 
             Form form;
             for (int j = 0; j < jsonForms.length(); j++) {
@@ -461,16 +478,17 @@ public class MySharedPreferences {
                 city_patient = formjson.getString("city");
                 state_patient = formjson.getString("state");
                 blood_type_patient = formjson.getString("bloodType");
-                deadline_date = formjson.getString("deadline");
-
-                try {
-                    deadline = format.parse(deadline_date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+//                deadline_date = formjson.getString("deadline");
+//
+//                try {
+//                    deadline = format.parse(deadline_date);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
             }
                 try {
-                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient, deadline);
+//                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient, deadline);
+                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient);
                     donor.addForm(form);
                 } catch (Exception e) {
                     e.printStackTrace();

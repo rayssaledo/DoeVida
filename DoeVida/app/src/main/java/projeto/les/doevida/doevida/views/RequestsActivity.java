@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -94,7 +95,9 @@ public class RequestsActivity extends AppCompatActivity {
                     JSONArray jsonArray = response.getJSONArray("result");
                     userLogged.saveListDonors(jsonArray.toString());
                     listAllUsers = userLogged.getListDonors();
+                    Log.d("LIST_ALL_USERS", listAllUsers.size()+"" );
                     for (User user : listAllUsers) {
+                        Log.d("LIST_ALL_FORMS",user.getForms().size()+"" );
                         for (Form form : user.getForms()) {
                             listAllforms.add(form);
                         }
