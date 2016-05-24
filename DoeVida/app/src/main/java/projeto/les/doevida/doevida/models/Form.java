@@ -45,6 +45,35 @@ public class Form implements Serializable {
         this.deadline = deadline;
     }
 
+    public Form(String loginDest, String patientName, String hospitalName, String city, String state,
+                String typeOfBlood) throws Exception {
+        if(loginDest == null || loginDest.equals("")){
+            throw new Exception("Login receiver is invalid.");
+        }
+        if(patientName == null || patientName.equals("")){
+            throw new Exception("Patient name is invalid.");
+        }
+        if(hospitalName == null || hospitalName.equals("")){
+            throw new Exception("Hospital name is invalid.");
+        }
+        if(city == null || city.equals("")){
+            throw new Exception("City is invalid.");
+        }
+        if(state == null || state.equals("")){
+            throw new Exception("State is invalid.");
+        }
+        if(typeOfBlood == null || typeOfBlood.equals("")){
+            throw new Exception("Type of blood is invalid.");
+        }
+
+        this.loginDest = loginDest;
+        this.patientName = patientName;
+        this.hospitalName = hospitalName;
+        this.city = city;
+        this.state = state;
+        this.typeOfBlood = typeOfBlood;
+    }
+
     public Form(String patientName, String hospitalName, String city, String state,
                 String typeOfBlood, Date deadline) throws Exception {
         if(patientName == null || patientName.equals("")){
@@ -72,6 +101,30 @@ public class Form implements Serializable {
         this.state = state;
         this.typeOfBlood = typeOfBlood;
         this.deadline = deadline;
+    }
+
+    public Form(String patientName, String hospitalName, String city, String state,
+                String typeOfBlood) throws Exception {
+        if(patientName == null || patientName.equals("")){
+            throw new Exception("Patient name is invalid.");
+        }
+        if(hospitalName == null || hospitalName.equals("")){
+            throw new Exception("Hospital name is invalid.");
+        }
+        if(city == null || city.equals("")){
+            throw new Exception("City is invalid.");
+        }
+        if(state == null || state.equals("")){
+            throw new Exception("State is invalid.");
+        }
+        if(typeOfBlood == null || typeOfBlood.equals("")){
+            throw new Exception("Type of blood is invalid.");
+        }
+        this.patientName = patientName;
+        this.hospitalName = hospitalName;
+        this.city = city;
+        this.state = state;
+        this.typeOfBlood = typeOfBlood;
     }
 
 

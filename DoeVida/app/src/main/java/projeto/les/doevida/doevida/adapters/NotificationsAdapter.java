@@ -1,6 +1,7 @@
 package projeto.les.doevida.doevida.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,14 +47,18 @@ public class NotificationsAdapter extends BaseAdapter {
         Notification item = items.get(position);
         convertView = mInflater.inflate(R.layout.my_item_notification, null);
 
-        Date date = item.getDate();
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        String date_send = format1.format(date);
+//        Date date = item.getDate();
+//        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+//        String date_send = format1.format(date);
 
-        String status = "PEDIDO DE SANGUE";
+        String status = "";
         String label_name = "Nome do paciente";
-        String name = item.getForm().getPatientName();
+        String name = "";//
 
+        if (item.getTitle().equals("Solicitacao de sangue")){
+            status = "PEDIDO DE SANGUE";
+            name = item.getForm().getPatientName();
+        }
         if (item.getTitle().equals("Confirmacao de doacao")){
             status = "DOAÇÃO REALIZADA";
             label_name = "Nome do doador";
@@ -66,12 +71,13 @@ public class NotificationsAdapter extends BaseAdapter {
         }
         else if (item.getTitle().equals("Doacao recebida")){
             status = "DOAÇÃO RECEBIDA";
+            name = item.getForm().getPatientName();
         }
 
 
         ((TextView) convertView.findViewById(R.id.tv_label_name)).setText(label_name);
         ((TextView) convertView.findViewById(R.id.tv_name)).setText(name);
-        ((TextView) convertView.findViewById(R.id.tv_date)).setText(date_send);
+//        ((TextView) convertView.findViewById(R.id.tv_date)).setText(date_send);
         ((TextView) convertView.findViewById(R.id.tv_status)).setText(status);
 
         return convertView;

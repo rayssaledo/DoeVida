@@ -3,17 +3,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/hint_name_user"
-        android:textSize="16sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="12dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-   <TextView
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/hint_name_user"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/tv_hospital_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:hint="@string/hospital_name"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/tv_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:hint="@string/city_name"
+            android:textSize="14sp"
+            android:layout_below="@+id/tv_hospital_name"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/tv_state_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:hint="@string/state_name"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/status"
+            android:textSize="16sp"
+            android:textAllCaps="true"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"/>
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/tv_date_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,19 +74,5 @@
         android:text="@string/hint_date_last_donation"
         android:textSize="16sp"
         android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/status"
-        android:textSize="16sp"
-        android:textAllCaps="true"
-        android:textColor="@color/red"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="12dp"
-        android:layout_below="@+id/tv_name"/>
 
 </RelativeLayout>

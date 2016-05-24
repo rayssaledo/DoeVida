@@ -53,9 +53,9 @@ public class RequestsAdapter extends BaseAdapter {
 
         Form item = items.get(position);
 
-        Date deadline_date = item.getDeadline();
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        String deadline  = format1.format(deadline_date);
+//        Date deadline_date = item.getDeadline();
+//        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+//        String deadline  = format1.format(deadline_date);
 
         Bitmap imageBloodType = null;
 
@@ -82,7 +82,7 @@ public class RequestsAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.tv_hospital_name)).setText(item.getHospitalName());
         ((TextView) convertView.findViewById(R.id.tv_city_name)).setText(item.getCity());
         ((TextView) convertView.findViewById(R.id.tv_state_name)).setText(item.getState());
-        ((TextView) convertView.findViewById(R.id.tv_deadline)).setText(deadline);
+//        ((TextView) convertView.findViewById(R.id.tv_deadline)).setText(deadline);
 
         return convertView;
     }

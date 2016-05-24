@@ -23,6 +23,13 @@ public class Notification {
         this.form = form;
 
     }
+    public Notification(String senderLogin, String receiverLogin, String title, Form form){
+        this.senderLogin = senderLogin;
+        this.receiverLogin = receiverLogin;
+        this.title = title;
+        this.form = form;
+
+    }
 
     public Notification(String senderLogin, String receiverLogin, String title, Date date,
                         String donor, String patient, String bloodTypePatient, String bloodTypeDonor ){
@@ -38,6 +45,19 @@ public class Notification {
 
     }
 
+    public Notification(String senderLogin, String receiverLogin, String title,
+                        String donor, String patient, String bloodTypePatient, String bloodTypeDonor ){
+
+        this.senderLogin = senderLogin;
+        this.receiverLogin = receiverLogin;
+        this.title = title;
+        this.donor = donor;
+        this.patient = patient;
+        this.bloodTypePatient = bloodTypePatient;
+        this.bloodTypeDonor = bloodTypeDonor;
+
+    }
+
     public Notification(String senderLogin, String receiverLogin, String title, Date date,
                         String donor, String patient, String bloodTypePatient){
 
@@ -45,6 +65,18 @@ public class Notification {
         this.receiverLogin = receiverLogin;
         this.title = title;
         this.date = date;
+        this.donor = donor;
+        this.patient = patient;
+        this.bloodTypePatient = bloodTypePatient;
+
+    }
+
+    public Notification(String senderLogin, String receiverLogin, String title,
+                        String donor, String patient, String bloodTypePatient){
+
+        this.senderLogin = senderLogin;
+        this.receiverLogin = receiverLogin;
+        this.title = title;
         this.donor = donor;
         this.patient = patient;
         this.bloodTypePatient = bloodTypePatient;

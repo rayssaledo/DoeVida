@@ -667,7 +667,7 @@ public class DonorsActivity extends AppCompatActivity {
         JSONObject json = new JSONObject();
         //login, patientName, hospitalName, city, state, bloodType, deadline
         try {
-            json.put("login", loginUserLogged);
+            json.put("senderLogin", loginUserLogged);
             json.put("patientName", name_patient);
             json.put("hospitalName", hospital);
             json.put("city", city);
