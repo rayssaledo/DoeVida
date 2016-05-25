@@ -2,11 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.DonorsActivity">
-
+    <!-- Search / will display always -->
     <item
         android:id="@+id/action_search"
-        android:icon="@mipmap/ic_action_search"
-        android:orderInCategory="100"
+        app:actionViewClass="android.widget.SearchView"
+        android:icon="@mipmap/ic_search_white_24dp"
+        android:orderInCategory="0"
         android:title=""
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

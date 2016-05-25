@@ -2,6 +2,8 @@ package projeto.les.doevida.doevida.views;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,9 +11,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -21,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
@@ -47,7 +52,7 @@ import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
 
-public class DonorsActivity extends AppCompatActivity {
+public class DonorsActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener, View.OnFocusChangeListener {
 
     private MySharedPreferences userLogged;
     private HashMap<String, String> userDetails;
@@ -92,6 +97,9 @@ public class DonorsActivity extends AppCompatActivity {
     private String mBlood_Type;
     private String loginUserLogged;
 
+    private MenuItem menuSearch;
+    private SearchView mSearchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +128,8 @@ public class DonorsActivity extends AppCompatActivity {
             }
         });
 
+        listDonors = new ArrayList<>();
+
         mHttp = new HttpUtils(this);
         listViewDonors = (ListView) findViewById(R.id.lv_donors);
         listViewDonors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -132,6 +142,14 @@ public class DonorsActivity extends AppCompatActivity {
 
         context = this;
         getListDonors();
+    }
+
+    @Override
+    protected final void onResume() {
+        super.onResume();
+        if (mSearchView != null) {
+            mSearchView.clearFocus();
+        }
     }
 
     private void openForm(final User item){
@@ -657,7 +675,6 @@ public class DonorsActivity extends AppCompatActivity {
         }
     }
 
-
     private void addForm(final String name_patient, final String hospital, final String city,
                          final String state, final String blood_type,
                          final String date_limit_donation, final Dialog dialog) {
@@ -679,7 +696,7 @@ public class DonorsActivity extends AppCompatActivity {
         }
         mHttp.post(url, json.toString(), new HttpListener() {
             @Override
-            public void onSucess(JSONObject result) throws JSONException{
+            public void onSucess(JSONObject result) throws JSONException {
                 if (result.getInt("ok") == 0) {
                     new AlertDialog.Builder(DonorsActivity.this)
                             .setTitle("Erro")
@@ -705,6 +722,7 @@ public class DonorsActivity extends AppCompatActivity {
                             .show();
                 }
             }
+
             @Override
             public void onTimeout() {
                 new AlertDialog.Builder(DonorsActivity.this)
@@ -783,8 +801,6 @@ public class DonorsActivity extends AppCompatActivity {
                     }
                     adapter = new DonorsAdapter(DonorsActivity.this, listDonors);
                     listViewDonors.setAdapter(adapter);
-                    Log.d("PASSOU AQUI", "CERTO!!" +
-                            "");
                 }
             }
 
@@ -794,7 +810,6 @@ public class DonorsActivity extends AppCompatActivity {
                     listDonors = userLogged.getListDonors();
                 }
                 if (listDonors != null && listDonors.size() == 0 || listDonors == null) {
-                    Log.d("DONORS", "Tamanho da lista é zero");
                     listViewDonors.setVisibility(View.GONE);
                 } else {
                     adapter = new DonorsAdapter(context, listDonors);
@@ -802,5 +817,79 @@ public class DonorsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onClose() {
+        adapter = new DonorsAdapter(DonorsActivity.this, listDonors);
+        listViewDonors.setAdapter(adapter);
+        return false;
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public final boolean onQueryTextChange(final String newText) {
+        List<User> selectedUsers = new ArrayList<>();
+        for ( User user : listDonors) {
+            if (user.getTypeOfBlood().toUpperCase(Locale.getDefault()).contains(newText.toUpperCase(Locale.getDefault()))) {
+                selectedUsers.add(user);
+            }
+            if (selectedUsers.size() == 0) {
+              //Mostrar textview na tela de busca não encontrada
+            } else {
+            }
+        }
+        adapter = new DonorsAdapter(DonorsActivity.this, selectedUsers);
+        listViewDonors.setAdapter(adapter);
+        return false;
+    }
+
+    @Override
+    public final boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_donors, menu);
+        menu.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menuSearch = menu.findItem(R.id.action_search);
+        if (listDonors.isEmpty()) {
+            setSearchOptionVisible(false);
+        }
+        mSearchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        setUpSearchView();
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void setSearchOptionVisible(final boolean visible) {
+        if (menuSearch != null) {
+            menuSearch.setVisible(visible);
+        }
+    }
+
+    private void setUpSearchView() {
+        mSearchView.setIconifiedByDefault(true);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        if (searchManager != null) {
+            List<SearchableInfo> searchables = searchManager.getSearchablesInGlobalSearch();
+            SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
+            for (SearchableInfo inf : searchables) {
+                if (inf.getSuggestAuthority() != null
+                        && inf.getSuggestAuthority().startsWith("applications")) {
+                    info = inf;
+                }
+            }
+            mSearchView.setSearchableInfo(info);
+        }
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setOnCloseListener(this);
+        mSearchView.setOnQueryTextFocusChangeListener(DonorsActivity.this);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
     }
 }
