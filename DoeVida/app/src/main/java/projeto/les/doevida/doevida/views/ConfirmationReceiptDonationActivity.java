@@ -33,6 +33,9 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         bodyNotification = (BodyNotification) it.getSerializableExtra("DONATIONRECEIVED");
+        if (bodyNotification == null){
+            bodyNotification = (BodyNotification) it.getSerializableExtra("NOTIFICATIONT3");
+        }
 
         tv_user_requester_name.setText(bodyNotification.getNameOfUser());
         tv_receptor_name.setText(bodyNotification.getPatientName());

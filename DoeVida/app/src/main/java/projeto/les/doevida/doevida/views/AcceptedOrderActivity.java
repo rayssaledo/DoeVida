@@ -3,20 +3,13 @@ package projeto.les.doevida.doevida.views;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.HashMap;
-
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.models.BodyNotification;
-import projeto.les.doevida.doevida.models.Form;
-import projeto.les.doevida.doevida.utils.HttpUtils;
 
 public class AcceptedOrderActivity extends AppCompatActivity {
 
@@ -33,6 +26,7 @@ public class AcceptedOrderActivity extends AppCompatActivity {
     private String bloodTypeReceptor;
     private String loginDest;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +38,10 @@ public class AcceptedOrderActivity extends AppCompatActivity {
         blood_type_receptor = (TextView) findViewById(R.id.tv_blood_type_receptor);
 
         Intent it = getIntent();
-        BodyNotification bodyNotification = (BodyNotification) it.getSerializableExtra("BODYNOTIFICATION");
-
+        bodyNotification = (BodyNotification) it.getSerializableExtra("BODYNOTIFICATION");
+        if (bodyNotification == null){
+            bodyNotification = (BodyNotification) it.getSerializableExtra("NOTIFICATIONT4");
+        }
         donor_name.setText(bodyNotification.getDonorName());
         blood_type_donor.setText(bodyNotification.getBloodTypeDonor());
         receptor_name.setText(bodyNotification.getPatientName());

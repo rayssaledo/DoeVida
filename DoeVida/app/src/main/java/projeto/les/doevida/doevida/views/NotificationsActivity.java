@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +24,8 @@ import java.util.List;
 import projeto.les.doevida.doevida.R;
 import projeto.les.doevida.doevida.adapters.DrawerListAdapter;
 import projeto.les.doevida.doevida.adapters.NotificationsAdapter;
+import projeto.les.doevida.doevida.models.BodyNotification;
+import projeto.les.doevida.doevida.models.Form;
 import projeto.les.doevida.doevida.models.NavItem;
 import projeto.les.doevida.doevida.models.Notification;
 import projeto.les.doevida.doevida.utils.HttpListener;
@@ -72,8 +73,52 @@ public class NotificationsActivity extends AppCompatActivity {
         loginUserTextView = (TextView) findViewById(R.id.login);
         loginUserTextView.setText(username);
         listViewMyNotifications = (ListView) findViewById(R.id.lv_notifications);
+        listViewMyNotifications.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Notification item = (Notification) adapter.getItem(position);
+                if (item.getTitle().equals("Solicitacao de sangue")){
+                    Form form = item.getForm();
+                    Intent it = new Intent(NotificationsActivity.this,DonationOrderActivity.class );
+                    it.putExtra("NOTIFICATIONT1", form);
+                    startActivity(it);
+                } else if (item.getTitle().equals("Confirmacao de doacao")){
+                    Intent it = new Intent(NotificationsActivity.this, ConfirmationDonationActivity.class);
+                    try {
+                        BodyNotification bodyNotification = new BodyNotification(item.getReceiverLogin(),
+                                item.getDonorName(), item.getBloodTypeDonor(), item.getPatientName(),
+                                item.getBloodTypePatient());
+                        it.putExtra("NOTIFICATIONT2", bodyNotification);
+                        startActivity(it);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (item.getTitle().equals("Doacao recebida")){
+                    Intent it = new Intent(NotificationsActivity.this,
+                            ConfirmationReceiptDonationActivity.class);
+                    try {
+                        BodyNotification bodyNotification = new BodyNotification(item.getNameOfUser(),
+                                item.getPatientName(), item.getBloodTypePatient());
+                        it.putExtra("NOTIFICATIONT3", bodyNotification);
+                        startActivity(it);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (item.getTitle().equals("Pedido aceito")){
+                    Intent it = new Intent(NotificationsActivity.this, AcceptedOrderActivity.class);
+                    try {
+                        BodyNotification bodyNotification = new BodyNotification(item.getReceiverLogin(),
+                                item.getDonorName(), item.getBloodTypeDonor(), item.getPatientName(),
+                                item.getBloodTypePatient());
+                        it.putExtra("NOTIFICATIONT4", bodyNotification);
+                        startActivity(it);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
-        // Navigation bar
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
@@ -100,7 +145,6 @@ public class NotificationsActivity extends AppCompatActivity {
                     JSONObject jsonUser = response.getJSONObject("result");
                     JSONArray jsonArray = jsonUser.getJSONArray("listMyNotifications");
                     userLogged.saveListNotifications(jsonArray.toString());
-                    Log.d("DANI_JSON_DANI", jsonArray.toString());
                     list_notifications = new ArrayList<>();
                     list_notifications = userLogged.getListNotifications();
                     adapter = new NotificationsAdapter(NotificationsActivity.this, list_notifications);

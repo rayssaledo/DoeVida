@@ -50,6 +50,9 @@ public class ConfirmationDonationActivity extends AppCompatActivity {
         Intent it = getIntent();
         bodyNotification = (BodyNotification) it.getSerializableExtra("CONFIRMATIONDONATION");
 
+        if (bodyNotification == null){
+            bodyNotification = (BodyNotification) it.getSerializableExtra("NOTIFICATIONT2");
+        }
         tv_donor_name.setText(bodyNotification.getDonorName());
         tv_blood_type_donor.setText(bodyNotification.getBloodTypeDonor());
         tv_receptor_name.setText(bodyNotification.getPatientName());

@@ -14,6 +14,7 @@ public class Notification {
     private String patient;
     private String bloodTypePatient;
     private String bloodTypeDonor;
+    private String nameOfUser;
 
     public Notification(String senderLogin, String receiverLogin, String title, Date date, Form form){
         this.senderLogin = senderLogin;
@@ -72,17 +73,20 @@ public class Notification {
     }
 
     public Notification(String senderLogin, String receiverLogin, String title,
-                        String donor, String patient, String bloodTypePatient){
+                        String nameOfUser, String patient, String bloodTypePatient){
 
         this.senderLogin = senderLogin;
         this.receiverLogin = receiverLogin;
         this.title = title;
-        this.donor = donor;
+        this.nameOfUser = nameOfUser;
         this.patient = patient;
         this.bloodTypePatient = bloodTypePatient;
 
     }
 
+    public String getNameOfUser(){
+        return nameOfUser;
+    }
 
     public String getTitle(){
         return title;
@@ -116,6 +120,6 @@ public class Notification {
         return  bloodTypePatient;
     }
     public String getBloodTypeDonor(){
-        return getBloodTypeDonor();
+        return bloodTypeDonor;
     }
 }

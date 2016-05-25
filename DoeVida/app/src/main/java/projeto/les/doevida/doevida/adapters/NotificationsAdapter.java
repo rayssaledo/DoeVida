@@ -1,15 +1,12 @@
 package projeto.les.doevida.doevida.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
@@ -53,7 +50,7 @@ public class NotificationsAdapter extends BaseAdapter {
 
         String status = "";
         String label_name = "Nome do paciente";
-        String name = "";//
+        String name = "";
 
         if (item.getTitle().equals("Solicitacao de sangue")){
             status = "PEDIDO DE SANGUE";
@@ -71,7 +68,7 @@ public class NotificationsAdapter extends BaseAdapter {
         }
         else if (item.getTitle().equals("Doacao recebida")){
             status = "DOAÇÃO RECEBIDA";
-            name = item.getForm().getPatientName();
+            name = item.getPatientName();
         }
 
 

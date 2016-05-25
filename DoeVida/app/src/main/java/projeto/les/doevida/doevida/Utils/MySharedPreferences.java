@@ -305,9 +305,9 @@ public class MySharedPreferences {
                 String state = jsonBody.getString("state");
                 String bloodType = jsonBody.getString("bloodType");
                 try {
-//                    Form form = new Form(patient, hospital, city, state, bloodType, deadline);
+//                    Form form = new Form(senderLogin, patient, hospital, city, state, bloodType, deadline);
 //                    Notification notification = new Notification(senderlogin, "receiver", title, deadline, form);
-                    Form form = new Form(patient, hospital, city, state, bloodType);
+                    Form form = new Form(senderlogin, patient, hospital, city, state, bloodType);
                     Notification notification = new Notification(senderlogin, "receiver", title, form);
                     my_notifications.add(notification);
                 } catch (Exception e) {
@@ -315,25 +315,26 @@ public class MySharedPreferences {
                 }
             }
             else if (title.equals("Doacao recebida")){
-                String patient = jsonBody.getString("patientName");
-                String bloodType = jsonBody.getString("bloodType");
-//                Notification notification = new Notification(senderlogin, "receiver", title, deadline, "", patient, bloodType);
-                Notification notification = new Notification(senderlogin, "receiver", title, "", patient, bloodType);
+                String nameOfUser = jsonBody.getString("nameOfUser");
+                String receptorName = jsonBody.getString("receptorName");
+                String bloodTypeReceptor = jsonBody.getString("bloodTypeReceptor");
+
+//              Notification notification = new Notification(senderlogin, "receiver", title, deadline, "", patient, bloodType);
+                Notification notification = new Notification(senderlogin, "receiver", title, nameOfUser, receptorName, bloodTypeReceptor);
                 my_notifications.add(notification);
             }
             else {
-                String patient = jsonBody.getString("patientName");
+                String loginDest = jsonBody.getString("login");
+                String donorName = jsonBody.getString("donorName");
                 String bloodTypeDonor = jsonBody.getString("bloodTypeDonor");
+                String patientName = jsonBody.getString("patientName");
                 String bloodTypePatient = jsonBody.getString("bloodTypePatient");
-                String donor = jsonBody.getString("donorName");
-//                Notification notification = new Notification(senderlogin, "receiver", title, deadline, donor,
-//                        patient, bloodTypePatient, bloodTypeDonor);
-                Notification notification = new Notification(senderlogin, "receiver", title, donor,
-                        patient, bloodTypePatient, bloodTypeDonor);
+
+                Notification notification = new Notification(senderlogin, loginDest, title, donorName,
+                        patientName, bloodTypePatient, bloodTypeDonor);
+                //                Notification notification = new Notification(senderlogin, "receiver", title, deadline, donor,
                 my_notifications.add(notification);
             }
-
-            Log.d("IMPRIME I: ", i + "");
         }
     }
 
