@@ -342,7 +342,7 @@ public class MySharedPreferences {
         myFormsReceived =  new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonRequest = jsonArray.getJSONObject(i);
-            String loginDest = jsonRequest.getString("senderLogin");
+            //String loginDest = jsonRequest.getString("senderLogin");
             String title = jsonRequest.getString("titleNotification");
             JSONObject jsonBody = jsonRequest.getJSONObject("bodyNotification");
 
@@ -357,6 +357,7 @@ public class MySharedPreferences {
 //  }
 
             if (title.equals("Solicitacao de sangue")){
+                String loginDest = jsonBody.getString("login");
                 String patient = jsonBody.getString("patientName");
                 String hospital = jsonBody.getString("hospitalName");
                 String city = jsonBody.getString("city");
@@ -365,7 +366,7 @@ public class MySharedPreferences {
                 try {
 //                    Form form = new Form(patient, hospital, city, state, bloodType, deadline);
 //                    Notification notification = new Notification(senderlogin, "receiver", title, deadline, form);
-                    Form form = new Form(patient, hospital, city, state, bloodType);
+                    Form form = new Form(loginDest, patient, hospital, city, state, bloodType);
                     myFormsReceived.add(form);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -462,6 +463,7 @@ public class MySharedPreferences {
 
             try {
                 JSONArray jsonForms = jsonDonor.getJSONArray("forms");
+                String loginDest = "";
                 String patient = "";
                 String hospital = "";
                 String city_patient = "";
@@ -474,6 +476,7 @@ public class MySharedPreferences {
             for (int j = 0; j < jsonForms.length(); j++) {
                 JSONObject formjson = jsonForms.getJSONObject(j);
 
+                loginDest = formjson.getString("receiverLogin");
                 patient = formjson.getString("patientName");
                 hospital = formjson.getString("hospitalName");
                 city_patient = formjson.getString("city");
@@ -489,7 +492,7 @@ public class MySharedPreferences {
             }
                 try {
 //                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient, deadline);
-                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient);
+                    form = new Form(loginDest, patient, hospital, city_patient, state_patient, blood_type_patient);
                     donor.addForm(form);
                 } catch (Exception e) {
                     e.printStackTrace();
