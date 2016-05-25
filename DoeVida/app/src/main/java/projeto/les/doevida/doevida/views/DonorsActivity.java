@@ -91,6 +91,7 @@ public class DonorsActivity extends AppCompatActivity {
     private List<String> mTypes;
     private String mBlood_Type;
     private String loginUserLogged;
+    private Button btn_view_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,14 @@ public class DonorsActivity extends AppCompatActivity {
         nameUserTextView.setText(name);
         loginUserTextView = (TextView) findViewById(R.id.login);
         loginUserTextView.setText(loginUserLogged);
+        btn_view_profile = (Button) findViewById(R.id.btn_view_profile);
+        btn_view_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView(DonorsActivity.this, UserProfileActivity.class);
+            }
+        });
+
         mNavItems = new ArrayList<>();
         setmDrawer(mNavItems);
 
@@ -327,8 +336,8 @@ public class DonorsActivity extends AppCompatActivity {
             final Spinner mBlood_types_spinner = (Spinner) dialogForm.
                     findViewById(R.id.sp_blood_type);
 
-            putBloodTypeElementsOnSpinnerArray();
-            ArrayAdapter<String> spinnerArrayAdapterBloodTypes =
+        putBloodTypeElementsOnSpinnerArray();
+        ArrayAdapter<String> spinnerArrayAdapterBloodTypes =
                     new ArrayAdapter<>(context,
                             android.R.layout.simple_spinner_item, mTypes);
             spinnerArrayAdapterBloodTypes.setDropDownViewResource(android.
