@@ -215,6 +215,7 @@ public class RequestedMeActivity extends AppCompatActivity {
                     json.put("titleNotification", "Confirmacao de doacao");
                     json.put("bodyNotification", jsonBodyNotification);
                     json.put("receiverLogin", request_accepeted_item.getLoginDest());
+                    Log.d("RECEIVER_LOGIN", request_accepeted_item.getLoginDest()+"");
                     json.put("senderLogin", loginUserLogged);
                 } catch (JSONException e) {
                     e.printStackTrace();
