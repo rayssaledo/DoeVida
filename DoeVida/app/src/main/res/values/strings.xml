@@ -12,7 +12,7 @@
     <string name="hint_date_of_last_donation">Data da última doação (opcional)</string>
     <string name="hint_date_limit_donation">Data limite para doação</string>
     <string name="hint_user_name">Nome de usuário</string>
-    <string name="hint_name_patient">Nome do paciente</string>
+    <string name="hint_name_patient">Nome do paciente:</string>
     <string name="hint_user">Usuário</string>
     <string name="hint_password">Senha</string>
     <string name="hint_password_confirm">Confirmar senha</string>

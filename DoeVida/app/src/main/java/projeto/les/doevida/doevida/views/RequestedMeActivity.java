@@ -74,7 +74,7 @@ public class RequestedMeActivity extends AppCompatActivity {
         myBloodType = userDetails.get(MySharedPreferences.KEY_BLOOD_TYPE_USER);
 
         lv_requested_me = (ListView) findViewById(R.id.lv_requested_me);
-      //  lv_requested_me.setAdapter(adapter);
+      //lv_requested_me.setAdapter(adapter);
         lv_requested_me.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
