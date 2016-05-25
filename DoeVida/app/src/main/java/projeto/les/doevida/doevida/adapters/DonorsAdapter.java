@@ -50,9 +50,16 @@ public class DonorsAdapter extends BaseAdapter {
         User item = items.get(position);
         convertView = mInflater.inflate(R.layout.my_item_donor, null);
 
-        Date dateLastDonation = item.getLastDonation();
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        String lastDonation = format1.format(dateLastDonation);
+        if(item.getLastDonation() == null){
+            ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText("(Não informada)");
+        } else {
+            Date dateLastDonation = item.getLastDonation();
+            SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+            String lastDonation = format1.format(dateLastDonation);
+            ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText(lastDonation);
+        }
+
+
 
         Bitmap imageBlood = BitmapFactory.decodeResource(context.getResources(), R.mipmap.blood);
         ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBlood);
@@ -83,11 +90,19 @@ public class DonorsAdapter extends BaseAdapter {
             ((ImageView) convertView.findViewById(R.id.iv_blood_type)).setImageBitmap(imageBloodType);
         }
 
+        String numberDonations;
+
+        if(item.getNumberDonations() == 1){
+            numberDonations = item.getNumberDonations().toString();
+            ((TextView) convertView.findViewById(R.id.tv_number_donates)).setText(numberDonations + " doação");
+        } else {
+            numberDonations = item.getNumberDonations().toString();
+            ((TextView) convertView.findViewById(R.id.tv_number_donates)).setText(numberDonations + " doações");
+        }
+
         ((TextView) convertView.findViewById(R.id.tv_donor_name)).setText(item.getName());
         ((TextView) convertView.findViewById(R.id.tv_city_name)).setText(item.getCity());
         ((ImageView) convertView.findViewById(R.id.iv_donates)).setImageBitmap(imageBlood);
-        ((TextView) convertView.findViewById(R.id.tv_number_donates)).setText(null);
-        ((TextView) convertView.findViewById(R.id.tv_date_last_donation)).setText(lastDonation);
 
         return convertView;
     }

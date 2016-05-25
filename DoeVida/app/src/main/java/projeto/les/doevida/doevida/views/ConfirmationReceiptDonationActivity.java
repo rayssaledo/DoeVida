@@ -92,6 +92,7 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                 String dateOfLastDonation = input_date_of_last_donation.getText().toString();
                 String login = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
                 updateDateOfLastDonation(login, dateOfLastDonation, dialogDateOfLastDonation);
+                incrementNumberDonations(login);
             }
         });
     }
@@ -104,6 +105,63 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
         try {
             json.put("login", login);
             json.put("lastDonation", lastDonation);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mHttp.post(url, json.toString(), new HttpListener() {
+            @Override
+            public void onSucess(JSONObject result) throws JSONException {
+                if (result.getInt("ok") == 0) {
+                    new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
+                            .setTitle("Erro")
+                            .setMessage(result.getString("msg"))
+                            .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mLoading.setVisibility(View.GONE);
+                                }
+                            })
+                            .create()
+                            .show();
+                } else {
+                    new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
+                            .setMessage("Data de última doação atualizada com sucesso!")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
+                        .setTitle("Erro")
+                        .setMessage("Conexão não disponível")
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mLoading.setVisibility(View.GONE);
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        });
+    }
+
+
+    private void incrementNumberDonations(String login){
+        String url = "http://doevida-grupoles.rhcloud.com/incNumDonations";
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("login", login);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -125,11 +183,11 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                             .show();
                 } else {
                     new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
-                            .setMessage("Data de última doação atualizada com sucesso!")
+                            .setMessage("Número de doação incrementado!")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialog.dismiss();
+
                                 }
                             })
                             .create()

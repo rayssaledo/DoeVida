@@ -17,9 +17,10 @@ public class User implements Serializable{
     private Boolean canDonate;
     private List<Form> forms;
     private List<Request> myRequests;
+    private Integer numberDonations;
 
     public User(String name, String username, String password, String state, String city, Date birthdate,
-                Date lastDonation, Character gender, String typeOfBlood) throws Exception {
+                Date lastDonation, Character gender, String typeOfBlood, Integer numberDonations) throws Exception {
         if(name == null || name.equals("")){
             throw new Exception("Name is invalid.");
         }
@@ -59,6 +60,8 @@ public class User implements Serializable{
         this.forms = new ArrayList<Form>();
         this.myRequests =  new ArrayList<Request>();
         this.canDonate = false;
+        this.numberDonations = numberDonations;
+
     }
 
     public String getName() {
@@ -175,7 +178,7 @@ public class User implements Serializable{
         this.lastDonation = lastDonation;
     }
 
-    public void addForm(Form form)throws Exception {
+    public void addForm(Form form) throws Exception {
         if(form == null){
             throw new Exception("Form is null.");
         }
@@ -192,5 +195,13 @@ public class User implements Serializable{
 
     public void addRequest (String requesterName, Date date) throws Exception {
         this.myRequests.add(new Request(requesterName, date));
+    }
+
+    public Integer getNumberDonations() {
+        return numberDonations;
+    }
+
+    public void setNumberDonations(Integer numberDonations) {
+        this.numberDonations = numberDonations;
     }
 }

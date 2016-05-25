@@ -254,7 +254,7 @@ public class UserCadastreActivity extends AppCompatActivity {
                                     finish();
                                     finish();
                                     mySharedPreferences.saveUser(name_user, date_birth_user, city_user, state_user,
-                                            mGender_user, mBlood_Type_user,date_donation_user, username_user, password_user);
+                                            mGender_user, mBlood_Type_user,date_donation_user, username_user, password_user, "0");
                                     setView(UserCadastreActivity.this, DonorsActivity.class);
                                 }
                             })

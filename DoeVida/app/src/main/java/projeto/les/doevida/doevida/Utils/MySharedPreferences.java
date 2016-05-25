@@ -55,6 +55,7 @@ public class MySharedPreferences {
     public static final String KEY_LIST_MY_FORMS = "list_my_forms";
     public static final String KEY_REQUESTS_ACCEPTED = "list_requests_accepted";
     public static final String KEY_LIST_MY_FORMS_RECEIVED = "list_requests_received";
+    public static final String KEY_NUMBER_DONATIONS = "number_donations";
 
     public static final String KEY_REG_ID = "reg_id";
 
@@ -119,7 +120,8 @@ public class MySharedPreferences {
         return requestAccepted;
     }
     public void saveUser(String name, String date_birth, String city, String state, String gender,
-                         String blood_type, String date_donation,String username, String password){
+                         String blood_type, String date_donation,String username, String password,
+                         String numberDonations){
         mEditor.putBoolean(IS_USER_LOGIN, true);
         mEditor.putString(KEY_NAME_USER, name);
         mEditor.putString(KEY_DATE_BIRTH_USER, date_birth);
@@ -130,6 +132,7 @@ public class MySharedPreferences {
         mEditor.putString(KEY_DATE_DONATION_USER, date_donation);
         mEditor.putString(KEY_USERNAME_USER, username);
         mEditor.putString(KEY_PASSWORD_USER, password);
+        mEditor.putString(KEY_NUMBER_DONATIONS, numberDonations);
         mEditor.commit();
     }
 
@@ -144,6 +147,7 @@ public class MySharedPreferences {
         String date_donation_user = mPref.getString(KEY_BLOOD_TYPE_USER, null);
         String password =  mPref.getString(KEY_PASSWORD_USER, null);
         String username = mPref.getString(KEY_USERNAME_USER, null);
+        String numberDonations = mPref.getString(KEY_NUMBER_DONATIONS, null);
 
         char gender = gender_user.charAt(0);
         String blood_type = blood_type_user;
@@ -158,9 +162,11 @@ public class MySharedPreferences {
             e.printStackTrace();
         }
 
+        Integer numDonations = Integer.parseInt(numberDonations);
+
         User user = null;
         try {
-            user = new User(name, username, password, state, city, date_birth, date_donation, gender, blood_type);
+            user = new User(name, username, password, state, city, date_birth, date_donation, gender, blood_type, numDonations);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -441,12 +447,13 @@ public class MySharedPreferences {
             String lastDonation = jsonDonor.getString("lastDonation");
             String gender = jsonDonor.getString("gender");
             String typeOfBlood = jsonDonor.getString("bloodType");
+            Integer numberDonations = Integer.parseInt(jsonDonor.getString("numberDonations"));
 
             char genderDonor = gender.charAt(0);
 
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Date birthdateDonor = new Date();
-            Date lastDonationDonor = new Date();
+            Date lastDonationDonor = null;
             try {
                 birthdateDonor = format.parse(birthdate);
                 lastDonationDonor = format.parse(lastDonation);
@@ -456,7 +463,7 @@ public class MySharedPreferences {
 
             User donor = null;
             try {
-                donor = new User(name, login, pass, state, city, birthdateDonor, lastDonationDonor, genderDonor, typeOfBlood);
+                donor = new User(name, login, pass, state, city, birthdateDonor, lastDonationDonor, genderDonor, typeOfBlood, numberDonations);
             } catch (Exception e) {
                 e.printStackTrace();
             }

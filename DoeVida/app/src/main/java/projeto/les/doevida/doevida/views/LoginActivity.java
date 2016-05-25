@@ -218,8 +218,9 @@ public class LoginActivity extends AppCompatActivity {
                         String bloodType = jsonUser.getString("bloodType");
                         String lastDonation = jsonUser.getString("lastDonation");
                         String regId = jsonUser.getString("regId");
+                        String numberDonations = jsonUser.getString("numberDonations");
                         mySharedPreferences.saveUser(name, birthDate, city, state, gender,
-                                bloodType, lastDonation, login, pass);
+                                bloodType, lastDonation, login, pass, numberDonations);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
