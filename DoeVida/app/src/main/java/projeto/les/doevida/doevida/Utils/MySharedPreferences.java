@@ -472,32 +472,31 @@ public class MySharedPreferences {
                 String deadline_date = "";
 //                Date deadline = new Date();
 
-            Form form;
-            for (int j = 0; j < jsonForms.length(); j++) {
-                JSONObject formjson = jsonForms.getJSONObject(j);
-
-                loginDest = formjson.getString("receiverLogin");
-                patient = formjson.getString("patientName");
-                hospital = formjson.getString("hospitalName");
-                city_patient = formjson.getString("city");
-                state_patient = formjson.getString("state");
-                blood_type_patient = formjson.getString("bloodType");
-//                deadline_date = formjson.getString("deadline");
-//
-//                try {
-//                    deadline = format.parse(deadline_date);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-            }
-                try {
-//                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient, deadline);
-                    form = new Form(loginDest, patient, hospital, city_patient, state_patient, blood_type_patient);
-                    donor.addForm(form);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                Form form;
+                for (int j = 0; j < jsonForms.length(); j++) {
+                    JSONObject formjson = jsonForms.getJSONObject(j);
+                    // String senderLogin = formjson.getString("senderLogin");
+                    loginDest = formjson.getString("receiverLogin");
+                    patient = formjson.getString("patientName");
+                    hospital = formjson.getString("hospitalName");
+                    city_patient = formjson.getString("city");
+                    state_patient = formjson.getString("state");
+                    blood_type_patient = formjson.getString("bloodType");
+    //                deadline_date = formjson.getString("deadline");
+    //
+    //                try {
+    //                    deadline = format.parse(deadline_date);
+    //                } catch (ParseException e) {
+    //                    e.printStackTrace();
+    //                }
+                    try {
+    //                    form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient, deadline);
+                        form = new Form(patient, hospital, city_patient, state_patient, blood_type_patient);
+                        donor.addForm(form);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+             }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
