@@ -162,5 +162,11 @@
     <string name="input_date_of_last_donation">XX/XX/XXXX</string>
     <string name="btn_change_data"> Alterar dados</string>
 
+    --------------activity_edit_my_profile--------------------------
+    <string name="title_activity_edit_my_profile">Editar Perfil</string>
+    <string name="btn_save">Salvar</string>
+    <string name="hint_password_new">Nova senha</string>
+    <string name="hint_password_confirm_new">Confirmar nova senha</string>
+    <string name="hint_password_current">Senha atual</string>
 
 </resources>
