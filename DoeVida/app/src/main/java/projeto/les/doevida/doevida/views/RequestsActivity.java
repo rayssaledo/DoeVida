@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class RequestsActivity extends AppCompatActivity {
     private HttpUtils mHttp;
     private List<User> listAllUsers;
     private Context context;
+    private Button btn_view_profile;
 
 
     private RelativeLayout mDrawerPane;
@@ -63,6 +65,14 @@ public class RequestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_requests);
 
         mHttp = new HttpUtils(this);
+        btn_view_profile = (Button) findViewById(R.id.btn_view_profile);
+        btn_view_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView(RequestsActivity.this, UserProfileActivity.class);
+            }
+        });
+
         listAllforms = new ArrayList<>();
         listViewRequests = (ListView) findViewById(R.id.lv_requests);
         userLogged = new MySharedPreferences(getApplicationContext());

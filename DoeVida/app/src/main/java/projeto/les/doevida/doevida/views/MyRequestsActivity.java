@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class MyRequestsActivity extends AppCompatActivity {
     private List<Form> listMyRequests;
     private HttpUtils mHttp;
     private String username;
+    private Button btn_view_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,14 @@ public class MyRequestsActivity extends AppCompatActivity {
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
         mHttp = new HttpUtils(this);
+
+        btn_view_profile = (Button) findViewById(R.id.btn_view_profile);
+        btn_view_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView(MyRequestsActivity.this, UserProfileActivity.class);
+            }
+        });
 
         String name = userDetails.get(MySharedPreferences.KEY_NAME_USER);
         username = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
