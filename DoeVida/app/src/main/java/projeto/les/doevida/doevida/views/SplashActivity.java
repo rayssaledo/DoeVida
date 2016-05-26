@@ -35,6 +35,7 @@ public class SplashActivity extends ActionBarActivity {
                     startActivity(i);
                     finish();
                 }
+                finish();
             }
         }, SPLASH_TIME_OUT);
     }

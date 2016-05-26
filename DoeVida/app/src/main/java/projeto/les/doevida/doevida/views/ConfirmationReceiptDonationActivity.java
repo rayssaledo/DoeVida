@@ -1,6 +1,7 @@
 package projeto.les.doevida.doevida.views;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -233,16 +234,7 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                             .create()
                             .show();
                 } else {
-                    new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
-                            .setMessage("Número de doação incrementado!")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                }
-                            })
-                            .create()
-                            .show();
+                    setView(ConfirmationReceiptDonationActivity.this, DonorsActivity.class);
                 }
             }
             @Override
@@ -260,5 +252,11 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    public void setView(Context context, Class classe) {
+        Intent it = new Intent();
+        it.setClass(context, classe);
+        startActivity(it);
     }
 }
