@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
@@ -44,9 +46,11 @@ public class NotificationsAdapter extends BaseAdapter {
         Notification item = items.get(position);
         convertView = mInflater.inflate(R.layout.my_item_notification, null);
 
-//        Date date = item.getDate();
-//        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-//        String date_send = format1.format(date);
+
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = item.getDate();
+        String date_send = format1.format(date);
+
 
         String status = "";
         String label_name = "Nome do paciente";
@@ -74,7 +78,7 @@ public class NotificationsAdapter extends BaseAdapter {
 
         ((TextView) convertView.findViewById(R.id.tv_label_name)).setText(label_name);
         ((TextView) convertView.findViewById(R.id.tv_name)).setText(name);
-//        ((TextView) convertView.findViewById(R.id.tv_date)).setText(date_send);
+        ((TextView) convertView.findViewById(R.id.tv_date)).setText(date_send);
         ((TextView) convertView.findViewById(R.id.tv_status)).setText(status);
 
         return convertView;

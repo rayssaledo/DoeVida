@@ -74,6 +74,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import projeto.les.doevida.doevida.R;
@@ -114,10 +116,13 @@ public class MyRequestsAdapter extends BaseAdapter {
         convertView = mInflater.inflate(R.layout.my_item_my_registration, null);
 
         Form item = items.get(position);
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = item.getDeadline();
+        String deadline = format1.format(date);
+
 
         ((TextView) convertView.findViewById(R.id.tv_requester_name)).setText(item.getPatientName());
-        // ((TextView) convertView.findViewById(R.id.tv_date_request)).setText(item.getDeadline().toString());//TODO data do pedido e nao deadline
-        //((TextView) convertView.findViewById(R.id.tv_status)).setText("");
+         ((TextView) convertView.findViewById(R.id.tv_date_request)).setText(deadline);
 
         return convertView;
     }
