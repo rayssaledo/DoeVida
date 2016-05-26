@@ -85,10 +85,10 @@
             android:label="Quem precisa" />
         <activity
             android:name=".views.ConfirmationDonationActivity"
-            android:label="Confirmação de pedido" />
+            android:label="@string/title_activity_confirmation_donation" />
         <activity
             android:name=".views.ConfirmationReceiptDonationActivity"
-            android:label="Confirmação de pedido" />
+            android:label="Confirmação de recebimento" />
         <activity
             android:name=".views.UserProfileActivity"
             android:label="Meu Perfil" />

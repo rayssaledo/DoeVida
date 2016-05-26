@@ -128,16 +128,14 @@
     <string name="img_share">Botão Compartilhar</string>
 
 
-    <string name="title_activity_confirmation_donation">ConfirmationDonationActivity</string>
+    <string name="title_activity_confirmation_donation">Confirmação de doação</string>
     <string name="held_donation">realizou a doação de sangue para:</string>
     <string name="receptor">Nome do receptor</string>
     <string name="confirm_received">Confirme o recebimento.</string>
     <string name="title_activity_information_order">Pedido</string>
 
-    <string name="confirmation_donation1">Confirmo minha doação </string>
-    <string name="confirmation_donation2">de sangue para</string>
-    <string name="confirmation_receipt1">Aguarde confirmação</string>
-    <string name="confirmation_receipt2">de recebimento</string>
+    <string name="confirmation_donation1">Confirmo minha doação de sangue para: </string>
+    <string name="confirmation_receipt1">Aguarde confirmação de recebimento.</string>
 
     ------------ activity_confirmation_receipt_donation -------------
     <string name="update_last_donation_date">Atualize a data da última doação.</string>

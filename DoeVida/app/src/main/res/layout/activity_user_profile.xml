@@ -21,9 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:paddingStart="10dp"
@@ -92,7 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/user_name"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/input_user_name"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:maxLines="2"
                 android:ellipsize="end"/>
@@ -122,7 +122,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_of_birth"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -152,7 +153,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/city"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -183,7 +185,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -214,6 +217,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/blood_type_name"
                 android:textSize="20dp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -235,7 +239,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingTop="15dp">
 
             <TextView
@@ -243,7 +247,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_of_last_donation2"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -255,7 +260,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/input_date_of_last_donation"
-                android:textSize="20dp"
+                android:paddingStart="10dp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:maxLines="2"
                 android:ellipsize="end"/>

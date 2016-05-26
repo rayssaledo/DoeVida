@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Nome do paciente:"
+        android:textStyle="bold"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"/>
@@ -27,8 +28,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Data limite para doação:"
-        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
         android:layout_marginEnd="8dp"
+        android:layout_alignParentEnd="true"
         android:textSize="12sp"
         android:layout_marginTop="10dp" />
 
@@ -41,8 +43,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:hint="@string/hint_date_request"
-        android:textSize="14sp" />
-
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

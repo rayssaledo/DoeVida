@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Nome do paciente/doador:"
+        android:textStyle="bold"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"/>
@@ -30,6 +31,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Enviado em:"
+        android:textStyle="bold"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="8dp"
         android:textSize="12sp"
@@ -42,9 +44,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
         android:hint="@string/hint_date_request"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_status"
@@ -57,7 +58,7 @@
         android:textColor="@color/red"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:layout_below="@+id/tv_name"/>
 
 </RelativeLayout>

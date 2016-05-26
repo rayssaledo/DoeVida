@@ -13,7 +13,7 @@ import projeto.les.doevida.doevida.utils.MySharedPreferences;
 
 public class SplashActivity extends ActionBarActivity {
 
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 1000;
    MySharedPreferences mySharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,6 @@ public class SplashActivity extends ActionBarActivity {
         setContentView(R.layout.activity_splash);
 
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
-
-      //  android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-       // actionBar.hide();
 
         new Handler().postDelayed(new Runnable() {
 

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
             android:id="@+id/tv_confirmation_donation1"
             android:layout_width="wrap_content"
@@ -16,23 +16,6 @@
             android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="0dp">
-        <TextView
-            android:id="@+id/tv_confirmation_donation2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/confirmation_donation2"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_marginTop="2dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"/>
 
@@ -44,12 +27,12 @@
             android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_marginTop="2dp"
-            android:paddingStart="5dp"
+            android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:maxLines="2"
             android:ellipsize="end"/>
-
     </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_ok"
