@@ -104,21 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date"
-                    android:hint="@string/hint_date_of_last_donation" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_user_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/input_user_name_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:maxLength="20"
-                    android:hint="@string/hint_user_name" />
+                    android:hint="@string/date_of_last_donation" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
