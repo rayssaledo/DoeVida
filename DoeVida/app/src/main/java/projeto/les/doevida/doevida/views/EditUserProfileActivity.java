@@ -16,14 +16,12 @@ import android.widget.Spinner;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 import projeto.les.doevida.doevida.R;
-import projeto.les.doevida.doevida.models.User;
 import projeto.les.doevida.doevida.utils.HttpListener;
 import projeto.les.doevida.doevida.utils.HttpUtils;
 import projeto.les.doevida.doevida.utils.MySharedPreferences;
@@ -173,8 +171,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         json.put("gender",gender);
                         json.put("bloodType", bloodType);
                         json.put("lastDonation", date_of_last_donation);
-                        json.put("canDonate", true);
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -227,6 +227,7 @@ public class UserCadastreActivity extends AppCompatActivity {
             json.put("bloodType", blood_type_user);
             json.put("lastDonation", date_donation_user);
             json.put("regId", regId);
+            json.put("canDonate", true);
         } catch (JSONException e) {
             e.printStackTrace();
         }

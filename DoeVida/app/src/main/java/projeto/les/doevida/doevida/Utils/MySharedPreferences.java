@@ -242,10 +242,8 @@ public class MySharedPreferences {
 
     public List<Notification> getListNotifications(){
         String jsonArrayString = mPref.getString(KEY_LIST_NOTIFICATIONS, "");
-        Log.d("JSON_ARRAY_STRING", jsonArrayString);
         try {
             JSONArray jsonArray = new JSONArray(jsonArrayString);
-            Log.d("JSON_ARRAY", jsonArray +"");
             loadMyNotifications(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -437,6 +435,8 @@ public class MySharedPreferences {
             String lastDonation = jsonDonor.getString("lastDonation");
             String gender = jsonDonor.getString("gender");
             String typeOfBlood = jsonDonor.getString("bloodType");
+            Boolean canDonate = jsonDonor.getBoolean("canDonate");
+            Log.d("CAN", canDonate + "");
             Integer numberDonations = Integer.parseInt(jsonDonor.getString("numberDonations"));
 
             char genderDonor = gender.charAt(0);
@@ -451,9 +451,14 @@ public class MySharedPreferences {
                 e.printStackTrace();
             }
 
+            if (canDonate == null){
+                canDonate = true;
+            }
+
             User donor = null;
             try {
                 donor = new User(name, login, pass, state, city, birthdateDonor, lastDonationDonor, genderDonor, typeOfBlood, numberDonations);
+                donor.setCanDonate(canDonate);
             } catch (Exception e) {
                 e.printStackTrace();
             }

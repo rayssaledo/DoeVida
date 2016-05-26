@@ -36,6 +36,7 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
 
     private HttpUtils mHttp;
     private View mLoading;
+    private String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
             bodyNotification = (BodyNotification) it.getSerializableExtra("NOTIFICATIONT3");
         }
 
+        login = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
         tv_user_requester_name.setText(bodyNotification.getNameOfUser());
         tv_receptor_name.setText(bodyNotification.getPatientName());
         tv_blood_type_receptor.setText(bodyNotification.getBloodTypePatient());
@@ -84,20 +86,20 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                 new MaskEditTextChangedListener("##/##/####",
                         input_date_of_last_donation);
         input_date_of_last_donation.addTextChangedListener(maskDateOfLastDonation);
-
         final Button btn_ok = (Button) dialogDateOfLastDonation.findViewById(R.id.btn_ok);
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String dateOfLastDonation = input_date_of_last_donation.getText().toString();
-                String login = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
+
                 updateDateOfLastDonation(login, dateOfLastDonation, dialogDateOfLastDonation);
                 incrementNumberDonations(login);
             }
         });
     }
 
-    private void updateDateOfLastDonation(String login, String lastDonation, final Dialog dialog){
+
+    private void updateDateOfLastDonation(final String login, String lastDonation, final Dialog dialog){
         mLoading.setVisibility(View.VISIBLE);
         String url = "http://doevida-grupoles.rhcloud.com/updateLastDonation";
         JSONObject json = new JSONObject();
@@ -125,6 +127,7 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                             .create()
                             .show();
                 } else {
+                    blockUser(login);
                     new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
                             .setMessage("Data de última doação atualizada com sucesso!")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -135,6 +138,54 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                             })
                             .create()
                             .show();
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
+                        .setTitle("Erro")
+                        .setMessage("Conexão não disponível")
+                        .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mLoading.setVisibility(View.GONE);
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        });
+    }
+
+    private void blockUser(String login){
+        String url = "http://doevida-grupoles.rhcloud.com/updateCanDonate";
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("login", login);
+            json.put("canDonate", false);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mHttp.post(url, json.toString(), new HttpListener() {
+            @Override
+            public void onSucess(JSONObject result) throws JSONException {
+                if (result.getInt("ok") == 0) {
+                    new AlertDialog.Builder(ConfirmationReceiptDonationActivity.this)
+                            .setTitle("Erro")
+                            .setMessage(result.getString("msg"))
+                            .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mLoading.setVisibility(View.GONE);
+                                }
+                            })
+                            .create()
+                            .show();
+                } else {
+
                 }
             }
 

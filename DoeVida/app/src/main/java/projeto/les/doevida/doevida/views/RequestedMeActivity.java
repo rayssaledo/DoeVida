@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -224,7 +223,6 @@ public class RequestedMeActivity extends AppCompatActivity {
                     json.put("titleNotification", "Confirmacao de doacao");
                     json.put("bodyNotification", jsonBodyNotification);
                     json.put("receiverLogin", request_accepeted_item.getLoginDest());
-                    Log.d("RECEIVER_LOGIN", request_accepeted_item.getLoginDest()+"");
                     json.put("senderLogin", loginUserLogged);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -310,8 +308,6 @@ public class RequestedMeActivity extends AppCompatActivity {
                     requests_accepeted = userLogged.getListMyFormsReceived();
                     adapter = new RequestedMeAdapter(RequestedMeActivity.this, requests_accepeted);
                     lv_requested_me.setAdapter(adapter);
-                    Log.d("lista de requests", "CERTO!!" +
-                            "");
                 }
             }
 

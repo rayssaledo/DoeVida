@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -145,7 +146,12 @@ public class DonorsActivity extends AppCompatActivity implements SearchView.OnQu
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 User user_item = (User) adapter.getItem(position);
-                openForm(user_item);
+                if (user_item.getCanDonate()) {
+                    openForm(user_item);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Usuário indisponível para doação de " +
+                            " sangue.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

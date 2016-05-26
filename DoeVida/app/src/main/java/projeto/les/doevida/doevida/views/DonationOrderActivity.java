@@ -13,6 +13,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -82,11 +83,11 @@ public class DonationOrderActivity extends AppCompatActivity {
         state.setText(form.getState());
         bloodType.setText(form.getTypeOfBlood());
 
-       // date = form.getDeadline();
-       //// SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-       // String mDeadline = format1.format(date);
+        date = form.getDeadline();
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        String mDeadline = format1.format(date);
 
-        //deadline.setText(mDeadline);
+        deadline.setText(mDeadline);
 
         patientName = form.getPatientName();
         hospitalPatient = form.getHospitalName();

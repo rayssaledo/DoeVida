@@ -204,4 +204,8 @@ public class User implements Serializable{
     public void setNumberDonations(Integer numberDonations) {
         this.numberDonations = numberDonations;
     }
+
+    public void setCanDonate(Boolean canDonate){
+        this.canDonate = canDonate;
+    }
 }
