@@ -144,7 +144,7 @@ public class MySharedPreferences {
         String state =  mPref.getString(KEY_STATE_USER, null);
         String gender_user = mPref.getString(KEY_GENDER_USER, null);
         String blood_type_user = mPref.getString(KEY_BLOOD_TYPE_USER, null);
-        String date_donation_user = mPref.getString(KEY_BLOOD_TYPE_USER, null);
+        String date_donation_user = mPref.getString(KEY_DATE_DONATION_USER, null);
         String password =  mPref.getString(KEY_PASSWORD_USER, null);
         String username = mPref.getString(KEY_USERNAME_USER, null);
         String numberDonations = mPref.getString(KEY_NUMBER_DONATIONS, null);
@@ -184,6 +184,7 @@ public class MySharedPreferences {
         userDetails.put(KEY_STATE_USER, mPref.getString(KEY_STATE_USER, null));
         userDetails.put(KEY_GENDER_USER, mPref.getString(KEY_GENDER_USER, null));
         userDetails.put(KEY_BLOOD_TYPE_USER, mPref.getString(KEY_BLOOD_TYPE_USER, null));
+        userDetails.put(KEY_NUMBER_DONATIONS, mPref.getString(KEY_NUMBER_DONATIONS,null));
 
         return userDetails;
     }

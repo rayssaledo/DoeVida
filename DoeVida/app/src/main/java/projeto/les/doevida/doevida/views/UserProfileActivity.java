@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import projeto.les.doevida.doevida.R;
@@ -46,7 +48,7 @@ public class UserProfileActivity extends AppCompatActivity {
         donates.setImageBitmap(imageBlood);
 
         numberDonates = (TextView) findViewById(R.id.tv_number_donates);
-
+        numberDonates.setText(userDetails.get(MySharedPreferences.KEY_NUMBER_DONATIONS));
         name = (TextView) findViewById(R.id.tv_input_name);
         name.setText(userDetails.get(MySharedPreferences.KEY_NAME_USER));
         userName = (TextView) findViewById(R.id.tv_input_user_name);
@@ -59,7 +61,7 @@ public class UserProfileActivity extends AppCompatActivity {
         bloodType = (TextView) findViewById(R.id.tv_input_blood_type);
         bloodType.setText(userDetails.get(MySharedPreferences.KEY_BLOOD_TYPE_USER));
         dateOfLastDonation = (TextView) findViewById(R.id.tv_input_date_of_last_donation);
-        dateOfLastDonation.setText(userDetails.get(MySharedPreferences.KEY_DATE_DONATION_USER));
+        //dateOfLastDonation.setText(userDetails.get(MySharedPreferences.KEY_DATE_DONATION_USER));
         btn_change_data = (Button) findViewById(R.id.btn_change_data);
         btn_change_data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +74,18 @@ public class UserProfileActivity extends AppCompatActivity {
             gender.setText("Feminino");
         } else if (userDetails.get(MySharedPreferences.KEY_GENDER_USER).equals("M")) {
             gender.setText("Masculino");
+        }
+
+        if(userDetails.get(MySharedPreferences.KEY_NUMBER_DONATIONS).equals("1")){
+            numberDonates.setText(userDetails.get(MySharedPreferences.KEY_NUMBER_DONATIONS) + " doação" );
+        } else {
+            numberDonates.setText(userDetails.get(MySharedPreferences.KEY_NUMBER_DONATIONS) + " doações");
+        }
+
+        if(userDetails.get(MySharedPreferences.KEY_DATE_DONATION_USER).equals("")){
+            dateOfLastDonation.setText("Não informada");
+        } else {
+            dateOfLastDonation.setText(userDetails.get(MySharedPreferences.KEY_DATE_DONATION_USER));
         }
     }
 
