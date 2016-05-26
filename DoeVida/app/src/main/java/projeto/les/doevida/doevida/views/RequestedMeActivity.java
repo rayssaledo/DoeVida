@@ -59,6 +59,7 @@ public class RequestedMeActivity extends AppCompatActivity {
     private HashMap<String, String> userDetails;
     private String loginUserLogged;
     private Dialog dialogConfirmation;
+    private Button btn_view_profile;
 
 
     @Override
@@ -69,6 +70,14 @@ public class RequestedMeActivity extends AppCompatActivity {
         mHttp = new HttpUtils(this);
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
+        btn_view_profile = (Button) findViewById(R.id.btn_view_profile);
+        btn_view_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView(RequestedMeActivity.this, UserProfileActivity.class);
+            }
+        });
+
         myLogin = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
         myName = userDetails.get(MySharedPreferences.KEY_NAME_USER);
         myBloodType = userDetails.get(MySharedPreferences.KEY_BLOOD_TYPE_USER);

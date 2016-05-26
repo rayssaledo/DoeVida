@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class NotificationsActivity extends AppCompatActivity {
     private HashMap<String, String> userDetails;
     private ListView listViewMyNotifications;
     private HttpUtils mHttp;
+    private Button btn_view_profile;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -63,6 +65,14 @@ public class NotificationsActivity extends AppCompatActivity {
         mHttp = new HttpUtils(this);
         userLogged = new MySharedPreferences(getApplicationContext());
         userDetails = userLogged.getUserDetails();
+
+        btn_view_profile = (Button) findViewById(R.id.btn_view_profile);
+        btn_view_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView(NotificationsActivity.this, UserProfileActivity.class);
+            }
+        });
 
         String name = userDetails.get(MySharedPreferences.KEY_NAME_USER);
         username = userDetails.get(MySharedPreferences.KEY_USERNAME_USER);
