@@ -30,8 +30,6 @@ public class InformationOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_order);
         
-
-        donor_name = (TextView) findViewById(R.id.tv_donor_name);
         patient_name = (TextView) findViewById(R.id.tv_patient_name);
         hospital_name = (TextView) findViewById(R.id.tv_hospital_name);
         city = (TextView) findViewById(R.id.tv_city_name);
@@ -39,9 +37,7 @@ public class InformationOrderActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         Form form = (Form) it.getSerializableExtra("FORM");
-        String donor = (String) it.getSerializableExtra("USERDONOR");
 
-        donor_name.setText(donor);
         patient_name.setText(form.getPatientName());
         hospital_name.setText(form.getHospitalName());
         city.setText(form.getCity());
