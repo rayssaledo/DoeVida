@@ -202,6 +202,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                                         .create()
                                         .show();
                                 setView(EditUserProfileActivity.this, UserProfileActivity.class);
+                                finish();
                             }
                         }
 

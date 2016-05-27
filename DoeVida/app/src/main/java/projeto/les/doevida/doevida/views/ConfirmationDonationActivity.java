@@ -90,13 +90,14 @@ public class ConfirmationDonationActivity extends AppCompatActivity {
                                     .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                            //mLoading.setVisibility(View.GONE);
+
                                         }
                                     })
                                     .create()
                                     .show();
                         } else {
                             setView(ConfirmationDonationActivity.this, DonorsActivity.class);
+                            finish();
                         }
                     }
 
@@ -108,7 +109,7 @@ public class ConfirmationDonationActivity extends AppCompatActivity {
                                 .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        //mLoading.setVisibility(View.GONE);
+
                                     }
                                 })
                                 .create()

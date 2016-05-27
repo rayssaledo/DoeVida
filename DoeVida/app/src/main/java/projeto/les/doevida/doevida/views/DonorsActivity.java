@@ -541,6 +541,7 @@ public class DonorsActivity extends AppCompatActivity implements SearchView.OnQu
                 if (position == 0) { // Doadores
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, DonorsActivity.class);
+                    finish();
                 } else if (position == 1) { // Informativos
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     setView(DonorsActivity.this, InformationActivity.class);
@@ -559,7 +560,7 @@ public class DonorsActivity extends AppCompatActivity implements SearchView.OnQu
                 } else if (position == 6) { // sair
                     mDrawerLayout.closeDrawer(mDrawerPane);
                     userLogged.logoutUser();
-//                  setView(DonorsActivity.this, UserCadastreActivity.class);
+                    finish();
                 }
 
             }

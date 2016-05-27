@@ -139,6 +139,8 @@ public class ConfirmationReceiptDonationActivity extends AppCompatActivity {
                             })
                             .create()
                             .show();
+                    setView(ConfirmationReceiptDonationActivity.this, DonorsActivity.class);
+                    finish();
                 }
             }
 
